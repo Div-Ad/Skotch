@@ -1,0 +1,61 @@
+.container-with-tabs#dashboard
+
+	section.tabs
+		.tab.always-animated(@click="$router.push({name: 'dashboard'}).catch(err => {})", :class="{'active': $route.name === 'dashboard' , 'no-animation': from.name === 'quick-create' || from.name === 'loading'}")
+			span Mes Listes
+			.options(v-show="$route.name === 'dashboard'")
+				.icon(v-show="!thumbnail", @click.stop="toogleThumbnail(true)", :class="{'active': !thumbnail}")
+					i.ic-display-thumbnail
+				.icon(v-show="thumbnail", @click.stop="toogleThumbnail(false)", :class="{'active': thumbnail}")
+
+					i.ic-display-list
+
+		.tab.always-animated(@click="$router.push({name: 'friends'}).catch(err => {})", :class="{'no-animation': from.name === 'quick-create' || from.name === 'loading'}")
+			span Mes Copains
+			span.sup(v-if="userInfo.accept_friend_request") {{friendCount}}
+
+	section.overviews.container-post-tabs
+		.design-bar(:class="{'thumbnail': thumbnail}")
+		section#sklOverview(v-touch:swipe="swipeHandler", v-if="$route.name === 'dashboard'", :class="{'thumbnail': thumbnail , 'animate-left-section': from.name === 'friends'}")
+			section.skl-list(:class="{}")
+				//p {{ from.name }}
+				.skotchlist#PinList(v-if="getPinCount > 0", @click="$router.push({name: 'bookmarked'})" )
+					.skl-icon
+						.icon
+							i.ic-bookmark-list
+					.skl-title
+						span Favoris
+						span &nbsp;
+						span.count(v-if="thumbnail") x{{ getPinCount }}
+					.sk-counter
+						.icon
+							i.ic-skotch-bg-2
+						span {{ getPinCount }}
+
+				.skotchlist(
+					v-for="skotchList in userActiveSkotchList",
+					@click="$router.push({name: 'skotch-list', params: {skotchListName: skotchList.old_id}})",
+					:id="'skl_' + skotchList.id"
+					)
+					.skl-icon
+						.icon
+							i
+					.skl-title
+						span {{ skotchList.title.fr }}
+						span &nbsp;
+						span.count(v-if="thumbnail && getSkotchCount(skotchList.id) > 0") x{{ getSkotchCount(skotchList.id) }}
+					.sk-counter(v-if="getSkotchCount(skotchList.id) > 0")
+						.icon
+							i.ic-skotch-bg-2.list-display(v-if="!thumbnail")
+							i.ic-skotch-bg-2.thumb-display(v-if="thumbnail")
+						span.numbers.list-display {{ getSkotchCount(skotchList.id) }}
+						span.numbers.thumb-display {{ getSkotchCount(skotchList.id) }}
+
+				.skotchlist#sklSelectTrigger(@click="$router.push('skotch-list-catalog')")
+					.skl-icon
+						.icon
+							i.ic-add(v-if="!thumbnail")
+							i.ic-list-add-32(v-if="thumbnail")
+					.skl-title Choix&nbsp;des&nbsp;Listes
+
+	Nav

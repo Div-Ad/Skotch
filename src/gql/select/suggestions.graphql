@@ -1,0 +1,27 @@
+query UserSuggestions {
+	suggestion {
+		id
+		is_accepted
+		archived
+		is_read_by_user
+		is_read_by_friend
+		pin
+		rk
+		friend_id
+		created
+		user_id
+		updated
+		skotch_id
+		is_hidden
+		skotch_suggested {
+			created
+			description
+			id
+			link
+			name
+			skotch_list_id
+			tag_id
+			updated
+		}
+	}
+}

@@ -1,0 +1,155 @@
+$s-serif: 'Barlow Semi Condensed', 'Roboto', 'calibri', sans-serif !default
+$serif: 'Georgia', 'Times New Roman', serif
+$condensed: 'Barlow Semi Condensed', 'roboto Condensed', 'Barlow Condensed', 'arial narrow', sans-serif
+$slab: monospace
+$icon: 'skotch'
+$small: $slab
+
+// Fix min/max width
+// @param {Width} $w for width
+@mixin setFixedWidth($w)
+    width: $w
+    min-width: $w
+    max-width: $w
+
+// Fix min/max height
+// @param {Height} $h for height
+@mixin setFixedHeight($h)
+    height: $h
+    min-height: $h
+    max-height: $h
+
+// Fix min/max height and width
+// @param {$dim)
+@mixin setSquare($dim)
+    width: $dim
+    min-width: $dim
+    max-width: $dim
+    height: $dim
+    min-height: $dim
+    max-height: $dim
+
+// Fix min/max height and width
+// @param {$wi, he)
+@mixin setBox($wi, $he)
+    width: $wi
+    min-width: $wi
+    max-width: $wi
+    height: $he
+    min-height: $he
+    max-height: $he
+
+// Fix min/max height and width and flex center
+
+@mixin setIcon($dime)
+    width: $dime
+    min-width: $dime
+    max-width: $dime
+    height: $dime
+    min-height: $dime
+    max-height: $dime
+    display: flex
+    align-items: center
+    justify-content: center
+
+// Fix min/max height and width and flex center
+
+@mixin setActionIcon($dimen)
+    width: $dimen
+    min-width: $dimen
+    max-width: $dimen
+    height: $dimen
+    min-height: $dimen
+    max-height: $dimen
+    display: flex
+    align-items: center
+    justify-content: center
+    cursor: pointer
+    
+// Fix min/max height and width for flex box
+
+@mixin setFlexBox($wi, $he, $v-c, $h-c, $dir)
+    width: $wi
+    min-width: $wi
+    max-width: $wi
+    height: $he
+    min-height: $he
+    max-height: $he
+    display: flex
+    align-items: $v-c
+    justify-content: $h-c
+    flex-direction: $dir
+
+// Flex
+// Flex box with vertical alignement
+=flexVC
+    display: flex
+    align-items: center
+
+//flex box with vertical & horizontal alignement
+=flexHVC
+    display: flex
+    align-items: center
+    justify-content: center
+
+//Scrollbar
+//Used to custom the scrollbar.
+=custom8pxScrollBar
+    overflow-x: hidden
+    overflow-y: auto
+    &::-webkit-scrollbar
+        width: 8px
+    &::-webkit-scrollbar-track
+        background-color: $c-g235
+        -webkit-box-shadow: inset 0 0 2px rgba(50, 50, 50, 0.2)
+        -webkit-border-radius: 0
+        border-radius: 0
+        margin: 0 0
+    &::-webkit-scrollbar-thumb
+        -webkit-border-radius: 2px
+        border-radius: 2px
+        background: $c-g170
+
+=customNoScrollBar
+    overflow-x: hidden
+    overflow-y: auto
+    &::-webkit-scrollbar
+        width: 0
+
+//animate-top offset
+
+@mixin setTopAnimation($margin)
+    animation: animate-top-mixin 0.25s ease-in-out
+    @keyframes animate-top-mixin
+        from
+            margin-top: $margin
+        to
+            margin-top: 0
+
+//animate-right start end
+
+@mixin setRightAnimation($mr-start, $mr-end)
+    animation: animate-right-mixin 0.25s ease-in-out
+    @keyframes animate-right-mixin
+        from
+            margin-right: $mr-start
+        to
+            margin-right: $mr-end
+            
+//animate-left start end
+
+@mixin setLeftAnimation($ml-start, $ml-end)
+    animation: animate-left-mixin 0.25s ease-in-out
+    @keyframes animate-left-mixin
+        from
+            margin-left: $ml-start
+        to
+            margin-left: $ml-end
+            
+@mixin setBottomFixedAnimation($margin, $final-margin)
+    animation: animate-bottom-mixin 0.25s ease-in-out
+    @keyframes animate-bottom-mixin
+        from
+            top: $margin
+        to
+            top: $final-margin

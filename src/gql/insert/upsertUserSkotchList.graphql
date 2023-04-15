@@ -1,0 +1,11 @@
+mutation upsert_user_skotch_list($userSkotchList: [user_skotch_list_insert_input!]!) {
+    insert_user_skotch_list(objects: $userSkotchList, on_conflict: {constraint: user_todolist_pkey, update_columns: active}) {
+        returning {
+            active
+            skotch_list {
+                id
+                old_id
+            }
+        }
+    }
+}

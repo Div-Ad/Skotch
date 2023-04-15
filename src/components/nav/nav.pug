@@ -1,0 +1,32 @@
+#nav
+    #quickCreateIcon(@click="goToQuickCreate()")
+        button.icon
+            .icon-bg
+            .icon-sk(:class="{ 'r-90' : $route.name === 'friend' }")
+                i.ic-skotch-empty-24-2
+            .icon-create
+                i.ic-add-24(v-if="$route.name !== 'friend'")
+                i.ic-arrow(v-if="$route.name === 'friend'")
+
+    #shortcutBar
+
+        button.icon(@click="goToLists()", :class="{'active-section' : $route.name === 'dashboard'}")
+            i.ic-tdl-24-2
+            //.text
+                span Mes Listes
+
+        button.icon.create(@click="goToQuickCreate()")
+            //i.ic-sk-shape-rounded(v-show="$route.name !== 'friend'")
+            .shadow-bg(v-show="$route.name !== 'friend'")
+            //.shadow-bg-2(v-show="$route.name !== 'friend'")
+            i.ic-sk-add-2(v-show="$route.name !== 'friend'")
+            //.icon-bg(v-show="$route.name !== 'friend'")
+            i.ic-sk-share-f-24(v-show="$route.name === 'friend'")
+            //.text
+                //span.create-text(v-show="$route.name !== 'friend'") Nouveau
+                //span.share-text(v-show="$route.name === 'friend'") Envoyer un skotch
+
+        button.icon(@click="goToFriends()", :class="{'active-section' : $route.name === 'friends'}")
+            i.ic-friend
+            //.text
+                span Mes Copains

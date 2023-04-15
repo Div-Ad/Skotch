@@ -1,0 +1,18 @@
+mutation insert_suggestions($newSuggestions: [suggestion_insert_input!]!) {
+    insert_suggestion(objects: $newSuggestions) {
+        returning {
+            id
+            is_accepted
+            archived
+            is_read_by_user
+            is_read_by_friend
+            pin
+            rk
+            friend_id
+            created
+            user_id
+            updated
+            skotch_id
+        }
+    }
+}

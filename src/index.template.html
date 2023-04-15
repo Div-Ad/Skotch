@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- fonts / icomoon cloudfront -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://d1azc1qln24ryf.cloudfront.net/97848/skotch/style-cf.css?rfosa0">
+
+    <!-- Must -->
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>">
+    <meta name="description" content="<%= process.env.versionDescription %>">
+    <meta name="keywords" content="<%= skKeywords %>">
+    <title><%= process.env.versionTitle %></title>
+
+    <!-- Open Graph  -->
+    <meta property="og:url" content="<%= process.env.versionUrl %>">
+    <meta property="og:title" content="<%= process.env.versionTitle %>">
+    <meta property="og:description" content="<%= process.env.versionDescription %>">
+    <meta property="og:image" content="<%= process.env.versionUrl + '/' + process.env.versionIconDirectory + 'og.png' %>">
+
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- favicons -->
+    <!-- Check quasar.conf.js / quasar.env.js for variables, manifest, app icons and app related rules -->
+    <link rel="apple-touch-icon" sizes="192x192" href="<%= process.env.versionIconDirectory + 'android/mobile-favicon-192.png' %>"> <!-- Retina Screens Mobile Favicon Trick -->
+    <link rel="shortcut icon" sizes="192x192" href="<%= process.env.versionIconDirectory + 'android/mobile-favicon-192.png' %>"> <!-- Mobile Favicon -->
+    <link rel="shortcut icon" sizes="16x16 32x32 64x64" href="<%= process.env.versionIconDirectory + 'favicon.ico' %>"> <!-- 3 sizes Favicon -->
+
+    <!-- splashscreens for Apple Users -->
+    <link href="/splashscreens/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <link href="/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <link href="/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <link href="/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <link href="/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <link href="/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <link href="/splashscreens/iphone12_splash.png" media="(device-width: 390px) and (device-height: 884px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <link href="/splashscreens/iphone12max_splash.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <link href="/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <link href="/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <link href="/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" rel="apple-touch-startup-image">
+    <link href="/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" rel="apple-touch-startup-image">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+          var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+          j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
+    )(window,document,'script','dataLayer','GTM-M554RXR');
+    </script><!-- End Google Tag Manager -->
+
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but Skotch doesn't work properly without JavaScript enabled. Please enable it to
+        continue.</strong>
+</noscript>
+<div id="q-app"></div>
+</body>
+</html>

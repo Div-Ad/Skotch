@@ -1,0 +1,99 @@
+@import "variables.sass"
+@import "colors.sass"
+
+html
+    +setFixedHeight(calc(100%))
+    line-height: 1.15
+    box-sizing: border-box
+    -webkit-font-smoothing: antialiased
+    -webkit-text-size-adjust: 100%
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+    overflow-x: hidden
+
+*, *::before, *::after
+    box-sizing: inherit
+
+a, i, .icon *, .contact *, button
+    transition: all 0.1s
+    //- will smooth-animate "everything". Extremely useful
+
+body
+    margin: auto
+    position: relative
+    font-family: $condensed
+    font-weight: 400
+    color: $c-g50
+    background-color: $c-bnf
+    +setFixedHeight(100%)
+    line-height: 1.15
+
+//- Headlines
+
+h1, h2, h3, h4, h5
+    font-family: $condensed
+    font-weight: 400
+    margin-top: 0
+    margin-bottom: .5rem
+    &::first-letter
+        text-transform: capitalize
+
+h1
+    font-size: 48px
+    text-transform: uppercase
+    font-weight: 400
+
+h1.alt
+    font: 400 32px/32px $slab
+    margin: 0
+
+h2
+    font-size: 36px
+    line-height: 36px
+    font-weight: 300
+
+h3
+    font-size: 20px
+    text-transform: uppercase
+    
+h4
+    font-size: 16px
+    line-height: 20px
+    //text-transform: uppercase
+
+p
+    margin-top: 0
+    margin-bottom: 1rem
+
+a, a:hover
+    text-decoration: none
+    color: inherit
+
+a.red
+    text-decoration: underline
+    color: $c-bnf-red
+
+h3.red
+    margin-top: 32px
+    color: $c-bnf-red
+
+small
+    font-size: 80%
+
+sub, sup
+    position: relative
+    font-size: 75%
+    line-height: 0
+    vertical-align: baseline
+strong
+    font-weight: 500!important
+sub
+    bottom: -.25em
+
+sup
+    top: -.5em
+
+div, span, img, ul, li, a, i, p, strong, button
+    &:focus
+        outline: -webkit-focus-ring-color auto 0
+        outline-color: -webkit-focus-ring-color
+        outline-style: none

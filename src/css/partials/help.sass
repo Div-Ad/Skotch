@@ -1,0 +1,972 @@
+@import "src/css/partials/variables"
+@import "src/css/partials/colors"
+
+
+.onboarding, .icon-ob-buddy, #OBMenu, .menu-item.help#OBTrigger
+    display: none
+    
+.is-mobile
+    .help-switch
+        +setActionIcon(64px)
+        border-radius: 50%
+        font-size: 48px
+        i#helpTrigger
+            color: $c-white
+        position: fixed
+        bottom: 56px
+        right: 0
+        margin: 12px
+        z-index: 1
+    
+    
+    #OBMenu
+        display: flex
+    .icon-buddy-only
+        i.ic-skotchinours
+            font-size: 32px
+            margin: 0
+        &.active
+            color: $c-help
+    
+    .icon-ob-buddy
+        +setActionIcon(48px)
+        position: relative
+        .buddy-bg
+            i
+                font-size: 28px
+        &.help-inactive
+            color: lighten($c-bnf, 28%)
+            .overlay.on-help
+                i
+                    opacity: 0.75
+        .overlay
+            +setActionIcon(48px)
+            position: absolute
+            top: calc(50% - 48px / 2 + 1px)
+            left: calc(50% - 48px / 2)
+            &.meow
+                i
+                    font-size: 20px
+            i
+                font-size: 22px
+                color: $c-bnf
+                position: relative
+            
+.cta
+    padding: 0 0 2px
+    border-bottom: 2px solid $cta
+    color: lighten($cta, 25%)
+
+.sep-triangle
+    height: 16px
+    width: 100%
+    background: transparent url("~assets/img/triangle-bl-16-bottom-down.svg") repeat no-repeat
+    background-size: 32px
+    margin: auto
+    position: relative
+    z-index: 1
+    animation: bg-move 1.6s linear infinite
+    transform: rotate(180deg)
+    background-position: bottom 0 right 0
+    &.bottom
+        transform: rotate(0deg)
+        
+.illus-container
+    width: 100%
+    +flexHVC
+    &.fl-be
+        justify-content: space-between
+    &.fl-st
+        justify-content: flex-start
+    
+    .illus
+        width: 100%
+        +flexHVC
+        height: 96px
+        &.circular
+            background: url("~assets/img/circular-skotch-wbg.svg") center center no-repeat no-repeat
+            background-size: 96px
+            +setIcon(96px)
+            &.shadow
+                background-image: url("~assets/img/circular-skotch-bg.svg")
+                
+                
+        &.big
+            background-size: 128px
+            +setIcon(128px)
+            .swipe-left-animation, .swipe-right-animation, .swipe-animation, .swipe-right-animation-w
+                +setIcon(96px)
+                background-size: 80px!important
+            i
+                font-size: 64px
+        &.small
+            background-size: 64px
+            +setIcon(64px)
+            i
+                font-size: 32px
+        i, span
+            font-size: 48px
+            color: $c-bnf
+
+
+///////////////
+// help Menu //
+///////////////
+
+.help-close
+    +setFixedHeight(48px)
+    position: fixed
+    background-color: rgba($c-bnf,0.9)
+    top: 0
+    left: 0
+    +setFixedWidth(100vw)
+    z-index: 2
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    padding: 12px
+    
+.ob-container#OBMenu
+    +setRightAnimation(-100vw, 0)
+    +setFlexBox(100%, calc(100% - 48px), center, flex-start, row)
+    position: fixed
+    z-index: 1000000
+    top: 48px
+    left: 0
+    padding: 0 12px 12px
+    background-color: rgba($c-bnf,0.9)
+    
+    .onboarding-menu
+        width: 100%
+        background-color: $c-help
+        color: $c-white
+        border-radius: 4px
+        +setFixedHeight(100%)
+        overflow: hidden
+        &.light-theme
+            background-color: $c-white
+            color: $c-g50
+            .ob-menu-header
+                background-color: $c-help
+                color: $c-help-txt
+                border-bottom: 2px solid rgba(0,0,0,0.1)
+                i
+                    color: $c-help-txt
+            .ob-menu-content
+                &::-webkit-scrollbar-track
+                    background-color: darken($c-white, 35%)
+                &::-webkit-scrollbar-thumb
+                    background: darken($c-white, 17.5%)
+                .ob-items
+                    p
+                        color: $c-g80
+            .switch
+                border-color: $c-g205
+                background-color: $c-g245
+                .dot
+                    background-color: $c-g130
+                &.active
+                    border-color: $c-i-validate
+                    background-color: $c-i-validate
+                    .dot
+                        background-color: white
+            .switch-explanation
+                background-color: rgba(black, 0.05)
+    
+    .ob-menu-header
+        padding: 0 12px
+        +setFixedHeight(64px)
+        +flexVC
+        background-color: rgba(black, 0.15)
+        i
+            font-size: 32px
+            margin-right: 12px
+        h2
+            font-size: 24px
+            margin: 0
+    
+    .ob-menu-content
+        +setFixedHeight(calc(100% - 64px))
+        padding: 12px
+        overflow: auto
+        &::-webkit-scrollbar
+            width: 4px!important
+        &::-webkit-scrollbar-track
+            background-color: darken($c-help, 10.5%)
+            -webkit-box-shadow: inset 0 0 2px rgba(50, 50, 50, 0.2)
+            -webkit-border-radius: 0
+            border-radius: 0
+            margin: 0 0
+        &::-webkit-scrollbar-thumb
+            -webkit-border-radius: 2px
+            border-radius: 2px
+            background: lighten($c-help, 21%)
+    
+    .switch-explanation
+        background-color: rgba(black, 0.15)
+        border-radius: 4px
+        +flexHVC
+        padding: 12px
+        flex-wrap: wrap
+        margin-top: 12px
+        h3
+            margin: 0 0 4px
+            line-height: 1rem
+            font-size: 18px
+        p
+            margin: 8px 0 0 0
+        .part
+            margin-top: 4px
+            width: 100%
+            +flexVC
+            button
+                margin-right: 8px
+    
+    .ob-items
+        width: 100%
+        min-height: 48px
+        padding: 12px 0
+        border-bottom: 1px solid rgba(black, 0.1)
+        .ob-title
+            +flexVC
+            justify-content: space-between
+        p
+            font-size: 14px
+            margin: 8px 0 0
+            color: rgba($c-white, 0.85)
+            &:before
+                content: "Où lire cette aide ?"
+                font-weight: 500
+                display: block
+                margin-bottom: 4px
+        h3
+            font-size: 18px
+            font-weight: 400
+            letter-spacing: -0.25px
+            line-height: 1.1rem
+            margin: 0 8px 0 0
+            text-transform: none
+    .switch
+        border-color: darken($c-help, 21%)
+        background-color: darken($c-help, 21%)
+        .dot
+            background-color: lighten($c-help, 0%)
+        &.active
+            border-color: darken($c-help, 21%)
+            background-color: darken($c-help, 21%)
+            .dot
+                background-color: saturate(lighten($cta, 50%), 25%)
+                
+////////////////
+// perma help //
+////////////////
+
+.perma-help
+    &#friendSearch
+        margin-top: 16px
+        .is-mobile &
+            margin-top: 0
+    &#PHSearchAssist
+        padding: 0 16px 16px 16px
+        
+    &#PHNotif
+        width: 100%
+        padding: 16px
+        .ph-body
+            width: 100%
+    &#PHskTheque
+        i
+            font-size: 24px
+        p
+            font-size: 14px
+            line-height: 1.1rem
+            margin: 0 0 8px
+    .ph-body
+        padding: 12px
+        background-color: rgba($c-help, 1)
+        color: $c-help-txt
+        border-radius: 3px
+        p, li
+            font-size: 16px
+            line-height: 1.2rem
+        li
+            margin-top: 4px
+        h2
+            font-size: 18px
+            line-height: 1.3rem
+            color: lighten($cta, 25%)
+        h3
+            line-height: 1rem
+        
+        
+        .ph-info
+            padding: 8px 0 8px 8px
+            line-height: 1.1em
+            margin-bottom: 0
+            background: linear-gradient(to left, $c-help, darken($c-help, 7%))
+            border-radius: 2px
+            p
+                font-size: 14px
+                text-align: right
+            &.reverse
+                padding: 8px 8px 8px 0
+                background: linear-gradient(to RIGHT, $c-help, darken($c-help, 7%))
+                p
+                    text-align: left
+    &.is-a-bis
+        .ph-body
+            padding: 12px
+            background-color: $c-g235
+            color: $c-g80
+            border-radius: 3px
+        .ph-info
+            background: linear-gradient(to left, $c-g235, $c-g215)
+            
+            &.reverse
+                background: linear-gradient(to RIGHT,$c-g235, $c-g215)
+            .skl-tag
+                color: $c-g80
+    
+    .ph-main-text
+        margin: 16px
+        font-size: 20px
+        
+
+.link-collection
+    padding: 8px 0 16px
+    +flexHVC
+    width: 100%
+    flex-wrap: wrap
+    background-color: rgba(0,0,0,0.1)
+    .title
+        width: 100%
+        padding: 0 12px
+        +flexVC
+        margin-bottom: 16px
+        p
+            margin: 0
+    p a
+        display: inline-block
+        margin: 0
+
+    a
+        margin: 0 12px
+        display: flex
+        flex-direction: column
+        align-items: center
+        span
+            margin-top: 8px
+    img
+        +setFixedHeight(32px)
+    .sms
+        .platform-ios &
+            display: none
+        
+////////////////
+// OnBoarding //
+////////////////
+
+
+.is-mobile
+    .icon.trigger-help
+        +setActionIcon(64px)
+        position: fixed
+        bottom: 56px
+        right: 0
+        margin: 4px
+        .icon-container
+            background-color: $c-bnf
+            +setIcon(40px)
+            border-radius: 50%
+            animation: appear 0.5s 1s backwards
+            transition: all 0.5s
+        i
+            font-size: 48px
+            color: white
+            text-shadow: 0 0 8px rgba($c-bnf, 0.25)
+        
+        &.is-active
+            position: relative
+            bottom: 0
+            +setFixedWidth(100%)
+            margin-left: -16px
+            +flexVC
+            justify-content: flex-end
+            .icon-container
+                background-color: $c-white
+                i
+                    font-size: 48px
+                    color: $c-help
+                    text-shadow: 0 0 0 rgba(black, 0.25)
+            
+    .onboarding
+        color: $c-help-txt
+        display: block
+        position: fixed
+        bottom: 0
+        z-index: 1000000
+        left: 0
+        width: 100vw
+        animation: onboarding 0.5s backwards
+        max-height: calc(100% - 48px - 32px)
+        .more-mention
+            display: none
+        &.more
+            .more-mention
+                display: inline-block
+        &.lift-up
+            bottom: 56px
+            .platform-ios &
+                bottom: 88px
+                
+        &.centered#ActivateHelp
+            animation: appear 0.5s 0.5s backwards
+        
+        &.centered-alt
+            animation: appear 0.5s
+            
+        &.centered#ActivateHelp, &.centered-alt
+            top: 48px
+            +setFixedHeight(calc(100% - 48px))
+            padding: 24px
+            background-color: rgba($c-skotch-dk,0.75)
+            +flexHVC
+            flex-direction: column
+            .ob-content
+                border-radius: 6px 6px 0 0
+                +setFixedHeight(unset)
+                +setFixedWidth(100%)
+                .function
+                    text-align: center
+                    margin: 0
+                p
+                    text-align: center
+            .ob-footer
+                border-radius: 0 0 6px 6px
+                
+        &.centered-alt
+            background-color: rgba($c-skotch-dk,0.25)
+            top: 48px
+            +setFixedHeight(calc(100% - 48px))
+            padding: 24px
+            justify-items: flex-end
+            justify-content: flex-end
+            .ob-content
+                margin-bottom: 112px
+                border-radius: 4px
+                box-shadow: 0 0 8px 0 rgba(0,0,0,0.25)
+                i
+                    font-size: calc(72px / 3 * 2)
+                    +setActionIcon(28px)
+                    background-color: white
+                .function
+                    text-align: left
+                    margin-left: 12px
+                &:after
+                    content: '\e976'
+                    font-family: $icon
+                    position: absolute
+                    transform: rotate(90deg)
+                    color: $c-help
+                    font-size: 40px
+                    left: calc(50% - 42px / 2)
+
+        &.point-top
+            top: 48px
+            bottom: 0
+            background-color: $c-help
+            +setFixedHeight(unset)
+            .ob-footer
+                position: absolute
+                bottom: 0
+            .ob-content
+                +setFixedHeight(unset)
+            .icon-ob-buddy
+                +setIcon(40px)
+            .nope-bar
+                position: fixed
+                top: 0
+                right: 48px
+                +setActionIcon(48px)
+                width: 100%
+                background: transparent
+            .sep-triangle
+                display: none
+            .icon-menu
+                +setActionIcon(48px)
+                .bar
+                    height: 3px
+                    border-radius: 1.5px
+                    width: 50%
+                    margin: 3px 0
+                    background-color: rgba($c-bnf,0.9)
+                    z-index: 1
+        &.frame
+            .sep-triangle
+                display: none
+            .frame-list
+                position: fixed
+                top: 0
+                left: 0
+                bottom: 0
+                border: 8px solid $c-help
+                border-top-width: 94px
+                z-index: -1
+                width: 100%
+                height: 100%
+                animation: slow-blink 3s infinite
+                
+        .pointin-arrow
+            +setIcon(32px)
+            font-size: 24px
+            &.point-up
+                transform: rotate(-90deg)
+        
+        .bg-special
+            background: $c-help
+            padding: 8px 8px 0
+        
+        .ob-header
+            +flexVC
+            padding: 16px 16px 0
+            background-color: rgba($c-help, 1)
+            color: $c-white
+            +setFixedHeight(48px)
+            box-shadow: 0 0 16px 8px rgba(black, 0.15)
+            .ob-icon
+                margin-right: 8px
+                +setIcon(32px)
+                border-radius: 2px
+                i
+                    color: white
+                    font-size: 32px
+                span
+                    font-size: 24px
+                    line-height: 1em
+                    margin: 0
+            h3
+                margin: 0
+                line-height: 1em
+                font-size: 24px
+                text-transform: none
+        .icon-menu
+            +setActionIcon(64px)
+            flex-direction: column
+            i
+                color: $c-bnf
+                z-index: 1
+            .bar
+                height: 6px
+                border-radius: 3px
+                width: 50%
+                margin: 5% 0
+                background-color: rgba($c-bnf,0.9)
+                z-index: 1
+            &.small-menu
+                +setActionIcon(32px)
+                i
+                    color: white
+                .bar
+                    height: 2px
+                    margin: 2px
+                    background-color: white
+            
+        .icon-demo
+            +setIcon(32px)
+            margin-right: 16px
+            display: inline-flex
+            box-shadow: inset 0 0 8px 0 rgba(black, 0.25)
+            background-color: $c-g245
+            border-radius: 2px
+            color: $c-g80
+        
+        .icon-group
+            +flexVC
+            margin-top: 12px
+            i
+                font-size: 24px
+            span
+                font-size: 16px
+        .center
+            text-align: center
+            width: 100%
+        
+        .ob-content
+            +setFixedHeight(calc(100% - 196px))
+            max-width: 100vw
+            padding: 16px
+            background-color: rgba($c-help, 1)
+            
+            +custom8pxScrollBar
+            .part-2-1, .part-2-2
+                overflow: hidden
+                max-width: 100vw
+            h3
+                line-height: 1em
+                font-size: 16px
+            
+            h4
+                line-height: 1em
+                font-size: 16px
+                margin: 12px 0
+            p, li
+                font-size: 18px
+                line-height: 1.2em
+                margin: 0
+            .skotch-create-color
+                color: $c-skotch-lt
+            .function
+                font-size: 22px
+                margin: 16px
+                &.small
+                    font-size: 20px
+                &.big
+                    font-size: 32px
+            
+            .ob-info
+                font-size: 16px
+                line-height: 1rem
+                margin: 16px 0 0 0
+                padding: 8px
+                border-radius: 3px
+                background: linear-gradient(to left, $c-help, darken($c-help, 7%))
+                p
+                    font-size: 16px
+                    line-height: 1rem
+                &.reverse
+                    background: linear-gradient(to right, $c-help, darken($c-help, 7%))
+                    p
+                        text-align: right
+    
+        .ob-footer
+            background: linear-gradient(to bottom, $c-help, darken($c-help, 3.5%))
+            color: $c-help
+            +flexHVC
+            min-height: 48px
+            width: 100%
+            padding: 0 16px 16px
+        
+        .counter
+            +flexVC
+        .dot
+            +setSquare(12px)
+            border-radius: 50%
+            background-color: rgba(black, 0.15)
+            margin: 0 4px
+            &.active
+                background-color: white
+        button
+            margin: 0
+            border-radius: 2px
+            background-color: $cta
+            color: $cta-txt
+            font-size: 16px
+            +flexHVC
+            padding: 0
+            width: 100%
+            &.go-back, &.next
+                +setActionIcon(40px)
+                font-size: 24px
+                margin: 0 8px
+            &.final
+                +setFixedHeight(40px)
+                width: 100%
+                font-size: 20px
+            &.go-back
+                transform: rotate(180deg)!important
+            &.no-go-back, &.no-go
+                background-color: rgba(black,0.15)
+                color: rgba(white,0.15)
+        
+        .point-help
+            +setActionIcon(48px)
+            font-size: 24px
+            background-color: $cta
+            border-radius: 50%
+            position: fixed
+            
+            top: 56px
+            right: 48px
+            transform: rotate(-90deg)
+            animation: loading 2s infinite
+            i
+                color: white
+        .mask-overlay
+            position: fixed
+            bottom: 0
+            left: 0
+            width: 100vw
+            height: 48px
+            &.active
+                background-color: $cta
+            +flexHVC
+            .platform-ios &
+                bottom: 32px
+            p
+                margin: 0
+                font-size: 16px
+                color: white
+                
+        &#SkotchCreate, &#SkotchShare
+            bottom: 48px
+            animation: appear 0.5s
+            
+            .ob-info
+                .icon.validate
+                    +setIcon(32px)
+                    border-radius: 2px
+                    background-color: $c-i-validate
+                .icon.share
+                    +setIcon(32px)
+                    border-radius: 2px
+                    background-color: rgba(black,0.1)
+            .platform-ios &
+                bottom: 80px
+                max-width: calc(100vw - 24px)
+                margin-left: 12px
+                margin-bottom: 12px
+                .sep-triangle.rotate-180
+                    display: none
+                .ob-footer
+                    border-radius: 0 0 3px 3px
+                .ob-content
+                    border-radius: 3px 3px 0 0
+            .contact-select
+                +setIcon(24px)
+                background-color: $c-theme
+                border: 3px solid $c-g205
+                color: $c-g245
+                border-radius: 3px
+            .back-explanation
+                display: none
+            .quit-explanation
+                display: block
+            .icon.send
+                +setIcon(32px)
+                border-radius: 2px
+                background-color: rgba(black,0.1)
+                transition: 0.15s
+            .valid-send
+                display: none
+            
+            &.is-not-a-share
+                .quit-explanation
+                    display: none
+                .back-explanation
+                    display: block
+            &.contact-has-been-selected
+                .icon.send
+                    background-color: $c-i-validate
+                .valid-send
+                    display: flex
+                .invalid-send
+                    display: none
+
+            .select-friend-second-step, button.next.nope, button.go-back.no-go, button.go-back.final
+                display: none
+            &.friend-select-is-displayed
+                .select-friend-first-step, button.next.no-go, button.go-back
+                    display: none
+                .select-friend-second-step, button.next.nope, button.go-back.no-go, button.go-back.final
+                    display: block
+                
+        &#SkotchUI
+            transition: bottom 0.5s
+            &.notif-is-opened, &.menu-is-opened
+                z-index: 0
+       
+        &#SkotchSwipe
+            z-index: 0
+            .notif-sh, .menu-sh, .menu-sh-2
+                background-color: $c-bnf-gold
+                animation: slow-blink 2s infinite
+                border-radius: 8px
+            .menu-order, .notif-order
+                display: flex
+            .try-swipe, .try-swipe-notif
+                display: none
+            
+            &.notif-is-opened, &.menu-is-opened
+                z-index: 100000
+                .sep-triangle, .ob-footer, .explanation, .notif-sh, .menu-sh, .menu-sh-2, .ob-content
+                    display: none
+                .illus-container.try-swipe-notif, .illus-container.try-swipe
+                    +flexHVC
+                    +setFixedWidth(fit-content)
+                    flex-direction: column
+                    position: fixed
+                    z-index: 100000
+                    .function
+                        +setFixedHeight(48px)
+                        +flexHVC
+                        padding: 0 16px
+                        border-radius: 3px
+                        background-color: $cta
+                        font-size: 16px
+                        margin-top: 8px
+                .illus-container.try-swipe
+                    left: 32px
+                    bottom: 32px
+                .illus-container.try-swipe-notif
+                    right: 32px
+                    bottom: 32px
+            
+            &.menu-is-opened
+                .menu-order, .illus-container.try-swipe-notif
+                    display: none
+                .try-swipe
+                    display: flex
+            
+            &.notif-is-opened
+                .notif-order, .illus-container.try-swipe
+                    display: none
+                .try-swipe-notif
+                    display: flex
+            
+
+.rotate-infinite
+    animation: rotate-infinite linear 24s infinite
+    
+.rotate-infinite-reverse
+    animation: rotate-infinite-reverse linear 24s infinite
+    
+.swipe-right-animation
+    animation: swipe-right-animation 2s infinite
+    +setIcon(64px)
+    
+.swipe-right-animation-w
+    animation: swipe-right-animation-w 2s infinite
+    +setIcon(64px)
+
+.swipe-left-animation
+    animation: swipe-left-animation 2s infinite
+    +setIcon(64px)
+
+.swipe-animation
+    animation: swipe-animation 4s infinite
+    +setIcon(64px)
+    
+@keyframes swipe-right-animation
+    0%
+        background: url("~assets/img/swipe-right-1.svg") center center no-repeat
+    33%
+        background: url("~assets/img/swipe-right-1.svg") center center no-repeat
+    66%
+        background: url("~assets/img/swipe-right-2.svg") center center no-repeat
+    100%
+        background: url("~assets/img/swipe-right-2.svg") center center no-repeat
+
+@keyframes swipe-right-animation-w
+    0%
+        background: url("~assets/img/swipe-right-1-w.svg") center center no-repeat
+    33%
+        background: url("~assets/img/swipe-right-1-w.svg") center center no-repeat
+    66%
+        background: url("~assets/img/swipe-right-2-w.svg") center center no-repeat
+    100%
+        background: url("~assets/img/swipe-right-2-w.svg") center center no-repeat
+
+@keyframes swipe-left-animation
+    0%
+        background: url("~assets/img/swipe-left-1.svg") center center no-repeat
+    33%
+        background: url("~assets/img/swipe-left-1.svg") center center no-repeat
+    66%
+        background: url("~assets/img/swipe-left-2.svg") center center no-repeat
+    100%
+        background: url("~assets/img/swipe-left-2.svg") center center no-repeat
+
+@keyframes swipe-animation
+    0%
+        background: url("~assets/img/swipe-right-1.svg") center center no-repeat
+    25%
+        background: url("~assets/img/swipe-right-1.svg") center center no-repeat
+    45%
+        background: url("~assets/img/swipe-right-2.svg") center center no-repeat
+    50%
+        background: url("~assets/img/swipe-left-1.svg") center center no-repeat
+    55%
+        background: url("~assets/img/swipe-left-1.svg") center center no-repeat
+    75%
+        background: url("~assets/img/swipe-left-1.svg") center center no-repeat
+    95%
+        background: url("~assets/img/swipe-left-2.svg") center center no-repeat
+    100%
+        background: url("~assets/img/swipe-left-2.svg") center center no-repeat
+
+        
+@keyframes onboarding
+    from
+        bottom: -100%
+    to
+        bottom: 0
+        
+@keyframes rotate-infinite
+    from
+        transform: rotate(0)
+    to
+        transform: rotate(-360deg)
+
+@keyframes rotate-infinite-reverse
+    from
+        transform: rotate(-360deg)
+    to
+        transform: rotate(0)
+        
+@keyframes bg-move
+    0%
+        background-position: bottom left 0
+    100%
+        background-position: bottom left -32px
+
+.animate-switch
+    animation: animate-switch 5s infinite
+.animate-dot
+    animation: animate-dot 5s infinite
+@keyframes animate-switch
+    0%
+        background-color: $c-g245
+        border: 3px solid $c-g205
+    40%
+        background-color: $c-g245
+        border: 3px solid $c-g205
+    50%
+        background-color: $c-i-validate
+        border-color: $c-i-validate
+    90%
+        background-color: $c-i-validate
+        border-color: $c-i-validate
+    100%
+        background-color: $c-g245
+        border: 3px solid $c-g205
+@keyframes animate-dot
+    0%
+        background-color: $c-g130
+        margin-left: 0
+    40%
+        background-color: $c-g130
+        margin-left: 0
+    50%
+        background-color: white
+        margin-left: 24px
+    90%
+        background-color: white
+        margin-left: 24px
+    100%
+        background-color: $c-g130
+        margin-left: 0
+        
+@media (max-height: 600px)
+    .onboarding#SkotchOptions
+        position: relative
+        z-index: 1
+        width: 100%
+        max-height: 100%
+        border-radius: 4px
+        overflow: hidden
+        .ob-header
+            box-shadow: 0 0 0 0 rgba(black, 0.15)
+        .ob-content
+            +setFixedHeight(unset)
+        .sep-triangle
+            display: none

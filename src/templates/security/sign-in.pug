@@ -1,0 +1,136 @@
+#signin
+    section.app
+        .logotype
+            .w-bg
+            .icon-skotch
+                i.ic-skotch-empty-24-2
+        .app-txt
+            .app-name
+                i.ic-skotch-brand
+                sup.beta(v-if="!isEnvProd") {{ skotchEnv }}
+            .app-baseline
+                span Choses à noter
+                span.transp50 &nbsp;&&nbsp;
+                span Trucs à partager
+        .trans-band
+
+    .login-signin-forms
+        section.small-tabs
+            button.tab.login(@click="loginDisplay = true", :class="{'active': loginDisplay === true}") Se connecter
+            button.tab.register(@click="loginDisplay = false", :class="{'active': loginDisplay === false}") Créer un compte
+
+        section.login-form(v-if="loginDisplay")
+
+            .input-group.large.mt16
+                .icon
+                    i.ic-user-24
+
+                input.icon-before(v-model="signIn.email", @keydown.enter="focusPswdInput", @input="clickedOnLogin = false", type="email", placeholder="Votre email")
+                .error(v-if="$v.signIn.email.$invalid && clickedOnLogin")
+                    span email non valide
+
+            .input-group.large.mt16
+                .icon
+                    i.ic-key
+                input.icon-before(v-model="signIn.password", @keydown.enter="firebaseLogin('email')", @input="clickedOnLogin = false", :type="[!hidePassword ? 'password' : 'text']", placeholder="Votre mot de passe", ref="UserPassword")
+                button.passward-display(@click="passwordDisplayToogle()")
+                    i.ic-eye(v-if="!hidePassword")
+                    i.ic-eye-no(v-if="hidePassword")
+                .error(v-if="$v.signIn.password.$invalid && clickedOnLogin")
+                    span password non valide
+
+            .error.mt8#invalidInput(v-if="error.signIn.code.length")
+                span {{ signInErrorMessage }}
+
+            .password.pointer(@click="$router.push('/reset')")
+                span Mot de passe oublié
+
+            button.basic.login-validate(@click="firebaseLogin('email')") Connexion
+            .spacer-16
+                span Ou continuez avec
+
+            .idp-login
+                button.icon.google.ttp-trig(@click="doLogin('google')")
+                    i.ic-google
+                    .ttp-txt.top Google
+                button.icon.facebook.ttp-trig(@click="doLogin('facebook')")
+                    i.ic-facebook
+                    .ttp-txt.top Facebook
+                button.icon.apple.ttp-trig(v-if="!$q.platform.is.android" @click="doLogin('apple')")
+                    i.ic-apple
+                    .ttp-txt.top.big Apple
+
+            section.cgu-privacy
+                p.mb0 En choisissant de continuer, vous acceptez&nbsp;
+                    a(href="/tos" @click.stop.prevent="$router.push('tos')") nos CGU
+                    | .
+
+
+        section.register-form(v-if="!loginDisplay")
+
+            //- todo UX : use v-on:keyup.enter="submit" / v-on:keyup.enter="$event.target.nextElementSibling.focus()"   ---    https://stackoverflow.com/questions/39820797/vue-js-focus-next-input-on-enter
+
+            .input-group.large.mt16#emailSignin
+                .icon
+                    i.ic-user-24
+                input.icon-before(v-model="signUp.email", @input="clickedOnRegister = false", type="email", placeholder="Email")
+                .error(v-if="$v.signUp.email.$invalid && clickedOnRegister")
+                    span email non valide
+
+            .input-group.large.mt16#passwordEnter
+                .icon
+                    i.ic-key
+                input.icon-before(v-model="signUp.password", @input="clickedOnRegister = false", :type="[!hidePassword ? 'password' : 'text']", placeholder="Mot de passe (min. 8 car.)")
+                button.passward-display(@click="passwordDisplayToogle()")
+                    i.ic-eye(v-if="!hidePassword")
+                    i.ic-eye-no(v-if="hidePassword")
+
+
+                .error(v-if="$v.signUp.password.$invalid && clickedOnRegister")
+                    span Mot de passe invalide
+
+            .pass-info(:class="{'active': !!signUp.password}")
+                password.Password.icon-before(v-if="!!signUp.password && signUp.password.length > 7", v-model="signUp.password", :strength-meter-only="true")
+                .w-100(v-if="!!signUp.password && signUp.password.length < 8")
+                .counter(v-if="!!signUp.password && signUp.password.length > 0")
+                    span {{ signUp.password.length }}
+                    span(v-if="signUp.password !== null && signUp.password.length < 9") &nbsp;/ 8
+
+            .input-group.large#passwordRepeat(:class="isRepeatPasswordSimilar")
+                .icon
+                    i.ic-key
+                input.icon-before(v-model="signUp.repeatPassword", @input="clickedOnRegister = false", :type="[!hidePassword ? 'password' : 'text']", placeholder="Confirmez votre mot de passe")
+                button.passward-display(@click="passwordDisplayToogle()")
+                    i.ic-eye(v-if="!hidePassword")
+                    i.ic-eye-no(v-if="hidePassword")
+                .counter(v-if="!!signUp.repeatPassword && signUp.repeatPassword.length > 0")
+                    span {{ signUp.repeatPassword.length }} / 8
+                password.icon-before.no-meter(v-model="signUp.repeatPassword", :strength-meter-only="true")
+                .error(v-if="signUp.password !== signUp.repeatPassword && clickedOnRegister")
+                    span Mots de passe non similaires
+
+            .error.mt8#invalidSignUp(v-if="error.signUp.code === 400")
+                span {{ signUpErrorMessage }}
+
+            button.basic.register-validate(@click="firebaseSignUp()") Créer mon compte
+
+            .spacer-16
+                span Ou créez le via
+
+            .idp-login
+                button.icon.google.ttp-trig(@click="doLogin('google')")
+                    i.ic-google
+                    .ttp-txt.top Google
+                button.icon.facebook.ttp-trig(@click="doLogin('facebook')")
+                    i.ic-facebook
+                    .ttp-txt.top Facebook
+                button.icon.apple.ttp-trig(v-if="!$q.platform.is.android" @click="doLogin('apple')")
+                    i.ic-apple
+                    .ttp-txt.top.big Apple
+
+            section.cgu-privacy.fs12.mt16
+                p.mb0 En créant un compte, vous acceptez&nbsp;
+
+                    a(href="/tos" @click.stop.prevent="$router.push('tos')") nos CGU
+                    | .
+                    //a(href="/privacy" @click.stop.prevent="$router.push('privacy')") notre politique de confidentialité.

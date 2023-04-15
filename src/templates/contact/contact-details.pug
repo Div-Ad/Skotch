@@ -1,0 +1,138 @@
+section.container-with-tabs#contactDetails
+
+    section.tabs.has-nav
+        .icon.nav(@click="$router.push({name: 'friends'})")
+            i.ic-arrow-24.mirror
+        .tab.current(@click="skotchOutTab = true", :class="{'active': skotchOutTab , 'animate': animate}")
+            span(v-if="!friend.is_male && friend.is_male !== null") Elle m'a skotché
+            span(v-else) Il m'a skotché
+            span.sup {{ skotchsIn.length }}x
+        .tab.archive(@click="skotchOutTab = false", :class="{'active': !skotchOutTab, 'animate': animate }")
+            span(v-if="!friend.is_male && friend.is_male !== null") Je l'ai skotchée
+            span(v-else) Je l'ai skotché
+            span.sup {{ skotchsOut.length }}x
+
+    section.container-post-tabs(v-touch:swipe="swipeHandler")
+        section#subHeader
+            #PageTitle(@click="contactInfo = !contactInfo")
+                .contact-inline
+                    contact-thumbnail(:contact="friend" :contactId="friend.id")
+                    h2.ct-infos
+                        .ct-firstname {{ friend.firstname }}
+                            span &nbsp;
+                        .ct-lastname {{ friend.lastname }}
+                    .icon.share.ttp-trig(@click.capture="$router.push({name: 'quick-create', params: {friend: id, action: 'share'}})")
+                        i.ic-skotch-and-share-6
+                        .ttp-txt.right Envoyer un Skotch
+
+                .icon.ct-options(:class="{'active': contactInfo}")
+                    //i.ic-stats
+                    //i.ic-spot-info-32
+                    i.ic-options-b24(v-if="!contactInfo")
+                    i.ic-close-24(v-if="contactInfo")
+
+            #ContactInfo(v-if="contactInfo")
+                .stats
+                    .skotch-in
+                        .icon.rotate-180
+                            i.ic-skotch-and-share-6
+                        span {{ friend.firstname }} vous a skotché
+                        strong.ml4.mr4 {{ skotchsIn.length }}
+                        span fois
+                    .skotch-out.mt8
+                        .icon
+                            i.ic-skotch-and-share-6
+                        span Vous l'avez skotché
+                        strong.ml4.mr4 {{ skotchsOut.length }}
+                        span fois
+
+                .details.flexVC(v-if="friend.request !== null")
+                    .icon
+                        i.ic-friend
+                    span Vous êtes Copain depuis le {{ getUpdatedFormat(friend) }}
+
+        section.skotchlist-content
+
+            section#skotchIn(v-show="skotchOutTab" :class="{'animate-left-section' : animate}")
+
+                .no-content(v-if="skotchsIn < 1")
+                    p
+                        .icon
+                            i.ic-hated-b24
+                        br
+                        b {{ friend.firstname }}
+                        span ne vous a rien skotché pour l'instant.
+                    p.small Ça fait mal, mais c'est comme ça.
+
+                .skotch(v-for="s in skotchsIn", :key:="s.id", :class="'skl_' + getSkotchListInfo(s.skotch_suggested.skotch_list_id).id")
+                    .first-part(@click="toogleSkotch(s.id)")
+                        .sk-group
+                            .skl-icon.sk-in-out
+                                .icon
+                                    i
+                            .sk-info-container
+                                .sk-name {{ s.skotch_suggested.name }}
+                                .skl-tag(v-if="!!s.skotch_suggested.tag_id && !!getSkotchListTag(s.skotch_suggested)") {{ getTagTranslation(s.skotch_suggested.tag_id) }}
+                                a.icon(v-if="!!s.skotch_suggested.link", :href="s.skotch_suggested.link", :title="s.skotch_suggested.link", target="_blank", @click.stop)
+                                    i.ic-link-2
+
+                        .sk-skotchback(v-if="!hasFeedback(s.id)", @click.stop="toogleFeedback(s)")
+                            button.icon.ttp-trig(aria-label="envoyer un feedback à mon copain au sujet de ce skotch")
+                                i.ic-liked
+                                .ttp-txt.left.big Envoyer un Skotchback
+
+                        .skotchBackEmo.mediumEmo(v-else, @click.stop="toogleFeedback(s)" )
+                            button.icon.ttp-trig(:class="suggestionsFeedback(s.id).feedback", aria-label="Modifier mon feedback")
+                                i(:class="'ic-' + suggestionsFeedback(s.id).feedback")
+                                .ttp-txt.left.big Modifier mon feedback
+
+                    .second-part(v-if="s.id === selectedSkotch")
+                        .sk-description(v-if="!!s.skotch_suggested.description")
+                            p.pre-wrap(v-html="getAutolinktext(s.skotch_suggested.description)")
+                        .sk-informations
+                            span skotché
+                                span.creation-date &nbsp;{{ getTimestamp(s.skotch_suggested) }}
+
+            section#skotchOut.animate-right-section(v-show="!skotchOutTab")
+
+                .no-content(v-if="skotchsOut < 1")
+                    p
+                        .icon
+                            i.ic-meh
+                        br
+                        b {{ friend.firstname }}
+                        span attend toujours votre premier skotch.
+                    p.small {{ friend.firstname }} s'impatiente sûrement.
+                        br
+                        | Envoyez lui un skotch.
+                    .help-arrow
+                        .icon
+                            i.ic-arrow-gc
+
+                .skotch(v-for="s in skotchsOut", :key:="s.id", :class="'skl_' + getSkotchListInfo(s.skotch_suggested.skotch_list_id).id")
+                    .first-part(@click="toogleSkotch(s.id)")
+                        .sk-group
+                            .skl-icon.sk-in-out
+                                .icon
+                                    i
+                            .sk-info-container
+                                .sk-name {{ s.skotch_suggested.name }}
+                                .skl-tag(v-if="!!s.skotch_suggested.tag_id && !!getSkotchListTag(s.skotch_suggested)") {{ getTagTranslation(s.skotch_suggested.tag_id) }}
+                                a.sk-link(v-if="!!s.skotch_suggested.link", :href="s.skotch_suggested.link", :title="s.skotch_suggested.link", target="_blank", @click.stop)
+                                    i.ic-link-2
+
+                        .skotchBackEmo.mediumEmo(v-if="hasFeedback(s.id)" )
+                            button.icon(:class="suggestionsFeedback(s.id).feedback")
+                                i(:class="'ic-' + suggestionsFeedback(s.id).feedback")
+
+                    .second-part(v-if="s.id === selectedSkotch")
+                        .sk-description(v-if="!!s.skotch_suggested.description")
+                            p.pre-wrap(v-html="getAutolinktext(s.skotch_suggested.description)")
+                        .sk-informations
+                            span skotché
+                                span.creation-date &nbsp;{{ getTimestamp(s.skotch_suggested) }}
+
+    router-view
+    Feedback(v-if="feedbackDisplay", :skotch="skotchFeedbackObject")
+    Nav
+

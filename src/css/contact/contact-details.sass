@@ -1,0 +1,116 @@
+@import "../partials/variables"
+@import "../partials/colors"
+
+#contactDetails
+    #PageTitle
+        margin:  0 16px
+        padding: 0
+        cursor: pointer
+        +setFixedHeight(128px)
+        .contact-inline
+            +setFixedHeight(64px)
+            +flexVC
+            .ct-avatar
+                +setSquare(96px)
+                .background
+                    .firstname-letter, .lastname-letter
+                        font-size: 48px
+            .ct-infos
+                display: inline-flex
+                flex-wrap: wrap
+                margin: 0 0 0 16px
+                font-size: 32px
+            .icon.share
+                margin-left: 16px
+                +setActionIcon(32px)
+                i
+                    font-size: 32px
+                    color: $c-g170
+        .icon.ct-options
+            +setActionIcon(32px)
+            font-size: 24px
+            
+    .details
+        margin-bottom: 16px
+    .stats
+        padding: 8px 8px 0 8px
+    .details
+        padding: 8px
+    .stats, .details
+        background-color: rgba(black,0.07)
+        position: relative
+        animation: animatetop-relative 0.25s
+        .skotch-out, .skotch-in
+            +flexVC
+        .icon
+            +setIcon(24px)
+            margin-right: 8px
+        span, strong
+            font-size: 13px
+        i
+            color: $c-g80
+            font-size: 24px
+
+    #ContactInfo
+        padding: 16px
+        overflow: hidden
+        
+    .skotchlist-content
+        padding: 16px
+        .skl-icon .icon
+            +setIcon(48px)
+            i
+                font-size: 32px
+
+    #skotchOut, #skotchIn
+        .skotch
+            +setFixedWidth(100%)
+            min-height: 48px
+            background-color: transparent
+            padding-right: 0
+            border-bottom: 1px solid rgba(0,0,0,0.1)
+            margin-bottom: 0
+            &:after
+                content: ""
+                display: none
+            
+            .first-part, .second-part, .second-part .sk-description
+                padding-left: 0
+                border: none
+                background-color: transparent
+            
+            .first-part .sk-group
+                padding-right: 28px
+                
+            .sk-description p
+                font-style: italic
+    
+                &:before
+                    font-family: $icon
+                    content: '\e9c0'
+                    position: relative
+                    top: 1px
+                    margin-right: 8px
+                    font-style: normal
+        
+        .skotchBackEmo.mediumEmo button
+            margin: 0
+    
+    #skotchIn
+        .sk-skotchback
+            +setSquare(32px)
+            button.icon
+                +setActionIcon(32px!important)
+                border: 2px solid $c-g215
+                border-radius: 4px
+                i
+                    font-size: 28px
+                    +setSquare(32px)
+                    top: 1px
+                    position: relative
+                
+                &:hover
+                    background-color: $c-bnf-gold
+                    border-color: $c-bnf-gold
+                    i
+                        color: $c-g50

@@ -1,0 +1,242 @@
+@import "../../css/partials/variables.sass"
+@import "../../css/partials/colors.sass"
+
+#userBar
+    +setFlexBox(100vw, 64px, center, space-between, row)
+    position: fixed
+    z-index: 1
+    left: 0
+    top: 0
+    background: $c-bnf
+    color: $c-white
+    .swipe-handler
+        position: fixed
+        display: none
+        z-index: 1
+        &.menu-sh
+            //background-color: red
+            position: fixed
+            width: 20px
+            top: 144px
+            left: 0
+            bottom: 56px
+        &.menu-sh-2
+            //background-color: red
+            position: fixed
+            width: 40px
+            height: 64px
+            left: 0
+            bottom: 56px
+        &.notif-sh
+            width: 20px
+            top: 144px
+            bottom: 64px
+            right: 0
+    .app-version
+        +flexHVC
+        //height: 32px
+        max-width: 240px
+        position: absolute
+        right: 12px
+        z-index: 2
+        p
+            margin: 0
+            font: 300 10px/10px $small
+            text-align: right
+        button
+            background-color: $c-bnf-gold
+            color: $c-bnf
+            +setActionIcon(36px)
+            padding: 0
+            margin-left: 8px
+            font-family: $small
+            font-size: 24px
+            animation: border 5s infinite
+            @keyframes border
+                0%
+                    border-radius: 2px
+                25%
+                    border-radius: 2px
+                50%
+                    border-radius: 16px
+                75%
+                    border-radius: 2px
+                100%
+                    border-radius: 2px
+    .app-name
+        cursor: pointer
+        font-size: 12px
+        height: 48px
+        +flexVC
+        sup
+            color: rgba(255,255,255,0.7)
+            font-size: 11px
+            margin-left: 8px
+            font-family: $small
+            top: -1px
+            &.beta
+                background-color: $c-bnf-gold!important
+                padding: 2px 2px 1px
+                line-height: 10px
+                border-radius: 2px
+                color: $c-bnf
+
+    .icon
+        +setActionIcon(64px)
+        position: relative
+
+    #menuIcon
+        +setFixedHeight(80px)
+        +setFixedWidth(32px)
+        font-size: 32px
+        align-items: flex-end
+        justify-content: center
+        margin-left: 16px
+        top: -24px
+        overflow: hidden
+        transition-duration: 0.25s!important
+        z-index: 0
+        //background-color: $c-white
+
+        .icon-skotch
+            +setIcon(32px)
+            align-items: flex-start
+            i
+                +setFixedWidth(32px)
+                +setFixedHeight(48px)
+                color: $c-white
+                //background-color: $c-bnf
+                font-size: 32px
+
+            i.ic-skotch-empty-24-2
+                display: none
+
+        .icon-bg
+            +setSquare(32px)
+            background-color: $c-white
+            position: absolute
+            top: 16px
+            left: 0
+
+        .icon-menu
+            +setActionIcon(32px)
+            flex-direction: column
+            position: absolute
+            left: 0
+            top: 32px
+            i
+                color: $c-bnf
+                z-index: 1
+            .bar
+                height: 3px
+                border-radius: 1.5px
+                width: 16px
+                margin: 1.5px 0
+                background-color: rgba($c-bnf,0.9)
+                z-index: 1
+
+        .icon-text
+            +setIcon(32px)
+            position: absolute
+            top: 10px
+            left: 0
+            i
+                color: transparent
+                font-size: 16px
+
+        &.active
+            transform: rotate(-90deg) scale(1)
+            top: 0
+            left: -12px
+            .icon-text
+                transform: rotate(90deg) scale(1.5)
+                top: 32px
+                i
+                    color: $c-bnf
+                    animation: animateleft 0.25s
+            .icon-menu
+                .bar
+                    display: none
+                i
+                    color: transparent
+
+    #notificationIcon
+        transition: all 0.25s
+        i.ic-notification-bell
+            font-size: 24px
+        .icon.close
+            display: none
+            i
+                font-size: 16px
+        &.active
+            .icon.bell, .number
+                display: none
+            .icon.close
+                display: flex
+                animation: rotateleft 0.25s
+        .number
+            position: absolute
+            top: 10px
+            right: 10px
+            background-color: $c-bnf-red
+            +setActionIcon(20px)
+            border-radius: 2px
+            span
+                font: 300 12px/16px $small
+
+
+//- Menu -//
+
+section#menu
+    position: fixed
+
+    .menu-content
+        +setFlexBox(240px, calc(100% - 64px), flex-start, space-between, column)
+        +custom8pxScrollBar
+        position: fixed
+        top: 64px
+        left: 0
+        z-index: 1
+        background-color: lighten($c-bnf, 3.5%)
+        .main-menu, .reading
+            width: 100%
+        .menu-item
+            +setFlexBox(100%, 48px, center, flex-start, row)
+            z-index: 1
+            position: relative
+            cursor: pointer
+            &:hover
+                background-color: lighten($c-bnf, 7%)
+            .icon
+                +setIcon(48px)
+                font-size: 24px
+            .text
+                margin-left: 4px
+                font: 300 16px/16px $condensed
+            &#OBTrigger
+                display: none
+                .is-mobile &
+                    display: flex
+        .version
+            display: none
+            margin: 12px
+            color: lighten($c-bnf, 21%)
+            position: absolute
+            top: 0
+            right: 0
+        .border-bottom
+            border-bottom: 1px solid rgba(0,0,0,0.15)
+
+        .reading .menu-item
+            .icon, .text
+                color: lighten($c-bnf, 21%)
+        .first-steps
+            display: none
+
+    .menu-hitzone
+        position: fixed
+        width: calc(100vw - 240px)
+        height: calc(100% - 64px)
+        top: 64px
+        left: 240px
+        

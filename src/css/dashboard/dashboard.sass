@@ -1,0 +1,42 @@
+@import "../partials/variables"
+@import "../partials/colors"
+
+#dashboard
+    #todolistOverview, #contactOverview, #sklOverview
+        +setFixedHeight(100%)
+        
+    .skl-list, .contact-list, .contact-search-content
+        +setFixedWidth(100vw)
+        +setFixedHeight(100%)
+        display: inline-flex
+        align-content: flex-start
+        flex-wrap: wrap
+    
+    .design-bar
+        +setFlexBox(calc(100vw - 8px), 32px, center, center, row)
+        position: fixed
+        background-color: $c-theme
+        z-index: 2
+        top: calc(64px + 48px)
+        left: 0
+    
+    .skl-list
+        padding: 32px
+
+    .contact-list
+        padding: 32px 16px
+        .contact
+            cursor: pointer
+
+    .contact-search-trigger
+        cursor: pointer
+        .icon i
+            font-size: 96px
+            color: $c-bnf-purple
+        &:hover .icon i
+            color: lighten($c-bnf-purple, 14%)!important
+        &.overlay
+            display: none
+
+        
+        

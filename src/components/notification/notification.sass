@@ -1,0 +1,172 @@
+@import "../../css/partials/variables.sass"
+@import "../../css/partials/colors.sass"
+section#notification
+    position: fixed
+
+    .notification-content
+        +setFlexBox(386px, 100%, flex-start, flex-start, column)
+        position: fixed
+        right: 0
+        top: 64px
+        z-index: 1
+
+    .notification-hitzone
+        width: calc(100vw - 360px)
+        height: calc(100% - 64px)
+        position: fixed
+        top: 64px
+        right: 360px
+
+#notification
+    .notification-list
+        width: 100%
+        +setFixedHeight(calc(100% - 64px))
+        background-color: rgb(250,250,250)
+        box-shadow: -1px -1px 6px rgba(0,0,0,0.15)
+        +custom8pxScrollBar
+        position: relative
+
+    .notification-item
+        background-color: rgb(250,250,250)
+        border-bottom: 2px dashed $c-g235
+        position: relative
+        z-index: 1 //- hide os-notification-information if many notification-item
+        padding-bottom: 12px
+
+    .nothing-to-show
+        +setFlexBox(100%, 100%, center, center, column)
+        color: $c-g170
+        i
+            font-size: 80px
+            margin: 16px
+            color: $c-g215
+
+    .os-notification-information
+        +flexVC
+        position: absolute
+        bottom: 0
+        z-index: 0
+        color: $c-g170
+        font: 400 12px/12px $small
+        text-transform: uppercase
+
+    .part-1
+        +setFixedWidth(100%)
+        min-height: 48px
+        +flexVC
+        padding: 8px 0 8px 8px
+
+        .skl-tag-in-text span
+            color: white!important
+
+    .ct-avatar
+        position: relative
+        z-index: 1
+        +setActionIcon(48px)
+        margin-right: 8px
+        .firstname-letter, .lastname-letter
+            font-size: 24px
+
+    .skotchBackEmo button.icon
+        +setSquare(32px)
+        margin: 0 8px 0 0
+        cursor: default
+        &:hover
+            background-color: #e8ba75
+
+    .main-content
+        width: 100%
+        display: inline-flex
+        flex-wrap: wrap
+        font-size: 16px
+        font-family: $condensed
+        padding-right: 8px
+        span
+            color: $c-g80
+        .skl-title, .request-type, strong
+            white-space: nowrap
+        p, span, .ct-firstname, .ct-lastname
+            font-weight: 300!important
+        strong, b, a, .sk-name
+            font-weight: 500!important
+
+    .notification-options
+        .icon
+            +setActionIcon(32px)
+            padding: 0
+            i
+                +setActionIcon(32px)
+                background-color: rgb(250,250,250)
+                border-radius: 50%
+                font-size: 24px
+                color: $c-g80
+            &:hover
+                opacity: 1!important
+                
+            &.accept, &.read, &.loading
+                position: absolute
+                bottom: 4px
+                right: 4px
+                z-index: 1
+                opacity: 0.85
+                i
+                    color: lighten($c-bnf, 7%)
+                i.ic-solid-ok-b24
+                    +setIcon(24px)
+                    background-color: $c-i-green
+                    color: rgb(250,250,250)
+            &.discard
+                position: absolute
+                bottom: 4px
+                right: 36px
+                z-index: 1
+                opacity: 0.9
+                i
+                    color: $c-bnf-red
+            &.read
+                i.ic-solid-ok-b24
+                    +setIcon(24px)
+                    background-color: lighten($c-bnf, 21%)
+                    color: rgb(250,250,250)
+    .part-2
+        +flexVC
+        +setFixedWidth(calc(100% - 16px))
+        margin: 4px 0 0 0
+        padding: 0 8px 8px 8px
+
+        p.sk-description
+            position: relative
+            padding: 8px
+            background-color: $c-g235
+            color: $c-g130
+            border-radius: 4px
+            font: 13.5px/18px $condensed
+            margin-bottom: 0
+            font-style: italic
+            word-break: break-word
+            &:before
+                font-family: $icon
+                content: '\e9c0'
+                position: relative
+                top: 1px
+                margin-right: 8px
+                font-style: normal
+            a
+                color: $c-bnf-red
+                font-weight: 500
+                word-break: break-word
+                    
+                &:before
+                    content: '\e921'
+                    font-family: $icon
+                    font-size: 10px
+                    margin: 0 4px 0 2px
+        
+        i.ic-triangle-right
+            font-size: 24px
+            transform: rotate(270deg)
+            position: absolute
+            top: -16px
+            left: 12px
+            color: $c-g235
+

@@ -1,0 +1,7 @@
+mutation read_user_suggestion_hint($id: uuid!, $changes: suggestion_sent_set_input) {
+    update_suggestion_sent(where: {id: {_eq: $id}}, _set: $changes) {
+        returning {
+            id
+        }
+    }
+}

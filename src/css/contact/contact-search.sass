@@ -1,0 +1,126 @@
+@import "../partials/variables"
+@import "../partials/colors"
+
+.contact-search-content
+    
+    .go-back.icon
+        border-radius: 2px
+        +setActionIcon(48px)
+        background-color: $c-g235
+        transform: rotate(180deg)
+        margin-right: 4px
+    .ct-search-input
+        +setFlexBox(100%, 48px, center, flex-start, row)
+        margin-top: 32px
+        margin-left: 16px
+        margin-bottom: 16px
+        .input-group
+            animation: animateright 0.25s
+            +setFixedWidth(320px)
+        
+        input
+            +setFixedHeight(48px)
+            +setFixedWidth(100%)
+            border-left-width: 48px
+            &::placeholder
+                font: 14px/16px $slab
+            &:focus
+                background-color: white
+                color: $c-bnf
+                border-color: $c-bnf
+                outline: none
+                border-left-width: 48px
+        
+        button.validate
+            visibility: hidden
+            border-radius: 2px
+            +setIcon(48px)
+            i
+                font-size: 20px
+            &.visible
+                visibility: visible
+        .icon
+            border-radius: 2px 0 0 2px
+            +setIcon(48px)
+            i
+                font-size: 24px!important
+        .warning
+            right: initial
+            left: 0
+            min-width: 320px
+
+    .ct-search-results, .ct-past-request, .ct-pending-request
+        +setFixedWidth(100vw)
+        .page-title
+            margin: 0 16px
+            padding:  0 16px
+
+        .contact-list-research
+            display: inline-flex
+            align-content: flex-start
+            flex-wrap: wrap
+            padding: 32px 16px 32px 16px
+            .contact
+                margin-bottom: 32px
+                margin-right: 8px
+                .group
+                    +flexVC
+                    flex-direction: column
+                    margin-bottom: 16px
+
+        .request-action
+            width: 100%
+
+        button
+            +setFlexBox(100%, 32px, center, center, row)
+            font: 300 16px/16px $condensed
+            
+            &.request
+                background-color: $cta
+            &.requested
+                background-color: darken($c-bnf-gold, 10%)
+            &.ok-friend
+                background-color: $c-i-blue
+            &.loading
+                background-color: white
+                color: $c-bnf
+                +flexVC
+                animation: loading linear 3s infinite
+                span
+                    animation: appear 1s
+                    font: 12px/12px $condensed
+                    margin-left: 4px
+                i.ic-friend
+                    font-size: 32px
+
+        .confirmation-message
+            font-size: 14px
+            color: white
+            background-color: $c-i-validate
+            border-radius: 2px
+            padding: 0 8px
+
+    .ct-search-results
+        animation: appear 0.25s
+    
+    section.help-no-friend
+        padding: 16px
+        .help
+            cursor: pointer
+            i
+                color: $c-help
+            i.ic-triangle-right
+                transform: rotate(180deg)
+                right: -5px
+                position: relative
+                color: $c-g235
+            p
+                font-size: 14px
+                margin: 0
+                padding: 8px
+                background-color: $c-g235
+                color: $c-g50
+                border-radius: 4px
+            
+        
+        

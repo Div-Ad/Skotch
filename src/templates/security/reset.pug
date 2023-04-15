@@ -1,0 +1,42 @@
+#reset
+    section.app
+        .logotype
+            .w-bg
+            .icon-skotch
+                i.ic-skotch-empty-24-2
+        .app-txt
+            .app-name
+                i.ic-skotch-brand
+                //sup.beta beta
+            .app-baseline
+                span Choses à noter
+                span.transp50 &nbsp;&&nbsp;
+                span Trucs à partager
+        .trans-band
+
+    .login-signin-forms
+        section.small-tabs
+            .tab.go-back(@click="$router.go(-1)")
+                i.ic-arrow-gc
+            .tab Oubli de mot de passe
+
+
+        section.reset-form
+
+            .input-group.large.mt1
+                .icon
+                    i.ic-user-24
+                input.icon-before(title="email" type="email", placeholder="Votre email" v-model="reset.email")
+                .error(v-if="$v.reset.email.$invalid && clickedOnSendEmail")
+                    span email non valide
+
+            .error.mt8#invalidReset(v-if="error.code === 400")
+                span {{ sendEmailErrorMessage }}
+
+            button.basic.reset-validate(@click="sendEmail()", :class="{'emailSent' : emailSent}")
+                span(v-if="!emailSent") Demander un nouveau mot de passe
+                span(v-else) Email envoyé
+
+            .information.mt16
+                p.gray Indiquez votre email et vous recevrez dans votre boite de réception un lien pour mettre à jour votre mot de passe.
+

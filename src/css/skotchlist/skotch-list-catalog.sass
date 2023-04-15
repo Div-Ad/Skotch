@@ -1,0 +1,111 @@
+@import "../../css/partials/variables.sass"
+@import "../../css/partials/colors.sass"
+
+
+#sklSelect
+    #PageTitle
+        margin: 0 16px
+        padding: 0 16px
+    .introduction
+        padding: 16px 16px 0 16px
+    .content-gray
+        background-color: $c-g235
+        margin: 0
+        padding: 8px
+        border-radius: 4px
+        a.special
+            cursor: pointer
+            color: $c-bnf-red
+            +flexVC
+            line-height: 24px
+    #nav
+        display: none
+
+#sklList
+    .skotchlist
+        +setFixedWidth(360px)
+        margin: 0 0 8px 0
+        transition: all 0.25s
+        &.active
+            border-radius: 4px 32px 32px 4px
+            overflow: hidden
+        .skl-title
+            color: white
+
+    .skl-select-group
+        border-bottom: 1px solid rgba(0,0,0,0.1)
+        padding: 16px
+        h4
+            display: inline-flex
+            margin: 0 8px 0 0
+            position: relative
+            bottom: -1px
+        .skotchlist
+            .skl-select
+                margin-right: 0
+        .skotchlist.inactive
+            +setFixedWidth(calc(360px - 64px))
+            overflow: visible
+            .skl-select
+                margin-right: -64px
+                i
+                    color: $c-g50
+
+    .skl-description
+        font: italic 13px/24px $slab
+        p
+            margin-bottom: 0
+    .skl-tag-list
+        display: inline-flex
+        flex-wrap: wrap
+        .word-only
+            &:after
+                content: ','
+                margin-right: 2px
+            &:last-child
+                &:after
+                    content: '.'
+
+    .skl-options
+        position: absolute
+        top: 0
+        right: 0
+        .skl-select, .skl-share
+            +setIcon(64px)
+            i
+                font-size: 32px
+                &.ic-list-add, &.ic-add1
+                    display: block
+                &.ic-ok-c-b24
+                    display: none
+            &.active
+                i.ic-list-add, i.ic-add1
+                    display: none
+                i.ic-ok-c-b24
+                    display: block
+
+#firstSteps
+    #sklList
+        .skotchlist
+            +setFixedWidth(100%)
+        .skotchlist.inactive
+            +setFixedWidth(calc(100% - 64px))
+        .skl-select-group
+            padding: 16px 0 8px
+        
+
+#tdlSelectValidateButton .icon button, #sklSelectValidateButton .icon button
+    +setFixedWidth(100vw)
+    +setFixedHeight(48px)
+    +flexHVC
+    cursor: pointer
+    background-color: $cta
+    position: fixed
+    bottom: 0
+    left: 0
+    right: 0
+    z-index: 1
+    h4
+        font-size: 24px
+    &:hover
+        background-color: lighten($c-bnf, 14%)

@@ -1,0 +1,16 @@
+mutation mutate_user_skotch($id: uuid!, $changes: skotch_set_input) {
+    update_skotch(where: {id: {_eq: $id}}, _set: $changes) {
+        returning {
+            archived
+            updated
+            description
+            id
+            link
+            name
+            pin
+            rk
+            tag_id
+            is_hidden
+        }
+    }
+}

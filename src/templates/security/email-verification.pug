@@ -1,0 +1,33 @@
+#verif
+    section.app
+        .logotype
+            .w-bg
+            .icon-skotch
+                i.ic-skotch-empty-24-2
+        .app-txt
+            .app-name
+                i.ic-skotch-brand
+                //sup.beta beta
+            .app-baseline
+                span Choses à noter
+                span.transp50 &nbsp;&&nbsp;
+                span Trucs à partager
+        .trans-band
+
+    .login-signin-forms
+        section.small-tabs.warning-message
+            .tab.go-back(@click="logout()")
+                i.ic-arrow-gc
+            .tab Confirmez votre adresse email
+
+        section.email-confirm
+            .information
+                h4 Votre adresse email <br> n'a pas encore été confirmée.
+                p.gray.mt32.mb32 Vérifiez votre boîte mail (et vos spams) et cliquez sur le lien de confirmation.
+
+                button.basic.reset-validate(@click="sendVerification()")
+                    span Envoyer un lien
+
+
+
+

@@ -1,0 +1,17 @@
+mutation mutate_user($id: String!, $changes: user_set_input) {
+    update_user(where: {id: {_eq: $id}}, _set: $changes) {
+        returning {
+            accept_friend_request
+            email
+            first_step
+            firstname
+            id
+            lastname
+            photobase64
+            photourl
+            devices
+            params
+            is_male
+        }
+    }
+}

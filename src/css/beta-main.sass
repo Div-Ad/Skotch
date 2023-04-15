@@ -1,0 +1,50 @@
+@charset "utf-8"
+
+@import 'partials/colors'
+@import 'partials/variables'
+@import 'partials/containers'
+@import 'partials/tricks'
+@import 'partials/animation'
+@import 'partials/forms'
+@import 'partials/html'
+@import 'partials/skotchback'
+@import "partials/tooltip"
+@import "partials/help"
+
+@import 'skl-data'
+@import "ct-data"
+
+@import 'skotch'
+@import 'skotch-mobile'
+
+#userBar .app-name:after
+    content: 'beta'
+    position: relative
+    top: -0.5em
+    text-transform: uppercase
+    left: 2px
+    font-size: 9px
+    font-family: $small
+    color: $c-bnf-gold
+    
+//$c-beta: $c-g50
+//
+//#userBar, section#menu .menu-content, body
+//    background: $c-beta!important
+//
+//.tabs .tab
+//    background: lighten($c-beta, 10%)!important
+//    &.active
+//        background-color: white!important
+//.has-nav .icon.nav, .is-mobile #quickCreateIcon
+//    background: lighten($c-beta, 5%)!important
+//
+//.is-mobile #userBar .icon#menuIcon .icon-bg, .is-mobile #goBack
+//    background: lighten($c-beta, 10%)!important
+//.is-mobile #userBar .icon#menuIcon .icon-skotch i, .is-mobile section#menu .menu-content:before
+//    color: lighten($c-beta, 10%)!important
+//#userBar #menuIcon.active .icon-text i
+//    color: lighten($c-beta, 0%)!important
+//
+//section#menu .menu-content .reading .menu-item .icon, section#menu .menu-content .reading .menu-item .text, section#menu .menu-content .reading .menu-item .icon, section#menu .menu-content .reading .menu-item .text
+//    color: lighten($c-beta, 25%)!important

@@ -1,0 +1,8 @@
+query UserFeedback {
+	feedback {
+		created
+		feedback
+		is_read
+		suggestion_id
+	}
+}

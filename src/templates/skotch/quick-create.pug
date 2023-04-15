@@ -1,0 +1,170 @@
+#quickCreate
+
+
+    .content.animate-bottom
+        .sk-create-form(v-if="!showSelectFriend")
+
+            OBSkCreate(v-show="showOBSkCreate && !!skotch.skotch_list_id && skotch.name.length > 1")
+
+            .form-header
+
+                h2(v-if="isEdit") Modification
+                h2.sl-new-skotch(v-else-if="from.name === 'skotch-list'")  Skotcher dans <strong>{{ getSkotchListSelected.title[$i18n.locale] }}</strong>
+                h2(v-else-if="isSkotchToFriend") Envoyer un skotch à {{ getFriend(selectedFriend[0]).firstname  }}
+                h2(v-else) Nouveau skotch
+
+                button.close(@click="goBack('exit')")
+                    i.ic-close
+
+                .skotch-piece(v-if="skotch.skotch_list_id === null || skotch.skotch_list_id === undefined")
+                    i.ic-skotch-bg-2
+                .skotch-piece(v-else, :id="'skl_' + skotch.skotch_list_id")
+                    i.ic-skotch-bg-2
+
+            .sk-create.skotch-creation
+                .sk-title.mt16
+                    h4 Quoi ?
+                    .input-container
+                        input(v-model="skotch.name" type="text" placeholder="Titre du Skotch" name="skotchName" tabindex=1 ref="skotchName" autocomplete="off" required aria-required="true", @keydown.enter="unfocusInput", @focus="isOnFocus = true", @blur="isOnFocus = false")
+                        .warning(v-if="!$v.skotch.name.maxLength")
+                            span Trop long ! 150 caractères max.
+
+                .skl-title-select.mt16(v-if="from.name !== 'skotch-list'")
+                    h4 Dans quelle liste ?
+                        //span.red.ml4 *
+                    select(v-model="skotch.skotch_list_id", tabindex=2, ref="outfocusButton")
+                        option(v-for="sl in userActiveSkotchList", :value="sl.id") {{ sl.title[$i18n.locale] }}
+
+                .skl-tag-select.mt16(v-if="!!skotch.skotch_list_id")
+
+                    .skl-tag-list.show-it
+                        button.trick-anchor(v-if="from.name === 'skotch-list'", ref="outfocusButton", tabindex=3 )
+                        button.skl-tag(
+                            v-for="skotchListTag in getSkotchListSelected.skotch_list_tags",
+                            :key="skotchListTag.id",
+                            @click="selectTag(skotchListTag.id)",
+                            :class="{active: skotch.tag_id === skotchListTag.id }",
+                            tabindex=4) {{ skotchListTag.title[$i18n.locale] }}
+
+
+                .sk-description.mt16
+                    h4 Description
+                        span.gray &nbsp;(optionnel)
+                    .input-container
+                        textarea(v-model="skotch.description", placeholder="Notes libres, commentaire perso, complément d'info, qui vous en a parlé, etc... ", tabindex=5, @focus="isOnFocus = true", @blur="isOnFocus = false")
+                        .warning(v-if="!$v.skotch.description.maxLength")
+                            span Trop long ! 5 000 caractères max.
+
+                .sk-url.mt16(v-if="skotch.link !== null && skotch.link.length > 0")
+                    h4
+                        | Lien
+                        span.gray &nbsp;(optionnel)
+                    .input-group
+                        .icon
+                            i.ic-link-2
+                        input.icon-before(v-model="skotch.link" placeholder="http://" type="url" tabindex=6)
+                        .warning(v-if="!$v.skotch.link.maxLength")
+                            span Trop long ! 2 000 caractères max.
+
+                section.sk-option.mb8.mt8(v-if="isSkotchToFriend && isFormValid")
+                    h4.m-zero Enregistrer dans ma liste également ?
+                    button.switch(@click="skotchToMe = !skotchToMe", :class="{'active': skotchToMe}")
+                        .dot
+
+                section.sk-option.mb8.mt16(v-if="!isEdit && !isSkotchToFriend && isFormValid")
+                    h4.m-zero.flexVC
+                        i.ic-sktheque-add-24.fs24.mr8
+                        | Ranger dans ma collection ?
+                    button.switch(@click="toggleArchivedState()", :class="{'active': skotch.archived}")
+                        .dot
+
+
+            .options
+
+                .empty-div(v-if="isSkotchToFriend")
+
+                button.icon.close.ttp-trig#Quit(@click="goBack('exit')" tabindex=9)
+                    i.ic-close-24.fs24
+                    .ttp-txt.top.t-48px Fermer
+
+                button.icon.share.ttp-trig#MultiShare(v-if="!isSkotchToFriend && !isEdit && userInfo.accept_friend_request && friendCount > 0", @click="selectFriend()", :class="[!isFormValid ? 'invalid' :  'share']", tabindex=8)
+                    i.ic-skotch-and-share-6.fs24
+                    .ttp-txt.top.big.t-64px Choisir des copains à qui envoyer ce skotch
+
+                //button.icon.ttp-trig.next#Next(v-if="!isEdit && !isSkotchToFriend && !isShare", @click="submitForm(true)", :class="[!isFormValid ? 'invalid' : 'next']", tabindex=9)
+                    i.ic-add1.fs24
+                    i.ic-add1._2
+                    .ttp-txt.top.big.t-64px Enregistrer & Enchainer
+                button.icon.ttp-trig#Validate(v-if="!isSkotchToFriend && !isShare" @click="submitForm(false)", :class="[!isFormValid && !isMutating ? 'invalid' :  'validate']", tabindex=7)
+                    i.ic-check-24.fs24(v-if="!isMutating")
+                    .ttp-txt.top.big.t-64px skotcher dans ma liste
+                    loading(color='black', v-if="isMutating")
+                button.icon.validate.ttp-trig#Send(v-if="isSkotchToFriend" @click="validateSuggestion()" :class="[!isFormValid && !isMutating ? 'invalid' :  'validate']")
+                    i.ic-send.fs24(v-if="!isMutating")
+                    .ttp-txt.top.t-48px Envoyer
+                    loading(color='white', v-if="isMutating")
+
+                .toast-message(v-if="triggeredToast")
+                    span {{ toastMessage }}
+
+        .contact-share.sk-create-form(v-else)
+
+            //OBSkShare(v-if="userInfo.params.help.ob4 && !userInfo.params.help.ob5 && !isEdit && !isShare && !isSkotchToFriend && !!skotch.skotch_list_id && skotch.name.length > 0 && friendCount > 0" :class="{'is-not-a-share' : !isShare , 'contact-has-been-selected' : isFormValid }")
+
+            .form-header
+                h2(v-if="!isShare") À qui voulez-vous envoyer ce skotch ?
+                h2(v-else) À qui voulez-vous envoyer ce skotch ?
+                button.close(@click="goBack('exit')")
+                    i.ic-close-24.fs24
+
+            .sk-create.contact-selection
+                .perma-help.is-a-bis.mb16
+                    .ph-body
+                        p.m-zero Cochez le ou les contacts à qui vous souhaitez envoyer
+                            strong &nbsp;{{ skotch.name }}.
+
+                section.sk-option.mb16(v-if="!isShare")
+                    h4.m-zero <b>Enregistrer dans ma liste également ?</b>
+                    button.switch(@click="skotchToMe = !skotchToMe", :class="{'active': skotchToMe}")
+                        .dot
+
+                section.contact-search-content
+                    section.ct-search-input
+                        .input-group
+                            input.icon-before(v-model="filterFriendInput" type="search" placeholder="Prénom ou Nom pour filtrer")
+                            .icon
+                                i.ic-search
+
+                section.contact-list-research.mt16
+                    .contact.pointer(v-for="f in filteredFriends", @click="toogleFriend(f.id)")
+                        .group()
+                            contact-thumbnail(:contact="f" :contactId="f.id")
+                            .ct-infos
+                                .ct-firstname {{ f.firstname }}
+                                .ct-lastname {{ f.lastname }}
+                        .request-action
+                            button.contact-select(:class="{'selected': selectedFriend.includes(f.id) || suggested.includes(f.id), 'disabled': suggested.includes(f.id)}")
+                                i.ic-solid-ok-b24.fs24
+
+                    section.helper.friend.show-it(v-if="isFormValid")
+                        .flexVC
+                            //i.ic-friend-select.fs24
+                            i.ic-send.fs24
+                            p Envoyer <b>"{{ skotch.name }}"</b> aux contacts sélectionnés.
+                        .flexVC.mt8
+                            p.m-zero Ils recevront une notification et pourront choisir d'ajouter ou non ce skotch à leur liste.
+
+            section.options
+
+                button.icon.close.ttp-trig#Quit-share(v-if="isShare", @click="goBack('exit')")
+                    i.ic-close-24.fs24
+                    .ttp-txt.top.t-48px Fermer
+                button.icon.stepback.ttp-trig#Previous(v-if="!isShare", @click="showSelectFriend = false")
+                    i.ic-arrow-24.fs24
+                    .ttp-txt.top.t-48px Étape précédente
+                .empty-div(v-if="isShare && !$q.platform.is.mobile")
+
+                button.icon.validate.ttp-trig#Share(@click="validateSuggestion()" :class="[!isFormValid && !isMutating ? 'invalid' :  '']")
+                    i.ic-send.fs24(v-if="!isMutating")
+                    .ttp-txt.top.t-48px Envoyer
+                    loading(color='white', v-show="isMutating")

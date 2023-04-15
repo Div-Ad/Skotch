@@ -1,0 +1,26 @@
+.skotchback-container
+    .hitzone(@click="close()")
+    #skotchBack
+        header
+            h2 Feedback !
+            button.close(@click="close()")
+                i.ic-close
+        body
+            p Envoyez à <b>{{ getContactName(skotch) }}</b> ce que vous avez pensé de <b>{{ getSkotchName(skotch) }}</b>
+
+            .skotchBackEmo
+                button.icon.hated.ttp-trig(@click="sendFeedback(Feedback.HATED)")
+                    i.ic-hated
+                    .ttp-txt.top j'ai détesté
+                button.icon.disliked.ttp-trig(@click="sendFeedback(Feedback.DISLIKED)")
+                    i.ic-disliked
+                    .ttp-txt.top pas aimé ...
+                button.icon.meh.ttp-trig(@click="sendFeedback(Feedback.MEH)")
+                    i.ic-meh
+                    .ttp-txt.top meh ...
+                button.icon.like.ttp-trig(@click="sendFeedback(Feedback.LIKED)")
+                    i.ic-liked
+                    .ttp-txt.top j'ai aimé
+                button.icon.love.ttp-trig(@click="sendFeedback(Feedback.LOVE)")
+                    i.ic-love
+                    .ttp-txt.top j'ai adoré

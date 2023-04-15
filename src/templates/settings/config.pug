@@ -1,0 +1,113 @@
+.container#config
+
+    section#PageTitle
+        .title-group
+            .icon
+                i.ic-param-24
+            h2 Paramètres
+
+    section.list-select(@click="$router.push({name: 'skotch-list-catalog'})")
+        .title
+            h3 Choix des listes
+
+        .menu-item#sklSelect.flexVC
+            .icon.mr12
+                i.ic-list-add.fs24
+            .text
+                span Cliquez pour accéder à la sélection des Listes
+
+    section.theme(v-if="$q.platform.is.mobile")
+        .title
+            h3 Thème
+        .flexVC
+            span LIGHT
+            button.switch.ml8.mr8(@click="toogleTheme()" , :class="{'active' : userInfo.params.help.ob5 }")
+                .dot
+            span DARK
+
+    section.profile
+        .title(@click="toogleCroppie")
+            h3 Photo de profil
+                i.ic-pen.ml8.fs20
+
+        .contact
+            contact-thumbnail(:contact="config" :contactId="userInfo.id")
+
+    section.account
+        .title(@click="nameEdit = !nameEdit")
+            h3 Compte & Identité
+                i.ic-pen.ml8.fs20(v-if="!nameEdit")
+                i.ic-close-24.ml8.fs20(v-if="nameEdit")
+        .flexVC(v-if="!nameEdit && !!loginData.providerData[0]")
+            h4.login <b>Mode de connection</b> :
+            .idp-login.flexVC.mr8.ml8
+                .icon.google(v-if="loginData.providerData[0].providerId === 'google.com'")
+                    i.ic-google
+                .icon.facebook(v-if="loginData.providerData[0].providerId === 'facebook.com'")
+                    i.ic-facebook
+                .icon.apple(v-if="loginData.providerData[0].providerId === 'apple.com'")
+                    i.ic-apple
+                .icon(v-if="loginData.providerData[0].providerId === 'password'")
+                    i.ic-key
+            h4.login {{ loginData.providerData[0].providerId }}
+
+        h4.email(v-if="!nameEdit") <b>Email</b> : {{loginData.providerData[0].email}}
+        h4.firstname(v-if="!nameEdit") <b>Prénom</b> : {{ userInfo.firstname }}
+        .input-container(v-else)
+            input.firstname.mr4(v-model.trim="config.firstname", placeholder="Prénom")
+            .warning(v-if="!$v.userInfo.firstname.maxLength")
+                span Trop long ! 20 caractères max.
+
+        h4.lastname(v-if="!nameEdit") <b>Nom</b> : {{ userInfo.lastname }}
+        .input-container(v-else)
+            input.lastname.mr4(v-model.trim="config.lastname", placeholder="Nom")
+            .warning(v-if="!$v.userInfo.lastname.maxLength")
+                span Trop long ! 20 caractères max.
+        button.basic.validate(v-if="nameEdit && (config.lastname !== userInfo.lastname || config.firstname !== userInfo.firstname)", @click="updateUserInfo()") Enregistrer
+
+        h4.gender(v-if="!nameEdit") <b>genre</b> :
+            span(v-if="userInfo.is_male !== null")
+                span(v-if="!userInfo.is_male") &nbsp;féminin
+                span(v-else) &nbsp;masculin
+            span(v-if="userInfo.is_male === null") &nbsp;non défini
+
+        .form.mt8(v-else)
+            .input-group.flexVCB.gender-form
+                .flexVC
+                    h4.gender <b>genre</b> :
+                    label.ml4(for="female") Féminin
+                    input.ml4(type="radio" id="female" name="gender" v-bind:value="false" v-model="config.is_male")
+                    label.ml8(for="male") Masculin
+                    input.ml4(type="radio" id="male" name="gender" v-bind:value="true" v-model="config.is_male")
+
+                button.basic.ml16(@click="updateUserInfo()") OK
+
+    //section.network
+        .title
+            h3 Réseau & partage
+        .content
+            .form
+                h4 Autoriser les demandes et suggestions de copains ?
+                button.switch(@click="toogleFriendsRequest()", :class="{'active': config.accept_friend_request}")
+                    .dot
+                p.small.mb8.mt16 Vous recevrez des notifications pour accepter ou refuser :
+                li.small les demandes d'amitié ;
+                li.small les suggestions de vos copains (réception de skotch).
+
+    section.notifications(v-if="!isMac()")
+        .title
+            h3 Autoriser les notifications système ?
+        .content
+            .flexVC.pointer(@click="requestPermissions()")
+                button.launch.mr8
+                    i.ic-bell
+                h4.m-zero(v-if="notificationPermission === 'default' || notificationPermission === null") Cliquez pour lancer la configuration des notifications
+                h4.m-zero(v-else-if="notificationPermission === 'granted'") Vous avez accepté de recevoir des notifications
+                h4.m-zero(v-else-if="notificationPermission === 'denied'") Vous avez refusé de recevoir des notifications
+
+            p.mt16.mb0.small Les notifications système (ou de bureau) vous permettent d'être notifié directement dans votre OS (Android, iOS, Windows, etc.) sans ouvrir skotch.
+    .mb32
+    Nav(v-if="!showCroppie")
+    .modal#croppieContainer.animate-bottom(v-if="showCroppie")
+        Croppie(:userAvatar="getUserPhoto")
+        button.croppie-quit.mb16.mt16(@click="toogleCroppie") quitter

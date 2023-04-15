@@ -1,0 +1,16 @@
+query skotchs {
+	skotch {
+		archived
+		created
+		updated
+		description
+		id
+		link
+		name
+		pin
+		rk
+		tag_id
+		skotch_list_id
+		is_hidden
+	}
+}

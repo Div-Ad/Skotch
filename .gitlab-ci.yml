@@ -1,0 +1,50 @@
+cache:
+    untracked: true
+    key: "$CI_BUILD_REF_NAME"
+    paths:
+        - vendor/
+
+stages:
+    - deploy
+
+deploy-pods-dev:
+    stage: deploy
+    image: gitlab.nansot.fr:5050/kubernetes/k8s-toolbox:latest
+    environment:
+        name: deploy
+    script:
+        - mkdir $HOME/.kube
+        - cp $KUBECONFIG $HOME/.kube/config
+        - cat $HOME/.kube/config
+        - kubectl config set-context $(kubectl config current-context)
+        - sed -i 's/_APP_NAME_/'"$CI_PROJECT_NAME"'/g; s/_VERSION_/'"$CI_COMMIT_SHA"'/g' ./deploy/postgresql/postgresql.yaml;
+        - sed -i 's/_APP_NAME_/'"$CI_PROJECT_NAME"'/g; s/_VERSION_/'"$CI_COMMIT_SHA"'/g' ./deploy/hasura/hasura.yaml;
+        - kubectl apply -f ./deploy/postgresql/postgres.yaml
+        - kubectl apply -f ./deploy/postgresql/hasura.yaml
+    only:
+        - ci-testing
+    tags:
+        - cave-dev
+
+build_quasar_docker:
+    stage: build
+    image: docker:19.03.12
+    services:
+        - docker:19.03.12-dind
+    variables:
+        DOCKER_HOST: tcp://docker:2375
+        DOCKER_DRIVER: overlay
+        DOCKER_TLS_CERTDIR: ""
+        RELEASE_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA-$CI_PIPELINE_ID-$CI_JOB_ID
+    before_script:
+        - docker info
+        - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+    script:
+        - docker build -t $RELEASE_IMAGE .
+        - docker push $RELEASE_IMAGE
+    when: on_success
+    only:
+        - ci-testing
+    tags:
+        - cave-dev
+

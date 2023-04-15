@@ -1,0 +1,15 @@
+query userData {
+	user {
+		accept_friend_request
+		email
+		first_step
+		firstname
+		id
+		lastname
+		photobase64
+		photourl
+		devices
+		params
+		is_male
+	}
+}

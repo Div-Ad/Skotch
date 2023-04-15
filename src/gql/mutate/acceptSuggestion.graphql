@@ -1,0 +1,29 @@
+mutation accept_user_suggestion($id: uuid!, $changes: suggestion_set_input) {
+    update_suggestion(where: {id: {_eq: $id}}, _set: $changes) {
+        returning {
+            id
+            is_accepted
+            archived
+            is_read_by_user
+            is_read_by_friend
+            pin
+            rk
+            friend_id
+            created
+            user_id
+            updated
+            skotch_id
+            is_hidden
+            skotch_suggested {
+                created
+                description
+                id
+                link
+                name
+                skotch_list_id
+                tag_id
+                updated
+            }
+        }
+    }
+}

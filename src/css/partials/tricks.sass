@@ -1,0 +1,279 @@
+///////////////
+//- Margins -//
+///////////////
+
+// margin top
+.mt32
+    margin-top: 32px !important
+
+.mt16
+    margin-top: 16px !important
+
+.mt8
+    margin-top: 8px !important
+
+.mt4
+    margin-top: 4px !important
+
+.mt0
+    margin-top: 0 !important
+
+//- margin right
+.mr32
+    margin-right: 32px !important
+
+.mr16
+    margin-right: 16px !important
+    
+.mr12
+    margin-right: 12px !important
+
+.mr8
+    margin-right: 8px !important
+
+.mr4
+    margin-right: 4px !important
+
+.mr0
+    margin-right: 0 !important
+
+// margin bottom
+.mb32
+    margin-bottom: 32px !important
+
+.mb16
+    margin-bottom: 16px !important
+
+.mb8
+    margin-bottom: 8px !important
+
+.mb4
+    margin-bottom: 4px !important
+
+.mb0
+    margin-bottom: 0 !important
+
+// margin left
+.ml32
+    margin-left: 32px !important
+
+.ml16
+    margin-left: 16px !important
+.ml24
+    margin-left: 24px !important
+.ml8
+    margin-left: 8px !important
+
+.ml4
+    margin-left: 4px !important
+
+.ml0
+    margin-left: 0 !important
+
+//- others
+.m-zero
+    margin: 0 !important
+
+///////////////
+//- Padding -//
+///////////////
+
+.p-16
+    padding: 16px !important
+
+.p-8
+    padding: 8px !important
+.pb-0
+    padding-bottom: 0!important
+
+/////////////
+//- Width -//
+/////////////
+
+.w-100
+    width: 100% !important
+
+////////////
+//- Flex -//
+////////////
+
+.flexVC
+    display: flex
+    align-items: center
+    align-content: center
+.flexVCB
+    display: flex
+    align-items: center
+    justify-content: space-between
+    width: 100%
+.fl-en
+    justify-content: flex-end
+
+//////////////////
+// Other Tricks //
+//////////////////
+
+.italic
+    font-style: italic
+
+.spacer-64
+    min-height: 64px
+
+.spacer-32
+    min-height: 32px
+
+.spacer-16
+    min-height: 16px
+
+.pointer
+    cursor: pointer
+
+.cursor-default
+    cursor: default
+.dnd
+    display: none
+
+.fs16
+    font-size: 16px
+
+.fs8
+    font-size: 8px
+
+.fs10
+    font-size: 10px
+
+.fs12
+    font-size: 12px
+
+.fs20
+    font-size: 20px
+
+.fs24
+    font-size: 24px
+
+.fs32
+    font-size: 32px
+    
+.fs48
+    font-size: 48px
+
+.small
+    font-size: 80%
+    &.more-line-height
+        line-height: 20px
+
+.bit-smaller
+    font-size: 90%
+    &.more-line-height
+        line-height: 20px
+
+.text-13
+    font-size: 13px
+    line-height: 16px
+
+.text-14
+    font-size: 14px
+    line-height: 18px
+
+.text-15
+    font-size: 15px
+    line-height: 16px
+
+.nbsp
+    white-space: nowrap
+
+.gray
+    color: $c-g170
+.transp50
+    opacity: 0.5
+
+.spinner
+    font-size: 24px
+    color: $c-g205
+    .icon
+        +flexHVC
+    &.big
+        +setFlexBox(100%, 50%, center, center, row)
+        font-size: 80px
+        .icon
+            +setIcon(96px)
+
+.toast-message
+    +setFlexBox(calc(100% - 24px), initial, center, center, row)
+    background-color: darken($c-i-green, 7%)!important
+    position: fixed
+    top: 0
+    left: 12px
+    color: white
+    padding: 16px
+    z-index: 1
+
+    span
+        font: 300 14px/16px $condensed!important
+        color: white
+        border-radius: 0
+
+.mirror
+    transform: rotate(180deg)
+    transition: none
+
+._90r
+    transform: rotate(90deg)
+
+.red
+    color: rgb(220, 83, 66)
+
+.pre-wrap
+    white-space: pre-wrap
+
+.smaller_75
+    transform: scale(0.85)
+
+// CSS Icons
+
+i.ic-info
+    +flexHVC
+    position: relative
+    +setSquare(30px)
+    border-radius: 50%
+    //background-color: rgba(lighten($c-bnf-blue, 7%), 0.9)
+    border: 3px solid $c-g170
+    
+    &:before
+        content: 'i'
+        font: 500 16px/16px $small
+        +setSquare(24px)
+        position: absolute
+        left: 0
+        +flexHVC
+        color: $c-g170
+
+.icon.info.active i.ic-info
+    border-color: $c-i-blue
+    &:before
+        color: $c-i-blue
+
+.icon.info
+    transition: 0.1s
+    &:hover
+        transform: scale(1.1)
+
+i.ic-solid-ok-b24
+    +setSquare(24px)
+    font-size: 24px
+
+.invert
+    filter: invert(1)
+    
+.scale-0-5
+    transform: scale(0.5)
+.scale-0-75
+    transform: scale(0.75)
+.scale-1-25
+    transform: scale(1.25)
+.scale-1-5
+    transform: scale(1.5)
+.scale-2
+    transform: scale(2)
+.scale-3
+    transform: scale(3)

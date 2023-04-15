@@ -1,0 +1,156 @@
+section#notification
+    .notification-hitzone(@click="$emit('close')")
+    .notification-content.animate-right-fixed
+        .notification-list(v-touch:swipe="swipeHandler")
+
+            .nothing-to-show(v-if="unreadCount < 1")
+                i.ic-notification-bell
+                h4 Aucune notification récente
+                .perma-help.is-a-bis#PHNotif
+                    .ph-body
+                        p.m-zero C'est ici qu'on vous notifie les demandes et acceptations d'amitiés, les envois et acceptations de skotchs de vos copains.
+            .os-notification-information(v-if="!isMac()" @click="requestPermissionNotifications()")
+                .icon
+                    i.i.ic-bell.fs24
+                span Notifications {{ $q.platform.is.platform }} &#32;
+                    span.state(v-if="notificationPermission === 'default' || notificationPermission === null") non paramétrées
+                    span.state.active(v-else-if="notificationPermission === 'granted'") activées
+                    span.state.inactive(v-else-if="notificationPermission === 'denied'") désactivées
+            .os-notification-information(v-if="$q.platform.is.ios && !$q.platform.is.capacitor")
+                .icon
+                    i.i.ic-bell.fs24
+                span Notifications iOs&#32;
+                    span.state impossibles
+
+            .notification-item(v-for="n in notifications")
+
+                /////////////////////////
+                //- Skotch Suggestion -//
+                /////////////////////////
+
+                .suggestion(v-if="n.type === 'suggestion'")
+                    .part-1
+                        contact-thumbnail(:contact="getFriend(n.user_id)", :objectId="n.id", :contactId="getFriend(n.user_id).id")
+
+                        .main-content
+                            span.ct-firstname {{ getFriend(n.user_id).firstname }}&#32;
+                                span.ct-lastname {{ getFriend(n.user_id).lastname }}&#32;
+                                span souhaite vous skotcher&#32;
+                                span.sk-name {{ n.skotch_suggested.name }}&#32;
+                                span dans&#32;
+                                b.skl-title {{ getSkotchListInfo(n.skotch_suggested.skotch_list_id).title['fr'] }}&#32;
+                                span.skl-tag-in-text(v-if="n.skotch_suggested.tag_id !== null")
+                                    span {{ getSkotchListTag(n.skotch_suggested).title['fr'] }}
+
+
+                        .notification-options(v-if="!isLoadingSuggestion.includes(n.id)")
+                            button.icon.discard(@click="acceptFriendSuggestion(n, false)")
+                                i.ic-solid-delete-b24
+                            button.icon.accept(@click="acceptFriendSuggestion(n, true)")
+                                i.ic-solid-ok-b24
+
+                        .notification-options(v-show="isLoadingSuggestion.includes(n.id)")
+                            .icon.loading
+                                loading(color='black')
+
+                    .part-2(v-if="n.type === 'suggestion' && n.skotch_suggested.description !== undefined && n.skotch_suggested.description !== null && n.skotch_suggested.description.length > 0")
+                        p.pre-wrap.sk-description(v-html="getAutolinktext(n.skotch_suggested.description)")
+                            i.ic-triangle-right
+
+                //////////////////////////////
+                //- Skotch Suggestion Hint -//
+                //////////////////////////////
+
+                .feedback(v-else-if="n.type === 'suggestion_hint'")
+                    .part-1
+                        contact-thumbnail(:contact="getFriend(n.friend_id)", :objectId="n.id", :contactId="getFriend(n.friend_id).id")
+                        .main-content
+                            span.ct-firstname {{ getFriend(n.friend_id).firstname }}&#32;
+                                span.ct-lastname {{ getFriend(n.friend_id).lastname}}&#32;
+                                span(v-if="n.is_accepted") a <b class="accepted">accepté</b> votre skotch&#32;
+                                span(v-else) a <b class="refused">refusé</b> votre skotch&#32;
+                                span.sk-name {{ n.skotch_name }}
+                                span .
+
+
+
+                    .notification-options(v-if="!isLoadingIsRead.includes(n.id)")
+                        button.icon.read(@click="setSuggestionHintRead(n)")
+                            i.ic-solid-ok-b24
+
+                    .notification-options(v-show="isLoadingIsRead.includes(n.id)")
+                        .icon.loading
+                            loading(color='black')
+
+                //////////////////////
+                //- Friend Request -//
+                //////////////////////
+
+                .request(v-else-if="n.type === 'request'")
+                    .part-1
+                        contact-thumbnail(:contact="n", :objectId="n.user_id", :contactId="n.user_id")
+                        .main-content
+                            .message
+                                span
+                                    strong.ct-firstname {{ n.firstname }}&#32;
+                                    strong.ct-lastname {{ n.lastname }}&#32;
+                                    span veut faire partie de vos <strong>copains</strong>.
+
+                        .notification-options(v-if="!isLoadingRequest.includes(n.user_id)")
+                            button.icon.discard(@click="acceptFriendRequest(n, false)")
+                                i.ic-solid-delete-b24
+                            button.icon.accept(@click="acceptFriendRequest(n, true)")
+                                i.ic-solid-ok-b24
+
+                        .notification-options(v-show="isLoadingRequest.includes(n.user_id)")
+                            .icon.loading
+                                loading(color='black')
+
+                ///////////////////////////
+                //- Friend Request Hint -//
+                ///////////////////////////
+
+                .feedback(v-else-if="n.type === 'requested'")
+                    .part-1
+                        contact-thumbnail(:contact="n" :contactId="n.id")
+                        .main-content
+                            .message
+                                span
+                                    strong.ct-firstname {{ n.firstname }}&#32;
+                                    strong.ct-lastname {{ n.lastname }}&#32;
+                                    span a accepté votre demande&#32;
+                                    strong d'amitié.
+
+                    .notification-options(v-if="!isLoadingIsRead.includes(n.id)")
+                        button.icon.read(@click="setRequestStatusRead(n)")
+                            i.ic-solid-ok-b24
+
+                    .notification-options(v-show="isLoadingIsRead.includes(n.id)")
+                        .icon.loading
+                            loading(color='black')
+
+                ///////////////////////
+                //- Skotchback Hint -//
+                ///////////////////////
+
+                .skotchback(v-else-if="n.type === 'feedback'", :objectId="n.id")
+                    .part-1
+                        contact-thumbnail(:contact="getFriend(n.user_id)", :objectId="n.suggestion_id", :contactId="getFriend(n.user_id).id")
+
+                        .skotchBackEmo.mediumEmo
+                            button.icon(:class="n.feedback")
+                                i(:class="'ic-' + n.feedback")
+
+                        .main-content
+                            span.ct-firstname {{ getFriend(n.user_id).firstname }}&#32;
+                                span.ct-lastname {{ getFriend(n.user_id).lastname}}&#32;
+                                span(v-if="!!n.skotch_name", v-html="getFeedbackText(n)")
+                                span .
+
+                        .notification-options(v-if="!isLoadingIsRead.includes(n.id)")
+                            button.icon.read(@click="setFeedbackRead(n)")
+                                i.ic-solid-ok-b24
+
+                        .notification-options(v-show="isLoadingIsRead.includes(n.id)")
+                            .icon.loading
+                                loading(color='black')

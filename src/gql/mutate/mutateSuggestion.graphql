@@ -1,0 +1,15 @@
+mutation mutate_user_suggestion($id: uuid!, $changes: suggestion_set_input) {
+    update_suggestion(where: {id: {_eq: $id}}, _set: $changes) {
+        returning {
+            id
+            is_accepted
+            archived
+            is_read_by_user
+            is_read_by_friend
+            pin
+            rk
+            updated
+            is_hidden
+        }
+    }
+}

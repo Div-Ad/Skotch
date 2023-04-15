@@ -1,0 +1,81 @@
+.onboarding#SkotchCreateShare
+    .ob-content
+        .show-it.step-one(v-if="tip === 0")
+            .illus-container.fl-st.mb8
+                .illus.circular.rotate-infinite.small
+                    i.ic-liked.rotate-infinite-reverse
+                div
+                    p.function.mb0.mt0 <b>Ok, on a un skotch !</b>
+                    p.ml16.mt8 Laissez-moi vous détailler rapidement les options en bas !
+        .show-it.step-two(v-if="tip === 1")
+            .ob-info.m-zero
+                .flexVC
+                    .icon.validate.mr8
+                        i.ic-check-24.fs24
+                    p.m-zero Enregistrer le skotch dans la liste sélectionnée.
+            .ob-info.m-zero
+                .flexVC
+                    .icon.share.mr8
+                        i.ic-close-24.fs24
+                    p.m-zero Quitter et annuler la saisie.
+        .show-it.step-three.select-friend-first-step(v-if="tip === 2")
+            .ob-info.m-zero
+                .flexVC
+                    .icon.share.mr8
+                        i.ic-skotch-and-share-6.fs24
+                    div
+                        p Choisir des copains à qui envoyer le skotch que vous êtes en train de saisir.
+            p.mt8 Cliquez sur cette icone s'il vous plait !
+
+        .show-it.step-three.select-friend-second-step(v-if="tip === 2")
+            p Ici, il vous suffira de cocher les amis à qui vous souhaitez envoyer ce skotch.
+
+            .ob-info.flexVC
+                .icon.validate.mr8
+                    i.ic-send.fs24.
+                p Une fois un ou plusieurs amis sélectionnés, cliquez sur l'icone envoyer.
+            .ob-info.flexVC
+                .icon.share.mr8
+                    i.ic-arrow-24.fs24.rotate-180
+                div
+                    p Cliquez sur cette icone pour revenir à la saisie du skotch.
+            //.ob-info
+                p Désactivez "Enregistrer dans ma liste également" si vous souhaitez skotcher vos amis <b>sans conserver le skotch dans votre liste</b>.
+
+        .show-it.step-four.select-friend-second-step(v-if="tip === 3")
+            .illus-container.fl-st
+                .illus.circular.rotate-infinite.small
+                    i.ic-liked.rotate-infinite-reverse
+                div
+                    p.function.mt0.mb0 Pratique non ?
+                    p.ml16 Allez ciao !
+            .ob-info
+                p En cliquant sur "J'ai compris", cette aide disparaîtra pour toujours.
+
+    .ob-footer
+        button.go-back(@click="previousTip()", :class="{'no-go-back' : tip === 0 , 'ml0' : tip === 3}" )
+            i.ic-arrow
+
+        button.go-back.no-go(v-if="tip < 3")
+            i.ic-arrow
+
+        button.go-back.final(v-if="tip === 3", @click="previousTip()", :class="{'ml0' : tip === 3}" )
+            i.ic-arrow
+
+        .counter(v-if="tip < 3")
+
+            .dot(:class="{'active' : tip === 0}")
+            .dot(:class="{'active' : tip === 1}")
+            .dot(:class="{'active' : tip === 2}")
+
+        button.next(v-if="tip < 2", @click="nextTip()")
+            i.ic-arrow
+
+        button.next.nope(v-if="tip === 2" @click="nextTip()")
+            i.ic-arrow
+
+        button.next.no-go(v-if="tip === 2")
+            i.ic-arrow
+
+        button.final(v-if="tip === 3", @click="hideHelp('ob6')")
+            span j'ai&nbsp;compris&nbsp;!

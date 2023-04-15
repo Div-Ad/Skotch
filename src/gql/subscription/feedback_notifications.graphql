@@ -1,0 +1,8 @@
+subscription FeedbackNotifications($id: String!) {
+    feedback(where: {is_read: {_eq: false}, suggestion: {user_id: {_eq: $id}}}) {
+        created
+        feedback
+        is_read
+        suggestion_id
+    }
+}

@@ -1,0 +1,16 @@
+query Friends_to {
+	friend_data(where: {_or: [{request_to: {is_accepted: {_is_null: true}}}, {request_to: {is_accepted: {_eq: true}}}]}) {
+		id
+		lastname
+		photobase64
+		photourl
+		firstname
+		accept_friend_request
+		is_male
+		request_to {
+			friend_id
+			is_accepted
+			updated
+		}
+	}
+}

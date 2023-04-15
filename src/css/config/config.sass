@@ -1,0 +1,259 @@
+@import "../partials/variables"
+@import "../partials/colors"
+
+#config
+    .list-select
+        cursor: pointer
+    section
+        &.profile, &.network, &.account, &.notifications, &.pwa-install, &.list-select
+            padding: 16px 0
+            border-bottom: 1px solid rgba(black, 0.15)
+            &.nb
+                border-bottom: 0 solid $c-g215
+
+    .title
+        h3
+            margin: 0 0 16px
+            color: $c-bnf-red
+            cursor: pointer
+
+    .contact
+        .ct-avatar
+            +setSquare(96px)
+            .background
+                .firstname-letter, .lastname-letter
+                    &:first-letter, &:first-letter
+                        font-size: 48px
+        
+    .icon.install
+        +setActionIcon(48px)
+        font-size: 32px
+        &:hover
+            color: $c-i-blue
+    
+    .account .input-container
+        margin-bottom: 4px
+        min-width: 240px
+        width: 240px
+    
+    .idp-login
+        margin-bottom: 0.5rem
+        .icon
+            +setSquare(24px)
+            +flexHVC
+            color: white
+            border-radius: 2px
+            background: url("~assets/img/background-line-4.svg") lighten($c-bnf,21%) center/4px repeat repeat
+            &.google
+                background-color: $c-google
+            &.facebook
+                background-color: $c-facebook-alt
+            &.apple
+                background-color: $c-g50
+            i
+                font-size: 16px
+                
+    .contact
+        +setFixedWidth(initial)
+        +setFixedHeight(initial)
+        flex-direction: row
+        
+    button.croppie-quit
+        background-color: gray
+    
+    .gender-form
+        h4, label, input[type="radio"]
+            margin-bottom: 0
+        label
+            background-color: transparent!important
+        
+#firstSteps
+    +setFlexBox(100vw, 100%, center, flex-start, column)
+    position: fixed
+    background-color: $c-bnf
+
+    
+    section.spinner.big#loading
+        +setFlexBox(100vw, 100%, center, center, row)
+        background-color: $c-bnf
+        position: fixed
+        z-index: 1
+        .icon.spin-it
+            i.ic-spinner
+                font-size: 80px
+
+    .scrollable-content
+        +custom8pxScrollBar
+        +setFixedHeight(calc(100% - 90px))
+
+    section
+        +setFixedWidth(360px)
+        +setFixedHeight(calc(100% - 64px))
+        position: relative
+        background-color: white
+        .page-title
+            margin: 0 16px
+        &#todolistfirstSelect .page-title, &#sklFirstSelect .page-title
+            padding: 0
+    
+    section#todolistfirstSelect, section#sklFirstSelect
+        +custom8pxScrollBar
+    
+    section#stepCounter
+        +setFixedHeight(64px)
+        //position: fixed
+        //bottom: 0
+        //background-color: white
+    
+    label
+        font-size: 16px
+        margin: 0
+    h3
+        text-transform: none
+        line-height: 1.2em
+        font-size: 16px
+        letter-spacing: 0
+        span
+            &.ok.active
+                color: $c-g50
+            &.active
+                color: $c-i-red
+    .input-group.large
+        margin: 8px 0
+        &.ok.active
+            input
+                border-color: $c-g215
+                border-left-color: $c-bnf
+                &:focus
+                    border-color: $c-i-blue
+                    border-left-color: $c-bnf
+            .icon
+                border-color: $c-bnf
+        &.active
+            input, .icon
+                border-color: $c-i-red
+    .switch-group
+        display: flex
+        align-items: center
+        justify-content: space-between
+    
+    .content
+        margin: 16px
+    
+    .content-gray
+        background-color: $c-g235
+        margin: 16px
+        padding: 8px
+        border-radius: 4px
+    
+    .skl-tag-list-2
+        display: inline-flex
+        flex-wrap: wrap
+        margin-top: 0
+            
+#stepCounter
+    +setFlexBox(100vw, 48px, center, space-between, row)
+    padding: 0 8px
+    .button-group
+        position: relative
+    .the-end
+        +setIcon(48px)
+    
+    button
+        +setActionIcon(48px)
+        i
+            font-size: 24px
+        &.only-one-step
+            +setFixedWidth(100%)
+            background-color: $c-i-validate
+        &.next, &.back
+            background-color: $cta
+            i
+                margin-right: -2px
+        &.back
+            i
+                transform: rotate(180deg)
+                margin-right: 2px
+            &.first
+                background-color: $c-g235
+                color: $c-g130
+        &.end
+            background-color: $c-i-validate
+            font-size: 16px
+        &.nope
+            background-color: $c-g235
+            color: $c-g80
+            cursor: not-allowed
+            white-space: nowrap
+            transition: margin 0.25s
+            &.valid
+                margin-left: -48px
+                margin-right: 4px
+                    
+            &.wow
+                background-color: $c-i-red
+                animation: openit 0.25s
+                font-size: 24px
+                color: white
+                
+    .issue
+        background-color: $c-i-red
+        color: white
+        +setFixedHeight(20px)
+        padding: 0 4px
+        font-size: 12px
+        border-radius: 2px
+        position: absolute
+        top: calc(50% - 10px)
+        right: 52px
+        white-space: nowrap
+        +flexHVC
+        text-transform: uppercase
+        font-family: $small
+        
+        &.dnd
+            display: none
+    
+    .box-container
+        +setIcon(24px)
+        margin: 0 12px
+    
+    .step
+        +setIcon(12px)
+        border-radius: 50%
+        background-color: $c-g215
+        //color: $c-g170
+        transition-duration: 0.25s
+        &.active
+            background-color: $cta
+        //&.active
+            transform: scale(1.5)
+            margin: 4px
+            &.one
+                background-color: $c-bnf-red
+                color: white
+            &.two
+                background-color: $c-i-yellow
+                color: white
+            &.three
+                background-color: $c-i-green
+                color: white
+            &.validate
+                background-color: $c-i-blue
+                color: white
+
+.form.notifications, section.notifications
+    .input-group
+        +setFixedWidth(100%)
+        justify-content: space-between
+
+    button
+        +setActionIcon(32px)
+        background-color: white
+        color: $c-i-blue
+        font-size: 24px
+    
+    .input-group, .flexVC
+        &:hover button
+            color: darken($c-i-blue, 14%)
+            font-size: 32px

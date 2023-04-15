@@ -1,0 +1,14 @@
+mutation update_skotch_order($newSkotchOrder: [skotch_insert_input!]!, $newSuggestionOrder: [suggestion_insert_input!]!) {
+    insert_skotch(objects: $newSkotchOrder, on_conflict: {constraint: skotch_pkey, update_columns: [rk]}) {
+        returning {
+            id
+            rk
+        }
+    }
+    insert_suggestion(objects: $newSuggestionOrder, on_conflict: {constraint: suggestion_pkey, update_columns: [rk]}) {
+        returning {
+            id
+            rk
+        }
+    }
+}

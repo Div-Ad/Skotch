@@ -1,0 +1,7 @@
+mutation readFeedback($id: uuid!) {
+    update_feedback_hint(where: {suggestion_id: {_eq: $id}}, _set: {is_read: true}) {
+        returning {
+            suggestion_id
+        }
+    }
+}

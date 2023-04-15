@@ -1,0 +1,7 @@
+mutation mutate_request($user_id: String!, $friend_id: String!, $changes: request_set_input) {
+    update_request(where: {user_id: {_eq: $user_id}, friend_id: {_eq: $friend_id}}, _set: $changes) {
+        returning {
+            user_id
+        }
+    }
+}

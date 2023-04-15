@@ -1,0 +1,38 @@
+@import "./partials/variables.sass"
+@import "./partials/colors.sass"
+
+@media (min-height: 520px)
+    .platform-ios .is-mobile
+        #nav
+            +setFixedHeight(calc(56px + 32px))
+            #shortcutBar
+                padding-bottom: 32px
+                box-shadow: 0 0 8px -4px rgba(0,0,0,0.5)
+            
+        .container-pre-bottom-button
+            +setFixedHeight(100%)
+            padding-bottom: 88px
+        .container-post-tabs, .container#config
+            padding-bottom: 88px // minus nav
+        
+        .bookmarked-skotchlist .container-post-tabs
+            padding-bottom: 88px // minus nav
+        
+        #quickCreate .content
+            .contact-selection
+                height: calc(100% - 64px - 40px)
+                padding-bottom: 32px
+                
+            .sk-create-form .skotch-creation
+                height: calc(100% - 64px - 40px)
+            
+            .options
+                +setFixedHeight(48px)
+                +setFixedWidth(calc(100vw - 24px))
+                margin: 0 12px 32px
+                border-radius: 4px
+                overflow: hidden
+                
+        #shortcutBar button.icon.create i.ic-sk-share-f-24
+            margin-top: 40px
+            

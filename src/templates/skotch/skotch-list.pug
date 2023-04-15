@@ -1,0 +1,208 @@
+.container-with-tabs#skl(:class="{'bookmarked-skotchlist': $route.name === 'bookmarked'}")
+
+    section.tabs.has-nav
+        .icon.nav(@click="$router.push({name: 'dashboard'})")
+            i.ic-arrow-24.mirror
+        .tab.current(@click="sktheque = false", :class="{'active': !sktheque , 'animate': animate , 'new-entry': triggeredToast}")
+            span Skotchs
+            span.sup {{ getSkotchCount(skotchList.id, false) }}
+        .tab.archive(@click="sktheque = true", :class="{'active': sktheque , 'animate': animate , 'new-entry': triggeredToast}")
+            span Ma Collection
+            span.sup {{ getSkotchCount(skotchList.id, true) }}
+
+    section.container-post-tabs(:id="'skl_' + skotchList.id")
+
+        section#subHeader
+            #PageTitle
+                .title-group#sklTitle
+                    .skl-icon
+                        .icon
+                            i
+                    .skl-title
+                        h2 {{ skotchList.title['fr'] }}
+
+                .title-group#bkSklTitle
+                    button.nav.rotate-180(@click="$router.push({name: 'dashboard'})")
+                        i.ic-arrow-24
+                    .skl-icon.icon
+                        i.ic-bookmark-list
+                    h2 Favoris
+
+                .icon.help#bkHelpTrigger(@click="bkHelpDisplay = !bkHelpDisplay", :class="{'active': bkHelpDisplay}")
+                    .icon
+                        i.ic-skotchinours
+
+                .group#sortTriggers
+                    .icon.sort(@click="filterDisplay = !filterDisplay ; toogleSortList() ; friendFilter = false ; filterTag = null", :class="{'active': filterDisplay , 'sorting-active': sortList === 'az' || sortList === 'date' || friendFilter || filterTag}")
+                        i.ic-sort-b24
+                        i.ic-close-24
+                        //span.icon-helper trier filtrer
+
+                    //.icon.filter(@click="filterDisplay = !filterDisplay", :class="{'active': filterDisplay , 'sorting-active': filterTag}")
+                        i.ic-filter
+                        span.icon-helper filtrer
+
+                .group#sortOptions(v-show="filterDisplay")
+                    button.sort-group.az(@click="toogleSortList('az')", :class="{'selected' : sortList === 'az'}" aria-label="ordonner de A à Z")
+                        .icon
+                            .icon.a-to-z
+                                span A
+                                span Z
+                            .icon.arrow
+                                i.ic-sort-arrow-b24
+                    button.sort-group(@click="toogleSortList('date')", :class="{'selected' : sortList === 'date'}" aria-label="ordonner par date")
+                        .icon
+                            i.ic-clock-b24
+
+                    button.sort-group.friend-sort(@click="friendFilter = !friendFilter", :class="{'selected' : friendFilter}" aria-label="filtrer en ne montrant que les skotchs de mes copains")
+                        .icon
+                            i.ic-friend
+
+            #bookmarkHelp(v-if="bkHelpDisplay")
+                .perma-help
+                    .ph-body
+                        p Ici se trouvent les skotchs que vous avez marqués d'une jolie étoile ! Des choses importantes, donc.
+                        .ph-info.reverse.mt16
+                            .flexVC
+                                i.ic-star-24.fs24.mr8
+                                p.m-zero Cliquez sur l'étoile devant chaque skotch pour les retirer de vos favoris
+                        .ph-info
+                            p Notez que lorsque votre liste de favoris est vide, on la fait disparaître ! Elle n'apparaît que si vous avez au moins un skotch favoris. Malin non ? (oui, c'est malin).
+
+            #skTagFilters(v-show="filterDisplay")
+                .skl-tag-list
+                    .skl-tag(@click="selectTagFilter(tag.id)",
+                        v-for="tag in orderedTags",
+                        :class="{'active' : tag.id === filterTag}") {{ tag.title['fr'] }}
+
+        section.skotchlist-content
+            section#sklAllSkotch(v-touch:swipe="swipeHandler", :class="{'animate-right-section': sktheque && animate , 'animate-left-section': !sktheque && animate, 'archived-skl': sktheque , 'current-skl': !sktheque , 'filter-are-displayed': filterDisplay, 'pb-0': getSkotchCount(skotchList.id, true) < 1 && sktheque}")
+                .no-content(v-if="!orderedSkotchs.length > 0 && !sktheque")
+                    p Rien dans
+                        br
+                        b.skl-title
+                            span {{ skotchList.title['fr'] }}
+                        br
+                        | pour l'instant.
+                    i.ic-liked
+                    p On se fait un skotch ?
+                    .help-arrow
+                        .icon
+                            i.ic-arrow-24
+
+                .no-content.sk-theque(v-if="getSkotchCount(skotchList.id, true) < 1 && sktheque")
+                    i.ic-sktheque-24
+                    p Votre Collection&nbsp;
+                        b.skl-title
+                            span {{ skotchList.title['fr'] }}
+                        | &nbsp;est vide.
+
+                    .icon-buddy-only.flexVC(@click="skthequeHelpDisplay =! skthequeHelpDisplay" :class="{'active': skthequeHelpDisplay }")
+                        i.ic-skotchinours
+                        h3.ml8.mb0 Ma Collection ?
+
+                    .perma-help.is-a-bis.show-it.mt16#PHskTheque(v-show="skthequeHelpDisplay")
+                        .ph-body
+                            p Une bibliothèque spéciale dans laquelle vous mettez les skotchs de votre choix !
+                            p Nous, on l'utilise pour y ranger certains skotchs que l'on souhaite conserver pour de futurs partages à de futurs copains.
+                            p D'autres l'utilisent pour archiver les skotchs qu'ils ont vus, lus, écoutés, etc.
+                            .ph-info.flexVC
+                                .icon
+                                    i.ic-sktheque-add-24.mr8
+                                p.mb0 Dans les options des skotchs cliquez sur cette icone pour les ajouter à votre collection.
+
+                draggable(v-model="draggableSkotchs" v-bind="dragOptions" @start="onDrag = true" @end="onDrag = false")
+                    transition-group(type="transition", name="flip-list", class="drag-container")
+                        .skotch(v-for="os in orderedSkotchs", :key="os.id", :class="{'bookmarked-sk': os.pin, 'archived-sk': os.archived, 'current-sk': !os.archived, 'selected': os.id === selectedSkotch, 'description': !!os.description && os.description.length > 300 }")
+                            i.ic-drag-2
+                            .first-part(@click="selectSkotch(os.id)", :class="{'selected': os.id === selectedSkotch}")
+                                .sk-group
+                                    .unpin(@click.stop="pinSkotch(os)")
+                                        i.ic-star-24
+                                    contact-thumbnail(:contact="getFriend(os.user_id)", :contactId="getFriend(os.user_id).id", :objectId="os.id", v-if="os.hasOwnProperty('user_id') && userInfo.accept_friend_request")
+                                    .sk-info-container
+                                        .sk-name {{ os.name }}
+                                        .skl-tag(v-if="!!os.tag_id") {{ getTagTranslation(os.tag_id) }}
+                                        i.ic-bookmark
+                                        a.sk-link(v-if="!!os.link", :href="os.link", :title="os.link", target="_blank", @click.stop)
+                                            i.ic-link-2
+
+                                button.icon.sk-details-trigger.handle.icon.ttp-trig(aria-label="Voir le détail et les options du skotch")
+                                    i.ic-options-b24(:class="{'active' : os.id === selectedSkotch}")
+                                    i.ic-close-24(v-if="os.id === selectedSkotch")
+                                    .ttp-txt.left détails et options
+
+                            .second-part(v-if="os.id === selectedSkotch")
+                                .sk-description(v-if="!!os.description || !!os.link")
+                                    p.pre-wrap(v-if="!!os.description", v-html="getAutolinktext(os.description)" :class="{'quote-style' : os.hasOwnProperty('user_id')}")
+                                    p.sk-link(v-if="!!os.link")
+                                        a.sk-link(:href="os.link", :title="os.link", target="_blank", @click.stop) Consulter le lien
+
+                                .sk-options
+                                    button.ttp-trig.icon.unarchive(@click="archiveSkotch(os)", aria-label="Retirer ce skotch de ma collection")
+                                        .ttp-txt.left.big Retirer de ma collection
+                                        i.ic-sktheque-remove-24
+                                    button.ttp-trig.icon.delete(@click="deleteSkotchDialog(os)", aria-label="Supprimer ce skotch")
+                                        .ttp-txt.top Supprimer
+                                        i.ic-bin-2
+                                    button.ttp-trig.icon.update(v-if="!os.hasOwnProperty('user_id')", @click="editSkotch(os)", aria-label="Modifier ce skotch")
+                                        .ttp-txt.top Modifier
+                                        i.ic-pen
+                                    button.ttp-trig.icon.pin(@click.stop="pinSkotch(os)", aria-label="Marquer ce skotch comme important")
+                                        .ttp-txt.top.big Marquer comme important
+                                        i.ic-star-24
+                                    button.ttp-trig.icon.archive(@click="archiveSkotch(os)", aria-label="Ranger ce skotch dans ma collection")
+                                        .ttp-txt.top.big Ranger dans ma collection
+                                        i.ic-sktheque-add-24
+
+                                    .skotchBackEmo.mediumEmo(v-if="os.hasOwnProperty('user_id') && hasFeedback(os)", @click.stop="toogleFeedback(os)" )
+                                        button.icon.ttp-trig(:class="getFeedback(os).feedback", aria-label="Modifier mon feedback au sujet de ce skotch")
+                                            i(:class="'ic-' + getFeedback(os).feedback")
+                                            b.ttp-txt.right modifier
+                                    button.ttp-trig.icon.skotchback(v-if="os.hasOwnProperty('user_id') && !hasFeedback(os) && userInfo.accept_friend_request", @click.stop="toogleFeedback(os)", aria-label="Envoyer un feedback à mon copain au sujet de ce skotch")
+                                        i.ic-skotchback-trigger-24
+                                        b.ttp-txt.right(v-if="os.hasOwnProperty('user_id') && !hasFeedback(os)") Feedback
+
+                                    button.icon.search(@click="searchOpen(os.id)", :class="{'active': os.id === searchOpened}", aria-label="Ouvrir les options de recherche")
+                                        i.ic-search
+                                        .search-options(v-show="os.id === searchOpened")
+                                            a.google(:href="'https://www.google.com/search?q=' + os.name" target="_blank")
+                                                button.icon(aria-label="Rechercher sur Google")
+                                                    i.ic-sh-google
+                                            a.wiki(:href="'https://fr.wikipedia.org/w/index.php?cirrusUserTesting=glent_m0&search=' + os.name" target="_blank")
+                                                button.icon(aria-label="Rechercher sur Wikipédia")
+                                                    i.ic-sh-wiki
+                                            a.amazon(:href="'https://www.amazon.fr/s?k=' + os.name" target="_blank")
+                                                button.icon(aria-label="Rechercher sur Amazon")
+                                                    i.ic-sh-amazon
+                                            a.libraires(:href="'https://www.leslibraires.fr/recherche/?q=' + os.name + '&f_shipping_delay=1'" target="_blank")
+                                                button.icon(aria-label="Rechercher sur les Libraires")
+                                                    i.ic-sh-libraires
+                                            a.maps(:href="'https://www.google.com/maps/search/' + os.name" target="_blank")
+                                                button.icon(aria-label="Rechercher sur Maps")
+                                                    i.ic-sh-maps
+                                            a.genius(:href="'https://genius.com/search?q=' + os.name" target="_blank")
+                                                button.icon(aria-label="Rechercher sur genius")
+                                                    i.ic-sh-genius
+
+                                    button.ttp-trig.icon.share(v-if="userInfo.accept_friend_request && friendCount > 0" @click="shareSkotch(os)", aria-label="suggérer ce skotch à mes copains")
+                                        .ttp-txt.top.big Suggérer à mes copains
+                                        i.ic-sk-share-f-24
+
+
+                                .sk-informations
+                                    span Skotché par&nbsp;
+                                        span.author
+                                            span
+                                            span(v-if="!os.hasOwnProperty('user_id')") vous-même
+                                            span.red(v-else) {{ getFriend(os.user_id).firstname }} {{ getFriend(os.user_id).lastname }}
+                                        span.creation-date &nbsp;{{ getTimestamp(os) }}
+
+                OBSkFilter(v-if="!userInfo.params.help.ob0 && !userInfo.params.help.ob7 && userInfo.params.help.ob2 && userInfo.params.help.ob6 && orderedSkotchs.length > 9 && !sktheque" :class="{'more' : orderedSkotchs.length > 10}")
+                OBSkOrder(v-if="!userInfo.params.help.ob0 && !userInfo.params.help.ob6 && userInfo.params.help.ob2 && orderedSkotchs.length > 2 && !sktheque", :class="{'more' : orderedSkotchs.length > 3}")
+                OBSkOptions(v-if="!userInfo.params.help.ob0 && !userInfo.params.help.ob2 && orderedSkotchs.length > 0 && !sktheque")
+
+
+    Feedback(v-if="feedbackDisplay", :skotch="skotchFeedbackObject")
+
+    Nav

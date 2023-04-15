@@ -1,0 +1,14 @@
+subscription RequestNotifications {
+    request(where: {is_accepted: {_is_null: true}}) {
+        is_accepted
+        is_read
+        user_id
+        created
+        user {
+            firstname
+            lastname
+            photobase64
+            photourl
+        }
+    }
+}

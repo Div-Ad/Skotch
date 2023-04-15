@@ -1,0 +1,53 @@
+.container-with-tabs#dashboard
+
+    section.tabs
+        .tab.always-animated(@click="$router.push({name: 'dashboard'}).catch(err => {})", :class="{ 'no-animation': from.name === 'quick-create' || from.name === 'friend' }")
+            span Mes Listes
+        .tab.always-animated(@click="$router.push({name: 'friends'}).catch(err => {})", :class="{'active': $route.name === 'friends' || $route.name === 'search-friends', 'no-animation': from.name === 'quick-create' || from.name === 'friend'}")
+            span Mes Copains
+            span.sup(v-if="userInfo.accept_friend_request") {{friendCount}}
+
+    section.overviews.container-post-tabs
+
+        section#contactOverview(:class="{'animate-right-section': from.name === 'dashboard' , 'animate-left-section': from.name === 'friend'}")
+
+            section.contact-list(v-if="$route.name === 'friends' && userInfo.accept_friend_request", v-touch:swipe="swipeHandler")
+                //.contact-search-trigger.overlay.open-it.delay_1s(v-if="friendCount > 10" @click="$router.push({name: 'search-friends'})")
+                    .icon
+                        i.ic-friend-add
+
+                OBFriend(v-if="friendCount > 0 && !userInfo.params.help.ob0 && !userInfo.params.help.ob3")
+
+                .contact(v-for="f in friends", :key="f.id", @click="$router.push({name: 'friend', params: {id: f.id}})")
+
+                    contact-thumbnail(:contact="f" :contactId="f.id")
+
+                    .ct-infos
+                        .ct-firstname
+                            span.ct-name-span {{ f.firstname }}
+                        .ct-lastname
+                            span.ct-name-span {{ f.lastname }}
+
+                    .ct-options
+                        .icon.friend-profile(@click="$router.push({name: 'friend', params: {id: f.id}})")
+                            i.ic-friend-profile1
+
+                        .icon.share.shortcut(@click.stop="$router.push({name: 'quick-create', params: {friend: f.id, action: 'share'}})")
+                            //i.ic-sk-share-f-24
+                            i.ic-skotch-and-share-6
+
+
+                .contact.contact-search-trigger(@click="$router.push({name: 'search-friends'})")
+                    .icon
+                        i.ic-friend-add
+                    .ct-infos Ajouter des copains
+
+            section.contact-list(v-if="$route.name === 'friends' && !userInfo.accept_friend_request", v-touch:swipe="swipeHandler")
+                .no-content
+                    p Vous n'avez pas autorisé les demandes et suggestions de copains. Vous ne pouvez actuellement pas partager de skotchs, ni en recevoir.
+                    p Accédez aux Paramètres, rubrique Réseau & Partage, pour activer cette fonctionnalité et découvrir toute la puissance de Skotch.
+                    .icon(@click="$router.push({name: 'config'})")
+                        i.ic-param-24
+            router-view
+    Nav
+

@@ -1,0 +1,277 @@
+@import "../partials/variables"
+@import "../partials/colors"
+
+.container-with-tabs#skl
+    //section.tabs
+        ////////////////////////
+        // cf containers.sass //
+        ////////////////////////
+    //section.container-post-tabs
+        ////////////////////////
+        // cf containers.sass //
+        ////////////////////////
+    section#subHeader
+        #PageTitle
+            
+            ////////////////////////
+            // cf containers.sass //
+            ////////////////////////
+            
+            margin:  0 16px
+            padding: 0 16px
+            cursor: pointer
+            position: relative
+            background-color: white
+            z-index: 2
+            .tdl-icon.icon i, .skl-icon.icon i
+                font-size: 32px
+        
+        #skTagFilters
+            border-radius: 0 0 4px 4px
+            overflow: hidden
+            position: relative
+            z-index: 1
+        
+        #helperText, #bookmarkHelp
+            margin-top: 8px
+            .note
+                margin-bottom: -16px!important
+        
+        #skTagFilters, #helperText, #bookmarkHelp, #skSort
+            width: calc(100% - 32px)
+            min-height: 24px
+            display: flex
+            align-items: flex-start
+            margin-left: 16px
+            animation: appear 0.25s
+            //+setTopAnimation(-24px)
+
+            .skl-tag-list
+                width: 100%
+            
+            .skl-tag
+                cursor: pointer
+                margin: 0!important
+                border-radius: 0
+                font-size: 13px
+                border-right: 1px solid darken($c-bnf-red, 7%)
+                border-bottom: 1px solid darken($c-bnf-red, 7%)
+                &:last-child
+                    border-radius: 0 0 4px 0
+                &:hover
+                    background-color: darken($c-bnf-red, 7%)
+                &.active
+                    background-color: $c-bnf-gold
+                    border-right: 1px solid darken($c-bnf-gold, 7%)
+                    border-bottom: 1px solid darken($c-bnf-gold, 7%)
+    #sortTriggers
+        .icon.sort
+            align-items: flex-end
+        .icon-helper
+            text-align: right
+            margin-top: 4px
+            font: 500 9px/9px $small
+            text-transform: uppercase
+            transition: 0.25s
+        .filter, .sort
+            position: relative
+            bottom: -2px
+            flex-direction: column
+            +setActionIcon(32px)
+            margin-left: 4px
+            i
+                font-size: 40px
+            i.ic-close-24
+                display: none
+                position: relative
+                font-size: 24px
+                top: -2px
+            &.active i, &:hover i, &:hover span
+                color: $c-bnf-red
+            &.active span.icon-helper, &.active i.ic-sort-b24
+                display: none
+            &.active i.ic-close-24
+                display: block
+                
+            //&.sorting-active i, &.sorting-active:hover i, &.sorting-active:hover span
+                color: $c-bnf-gold
+        
+    #sortOptions
+        +setFixedHeight(44px)
+        position: absolute
+        right: 54px
+        top: calc(50% - 44px / 2)
+        z-index: 2
+        background-color: $c-bnf-red
+        border-radius: 3px
+        transform: scale(1.25)
+        transform-origin: right center
+        i, span
+            color: white
+        
+    button.sort-group
+        +flexHVC
+        +setFixedHeight(44px)
+        +setFixedWidth(56px)
+        cursor: pointer
+        background-color: transparent
+        height: 100%
+        transition: none
+        &.friend-sort:after
+            content: '\e976'
+            display: block!important
+            font-family: $icon
+            font-size: 16px
+            line-height: 16px
+            position: absolute
+            top: calc(50% - 16px / 2)
+            right: -10px
+            color: $c-bnf-red
+        &.friend-sort.selected
+            border-radius: 0 3px 3px 0
+            &:after
+                color: $c-bnf-gold!important
+        &.selected
+            background-color: $c-bnf-gold
+            border-radius: 0
+        .icon.arrow
+            transform: rotateX(180deg)
+        .icon.a-to-z
+            +setFlexBox(24px, 44px, center, center, column)
+            margin-left: -8px
+        .a-to-z span
+            +setSquare(12px)
+            font: 13px/13px $condensed
+            position: relative
+        &.az.selected
+            border-radius: 3px 0 0 3px
+        .icon
+            +setActionIcon(44px)
+            i
+                font-size: 24px
+        .icon.arrow
+            +setFlexBox(6px, 44px, center, center, row)
+            transition: 0.25s
+
+    #sklAllSkotch
+        padding: 16px
+        +setFixedWidth(100%)
+        position: relative
+
+        .drag-container
+            display: flex
+            flex-wrap: wrap
+
+.no-content
+    +setFixedHeight(calc(100vh - 64px - 48px - 90px - 32px - 48px))
+    width: 100%
+    +flexHVC
+    flex-direction: column
+    color: $c-g130
+    font: 15px/20px $condensed
+    p
+        max-width: calc(100% - 64px)
+        text-align: center
+        span, b, i
+            display: inline-block
+        i.ic-sktheque-2-add-b24, i.ic-sktheque-add-24
+            font-size: 24px
+            margin-bottom: 0
+    p.small
+        font: 13.5px/16px $condensed
+        
+        b.dark
+            color: $c-g50
+            display: inline
+            font-weight: 400
+            
+    .help-arrow
+        +setFixedWidth(100%)
+        +flexHVC
+        position: fixed
+        bottom: calc(96px + 16px)
+        animation: appear 0.5s 1.5s backwards
+        .icon
+            +flexHVC
+            transform: rotate(90deg)
+            animation: loading linear 1.3s infinite
+        i.ic-arrow-gc, i.ic-arrow-24
+            font-size: 48px
+            color: lighten($c-skotch-share-lt, 7%)
+            margin: 0
+        .is-mobile &
+            bottom: calc(56px + 32px)
+            left: initial
+            right: 0
+            .platform-ios &
+                bottom: calc(88px + 32px)
+    i.ic-create-sqt
+        font-size: 16px
+        margin: 0 4px
+        display: inline-block
+        .is-mobile &
+            display: none
+    i.ic-add
+        font-size: 16px
+        margin: 0 4px
+        display: none
+        .is-mobile &
+            display: inline-block
+    i
+        font-size: 48px
+        margin-bottom: 16px
+    
+    .icon-helper
+        background-color: $c-g245
+        +flexVC
+        padding: 12px
+        i
+            font-size: 24px
+            margin-right: 12px
+        p
+            margin: 0
+            text-align: left
+
+//// conditionnal CSS for .archived-sk through .archived-skl class ////
+
+.archived-skl
+    .skotch.archived-sk
+        display: block
+
+    .skotch.current-sk
+        display: none
+
+//// conditionnal CSS for .current-sk through .current-skl class ////
+
+.current-skl
+    .skotch.archived-sk
+        display: none
+    .skotch.current-sk
+        display: block
+
+//// conditionnal CSS for .bookmarked-sk through .bookmarked-skotchlist class ////
+
+#PageTitle
+    #bkSklTitle, #bkHelpTrigger
+       display: none
+    
+.bookmarked-skotchlist
+    section.tabs.has-nav, .no-content, .drag
+        display: none
+    #sklTitle, #sortTriggers, #skTagFilters
+        display: none
+    #PageTitle
+        #bkSklTitle, #bkHelpTrigger
+            display: flex
+            button.nav
+                background-color: $c-i-blue
+                margin-right: 12px
+                font-size: 24px
+                +setActionIcon(48px)
+                margin-left: -16px
+                
+    .unpin
+        display: flex
+    .current-skl
+        .skotch.archived-sk
+            display: block

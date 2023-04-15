@@ -1,0 +1,58 @@
+.container-with-bottom-button#sklSelect.animate-bottom
+
+    .container-pre-bottom-button
+        #PageTitle.pointer(@click="helpDisplay = !helpDisplay")
+            .title-group
+                .skl-icon.icon
+                    i.ic-list-add
+                h2 Choix des listes
+
+            .icon.help(:class="{'active': helpDisplay}")
+                i.ic-skotchinours
+
+        section.introduction(v-if="helpDisplay")
+            .perma-help
+                .ph-body.show-it
+                    h3 Bon à savoir :
+                    li Lorsque vous désélectionnez une liste, vous ne perdez pas les skotchs qu'elle contient. Il vous suffira donc de la sélectionner à nouveau pour accéder à son contenu.
+                    li Personne n'a accès au contenu de vos listes. Il est totalement privé.
+                    li Vous ne pouvez pas créer un skotch dans une liste que vous n'avez pas préalablement sélectionnée.
+                    li Par contre, si vous partagez un skotch dans une liste que votre copain n'a pas sélectionnée, elle sera automatiquement ajoutée à ses listes.
+
+
+        section.introduction
+            .perma-help.is-a-bis
+                .ph-body
+                    p Sélectionnez ou déselectionnez les listes de votre choix. Vos listes sélectionnées s'afficheront dans "Mes Listes".
+                    .ph-info.reverse.flexVC.mt16.skl-tag-help
+                        .skl-tag.special.mr8 Film
+                        p.m-zero Les tags vous détaillent les sous-catégories présentes dans chaque liste.
+
+        section#sklList.p-16
+
+            .skl-select-group(v-for="sl in orderedSkotchListCatalog", :key="sl.id")
+                .skotchlist(@click="toogleSkotchList(sl.id)", :class="{ inactive : !isSkotchListActive(sl.id) , active : isSkotchListActive(sl.id) }", :id="'skl_' + sl.id")
+                    .skl-icon
+                        .icon
+                            i
+                    .skl-title
+                        span {{ sl.title[$i18n.locale] }}
+                    .skl-options
+                        button.icon.skl-select(v-if="isLoading.includes(sl.id)")
+                            loading.delay-appear(color='black', v-if="!isSkotchListActive(sl.id)")
+                            loading.delay-appear(color='white', v-if="isSkotchListActive(sl.id)")
+                        button.icon.skl-select(v-if="!isLoading.includes(sl.id)", :class="{ active : isSkotchListActive(sl.id) }")
+                            i.ic-ok-c-b24
+                            i.ic-list-add
+
+                //h4(v-if="sl.id !== 20") Pour vos
+
+                .skl-tag-list
+                    .word-only(v-for="tag in orderTags(sl['skotch_list_tags'])") {{ tag.title[$i18n.locale] }}
+
+    #sklSelectValidateButton(@click="$router.back()")
+        .icon
+            button
+                h4.mb0.mt0 Terminer
+                //i.ic-ok-c-b24.fs24.ml16
+    Nav

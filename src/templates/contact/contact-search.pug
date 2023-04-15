@@ -1,0 +1,103 @@
+section.contact-search-content
+
+    section.ct-search-input
+        .go-back.icon(@click="$router.go(-1)")
+            i.ic-arrow-gc
+
+        .input-group
+            input.icon-before.mr4(type="search", v-model="searchInput", placeholder="Prénom et/ou Nom", @keydown.enter="focusSearchButton()", @input="searchRequest()")
+            .icon
+                i.ic-friend-add
+                //i.ic-search
+            .warning(v-if="searchInput.length > 40")
+                span Trop long ! 40 caractères max.
+            button.basic.ml8.validate.visible(@click="searchRequest()", ref="search")
+                i.ic-search
+
+    section(v-if="searchResult === null")
+        .perma-help.is-a-bis#PHSearchAssist
+            .ph-body
+                .ph-info.m-zero Tapez les premières lettres du Prénom ou du Nom d'un copain pour lancer automatiquement la recherche.
+
+    section.ct-search-results(v-if="searchResult !== null")
+        .page-title
+            .title-group
+                .icon
+                    i.ic-search
+                h2
+                    span(v-if="searchInput.length > 0 && searchResult.length === 0") Aucun Résultat pour « {{ searchQuery }} »
+                    span(v-else) Résultats pour « {{ searchQuery }} »
+
+        .contact-list-research(v-if="searchResult.length > 0")
+            .contact(v-for="(u, idx) in searchResult")
+                .group
+                    contact-thumbnail(:contact="u" :contactId="u.id")
+                    .ct-infos
+                        .ct-firstname {{ u.firstname }}
+                        .ct-lastname {{ u.lastname }}
+
+                .request-action(v-if="isLoadingRequest.includes(u.id)")
+                    button.basic.loading
+                        .icon
+                            i.ic-friend
+                        span
+                            strong <&nbsp;
+                            | Ok, J'envoie !
+
+                .request-action(v-else-if="requestAlreadySent(u.id)")
+                    button.basic.cursor-default.confirmation-message Demande envoyée
+                        i.ic-check-24.fs16.ml4
+
+                .request-action(v-else-if="isFriend(u.id)")
+                    button.basic.cursor-default.ok-friend Déjà Copains
+                        i.ic-check-24.fs16.ml8
+
+                .request-action(@click="openNotificationDisplay()", v-else-if="hasSentRequest(u.id)")
+                    button.basic.requested Accepter sa demande
+                        i.ic-add-24-2.fs16.ml8
+
+                .request-action(v-else)
+                    button.basic.request(@click="applyFriendshipRequest(idx)") Ajouter
+                        i.ic-add-24-2.fs16.ml8
+
+    .spinner.big(v-show="isLoadingSearch")
+        .icon.spin-it
+            img.big(:src="'img/spinner-dk.svg'")
+    section.help-no-friend
+
+        .flexVC.help.delay-appear(v-if="searchInput.length === 0 && friendCount < 1", @click="noFriendHelp =! noFriendHelp", :class="{'active': noFriendHelp }")
+            i.ic-skotchinours.fs32
+            i.ic-triangle-right
+            p Pas de copains inscrits sur Skotch ? <br> Cliquez-moi si vous voulez un coup de main.
+
+        .perma-help#friendSearch(v-if="(searchResult !== null && searchResult.length === 0) || noFriendHelp")
+            .ph-body
+                .illus-container.fl-st
+                    .illus.circular.small
+                        i.ic-friend
+                    .ph-main-text Skotch, c'est vraiment bien avec les bons copains !
+                p.mt8
+                    | Il est sûrement temps d'en parler aux amis avec qui vous avez l'habitude d'échanger de bons conseils et de les inviter à créer un compte.
+
+                .link-collection
+                    .title
+                        p Envoyer <a class="cta" href="https://skotch.app" target="_blank">skotch.app</a> à des copains via :
+                    a.sms(href="sms:?body=https%3A%2F%2Fskotch.app" target="_blank")
+                        img(src="~assets/img/sms-white.svg")
+                        span message
+                    a(href="whatsapp://send?text=https%3A%2F%2Fskotch.app" data-action="share/whatsapp/share")
+                        img(src="~assets/img/whatsapp-32.svg")
+                        span whatsapp
+                    a(href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fskotch.app" target="_blank")
+                        .icon
+                            i.ic-facebook.fs32
+                        span facebook
+                    a(href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fskotch.app" target="_blank")
+                        .icon
+                            i.ic-twitter.fs32
+                        span twitter
+
+                //p.mt8
+                    | Ou rendez-vous sur&nbsp;
+                    a.cta(href="https://skotch.me" target="_blank") skotch.me
+                    | &nbsp;pour lui présenter l'application.

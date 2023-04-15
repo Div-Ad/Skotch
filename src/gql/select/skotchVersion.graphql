@@ -1,0 +1,5 @@
+query lastVersion {
+    skotch_version(order_by: {number: desc}, limit: 1) {
+        number
+    }
+}

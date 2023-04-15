@@ -1,0 +1,10 @@
+query user_search($term: String) {
+    search_users(args: {search: $term}) {
+        lastname
+        photobase64
+        photourl
+        id
+        firstname
+        is_male
+    }
+}

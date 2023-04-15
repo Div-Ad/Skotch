@@ -1,0 +1,92 @@
+@import "../../css/partials/variables.sass"
+@import "../../css/partials/colors.sass"
+
+.skotchback-container
+    +setFlexBox(100%, 100%, center, center, row)
+    position: fixed
+    z-index: 9999
+    top: calc(64px + 48px)
+    left: 0
+    padding: 16px
+    background-color: rgba(255,255,255,0.75)
+    
+    .hitzone
+        position: absolute
+        height: 100%
+        width: 100%
+        top: 0
+        left: 0
+
+#skotchBack
+    +flexHVC
+    flex-direction: column
+    border-radius: 4px
+    background-color: lighten($c-g245, 2.5%)
+    box-shadow: 0 0 8px rgba($c-bnf, 0.25)
+    padding: 0 16px 16px
+    animation: openit 0.35s backwards
+    z-index: 1
+
+    header
+        +setFlexBox(100%, 48px, center, space-between, row)
+        border-bottom: 1px solid rgba(50,50,50,0.15)
+        h2
+            font: 300 24px/24px $condensed
+            margin: 0
+
+        button.close
+            +setIcon(48px)
+            color: $c-g50
+            position: relative
+            right: -8px
+            &:hover
+                color: $c-bnf-red
+    body
+        padding: 16px 0 0
+        background-color: transparent
+        width: 100%
+        p
+            text-align: justify
+        .skotchBackEmo
+            +flexHVC
+            flex-wrap: wrap
+            width: 100%
+
+.skotchBackEmo
+    button.icon
+        +setIcon(34px)
+        margin: 6px
+        background: lighten($c-bnf-gold, 0%)
+        border-radius: 4px
+        position: relative
+        i
+            font-size: 32px
+            color: rgba(50,50,50,0.8)
+            position: relative
+            top: -2px
+        &:before, &:after
+            content: ""
+            height: 4px
+            width: 6px
+            background-color: rgba(200,0,0,0.35)
+            border-radius: 50%
+            position: absolute
+            top: calc(50%)
+            animation: appear-disappear 3s infinite
+        &:before
+            left: 2px
+        &:after
+            right: 2px
+        &.hated
+            background: linear-gradient(to bottom, lighten($c-bnf-red,3.5%),$c-bnf-gold,  $c-bnf-gold)
+        &.meh, &.disliked, &.hated
+            &:before, &:after
+                display: none!important
+    
+    &.mediumEmo
+        button.icon
+            +setIcon(32px)
+            margin: 0 4px
+            i
+                font-size: 30px
+                top: -1px

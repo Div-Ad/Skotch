@@ -1,0 +1,307 @@
+@import "src/css/partials/variables"
+@import "src/css/partials/colors"
+
+// Container
+#quickCreate
+    +setFlexBox(100vw, 100%, center, center, row)
+    position: relative
+    z-index: 1
+    
+    .content
+        +setFixedWidth(360px)
+        max-height: 720px
+        height: 100%
+        .sk-create-form
+            +setFixedWidth(100%)
+            height: 100%
+            .sk-create
+                padding-bottom: calc(48px + 16px) // options buttons + some space
+                
+            .skotch-creation
+                height: calc(100% - 64px - 48px)
+                width: calc(100% + 16px)
+                max-width: 480px
+                padding: 0 16px 64px 0
+                margin: auto
+                +custom8pxScrollBar
+            .contact-selection
+                width: calc(100% + 16px)
+                max-width: 480px
+                padding: 16px 16px 16px 0
+                height: calc(100% - 64px - 48px)
+                +custom8pxScrollBar
+
+@media (max-height: 300px)
+    #quickCreate
+        .sk-title.mt16, .skl-title-select.mt16, .skl-tag-select.mt16, .sk-description.mt16, .sk-url.mt16
+            margin-top: 4px!important
+
+#quickCreate
+    background-color: $c-bnf
+    .sk-title.mt16, .skl-title-select.mt16, .skl-tag-select.mt16, .sk-description.mt16, .sk-url.mt16
+        transition: margin 0.25s
+    .trick-anchor
+        +setFixedHeight(0px!important)
+        +setFixedWidth(0px!important)
+        border: none!important
+        margin: 0!important
+        padding: 0
+
+    .close-trigger
+        position: fixed
+        +setFixedWidth(100vw)
+        +setFixedHeight(100%)
+    .skotch-piece
+        display: none
+    .content
+        +flexHVC
+        background-color: inherit
+    .content-gray
+        background-color: $c-g235
+        margin-bottom: 16px
+        padding: 8px
+        border-radius: 4px
+        p
+            margin: 0
+    .sk-create-form
+        padding: 0 16px 0 16px
+        background-color: white
+        color: $c-g50
+        position: relative
+        z-index: 2
+        .form-header
+            +setFixedHeight(64px)
+            +flexVC
+            justify-content: space-between
+            border-bottom: 3px solid $c-g215
+            h2
+                font-size: 24px
+                line-height: 22px
+                margin: 0
+                &.sl-new-skotch
+                    line-height: 22px
+            .close
+                position: relative
+                z-index: 0
+                +setIcon(32px)
+                background-color: white
+                color: $c-g50
+                cursor: pointer!important
+                i
+                    font-size: 16px
+                &:hover
+                    color: $c-i-blue
+        input, select, textarea
+            +setFixedWidth(100%)
+            border: 2px solid $c-g215
+            border-radius: 2px
+            min-height: 48px
+            &::placeholder
+                color: rgba(50,50,50,0.5)
+                line-height: 16px
+            &:focus
+                outline: none
+                border: 2px solid $c-i-blue
+                background-color: white
+                color: $c-g50
+        textarea
+            height: 128px
+        .input-group
+            input
+                border-left: 48px solid $c-g215
+                &:focus
+                    border-color: lighten($c-bnf-purple, 7%)!important
+                    border-radius: 2px 0 0 2px
+                    background-color: white
+                    color: lighten($c-bnf-purple, 7%)
+            .icon
+                +setSquare(48px)
+                color: $c-g50
+                border-radius: 2px 0 0 2px
+                border: 2px solid transparent
+                background-color: transparent
+                i
+                    font-size: 24px
+                i.ic-link-2
+                    font-size: 16.5px
+                    color: $c-bnf
+        .helper
+            width: 100%
+            padding: 12px
+            position: relative
+            background-color: $c-g235
+            border-radius: 3px
+            color: $c-g80
+            margin: 16px 0 0
+            .icon
+                +setIcon(24px)
+            p
+                margin: 0 12px
+                font-size: 12px
+                line-height: 12px
+            .close
+                +setIcon(48px)
+            &.friend
+                margin-bottom: 16px
+                
+        .sk-option
+            +flexHVC
+            justify-content: space-between
+        .ct-search-input
+            animation: none
+            +setFlexBox(100%, 48px, flex-start, center, row)
+            padding: 0
+            margin: 0
+            .input-group, input
+                +setFixedWidth(100%)
+                i.ic-search
+                    color: white
+        .contact
+            +setFixedWidth(100%)
+            +setFixedHeight(64px)
+            display: flex
+            flex-direction: row
+            align-items: center
+            justify-content: space-between
+            margin: 0
+            padding-right: 0
+
+            .group
+                +flexVC
+            &:hover
+                .request-action button.contact-select.disabled:before
+                    display: flex
+            .ct-infos
+                display: inline-flex
+                flex-wrap: wrap
+                align-content: center
+                justify-content: center
+                +setFixedHeight(32px)
+                margin-top: 0
+                margin-left: 8px
+            .ct-avatar
+                +setSquare(48px)
+                overflow: hidden
+                
+                .background
+                    .firstname-letter, .lastname-letter
+                        font-size: 24px
+
+            .request-action
+                button.contact-select
+                    +setIcon(24px)
+                    background-color: $c-theme
+                    border: 3px solid $c-g205
+                    color: $c-g245
+                    border-radius: 3px
+                    &.selected
+                        background-color: lighten($c-bnf, 14%)
+                        border: 2px solid lighten($c-bnf, 14%)
+                        color: white
+                    &.disabled
+                        background-color: $c-g205
+                        border: 2px solid $c-g205
+                        color: $c-g80
+                        cursor: not-allowed
+                        position: relative
+                        &:before
+                            content: "Déjà Partagé"
+                            font-family: $condensed
+                            display: none
+                            position: absolute
+                            left: calc(-96px)
+                        &:hover
+                            &:before
+                                display: flex
+                        &:focus
+                            border-radius: 3px
+        .switch
+            &:hover
+                border-radius: 12px
+
+        .options
+            +setFlexBox(100%, 48px, center, space-between, row)
+            position: absolute
+            bottom: 0
+            left: 0
+            margin: 0
+            z-index: 1
+            button:focus:after
+                content: ''
+                border-bottom: 4px solid $c-g215
+                width: 100%
+                position: absolute
+                top: -4px
+                left: 0
+                
+            .empty-div
+                display: none
+            .icon
+                +flexHVC
+                width: 100%
+                border-radius: 0
+                +setFixedHeight(100%)
+                cursor: pointer
+                background-color: rgba(0,0,0,0.05)
+                color: white
+                span
+                    font-size: 12px
+                    text-transform: none
+                    margin-left: 8px
+                    text-align: left
+                    display: none
+                
+                &.validate
+                    background-color: $c-i-validate
+                
+                &.next
+                    background-color: $c-i-blue
+                    +flexHVC
+                    i.ic-add1
+                        +setIcon(24px)
+                        border-radius: 50%
+                        background-color: $c-i-blue
+                        position: relative
+                        left: 9px
+                    i.ic-add1._2
+                        +setIcon(28px)
+                        position: relative
+                        font-size: 24px
+                        left: -10px
+                &.send, &.share
+                    //background-color: $c-skotch-share-lt
+                    border-left: 2px solid rgba(0,0,0,0.05)
+                    i
+                        font-size: 24px
+                        color: rgba($c-g50, 1)
+                &.friend-select
+                    background-color: $c-i-blue
+                    i
+                        color: white
+                &.close
+                    background-color: rgba(0,0,0,0.05)
+                    color: $c-g50
+                    display: none
+                    
+                    
+                    i.ic-close
+                        font-size: 24px
+                &.stepback
+                    background-color: rgba(0,0,0,0.05)
+                    color: $c-g50
+                    transform: scale(-1 ,1)
+                    ///border-right: 2px solid rgba(0,0,0,0.05)
+                    .ttp-txt.top.t-48px
+                        transform: scale(-1 ,1)
+                &.invalid
+                    //+setFixedWidth(0)
+                    //padding: 0
+                    //overflow: hidden
+                    //transition: 0.15s ease-in-out
+                    background-color: $c-g235
+                    cursor: not-allowed
+                    i
+                        color: $c-g205!important
+
+
+

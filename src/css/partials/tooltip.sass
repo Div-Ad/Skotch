@@ -1,0 +1,79 @@
+.ttp-trig
+    position: relative
+.ttp-trig-abs
+    position: absolute
+.icon-tt
+    +flexHVC
+.ttp-txt
+    +setFixedWidth(96px)
+    +setFixedHeight(32px)
+    padding: 0 4px
+    font: 300 12px/13px $small !important
+    vertical-align: bottom
+    border-radius: 4px
+    align-items: center
+    justify-content: center
+    text-align: center
+    position: absolute
+    left: calc(50% - 96px / 2)
+    background-color: rgba(50, 50, 50, 0.9)
+    color: $c-white
+    display: none
+    text-transform: uppercase
+    z-index: 9999
+    &.left
+        left: calc(-96px - 8px)
+        top: calc(50% - 32px / 2)
+        &:after
+            transform: rotate(0deg)
+            bottom: calc(50% - 16px / 2)
+            right: -61px
+        &.big
+            +setFixedHeight(48px)
+            top: calc(50% - 48px / 2)
+    &.right
+        right: calc(-96px - 8px)
+        left: initial
+        &:after
+            transform: rotate(180deg)
+            bottom: calc(50% - 16px / 2)
+            left: -10px
+    &.top
+        top: -36px
+        &.big
+            +setFixedHeight(48px)
+            top: -48px
+        &:after
+            transform: rotate(90deg)
+            bottom: -10px
+        &.t-64px
+            top: -64px
+        &.t-48px
+            top: -48px
+    &.bottom
+        top: initial
+        bottom: -40px
+        &.big
+            +setFixedHeight(48px)
+            bottom: -56px
+        &:after
+            transform: rotate(270deg)
+            left: calc(50% - 16px / 2)
+            top: -10px
+        &.b-64px
+            bottom: -64px
+        &.b-48px
+            bottom: -48px
+
+    &:after
+        content: '\e976'
+        font-family: $icon
+        font-size: 16px
+        line-height: 16px
+        position: absolute
+        left: calc(50% - 16px / 2)
+        color: rgba(50, 50, 50, 0.9)
+
+.ttp-trig:hover .ttp-txt
+    animation: openit 0.1s 0.70s backwards
+    display: flex !important

@@ -1,0 +1,30 @@
+mutation insert_single_skotch($newSkotch: skotch_insert_input!) {
+    insert_skotch_one(object: $newSkotch) {
+        archived
+        created
+        updated
+        description
+        id
+        link
+        name
+        pin
+        rk
+        tag_id
+        skotch_list_id
+        is_hidden
+        suggestions {
+            id
+            is_accepted
+            archived
+            is_read_by_user
+            is_read_by_friend
+            pin
+            rk
+            friend_id
+            created
+            user_id
+            updated
+            skotch_id
+        }
+    }
+}

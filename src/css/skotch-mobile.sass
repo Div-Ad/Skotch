@@ -1,0 +1,1662 @@
+@import "./partials/variables.sass"
+@import "./partials/colors.sass"
+
+.is-mobile
+    
+    *
+        button:focus
+            transform: scale(1)
+            box-shadow: none!important
+            &:after
+                display: none!important
+        button:hover
+            border-radius: 3px
+    
+    ////////////////
+    // Components //
+    ////////////////
+    
+    //- Userbar -//
+    
+    #userBar
+        +setFixedHeight(48px)
+        .icon
+            +setActionIcon(48px)
+            font-size: 32px
+        .icon-group
+            max-height: 48px
+        #notificationIcon
+            .number
+                top: 6px
+                right: 6px
+                span
+                    font: 300 12px/12px $small
+        .icon#menuIcon
+            top: -26px
+            
+            .icon-menu
+                top: 42px
+            .icon-menu .bar
+                background-color: $c-g245
+                height: 2px
+                width: 14px
+                margin: 2px
+            .icon-skotch i
+                color: lighten($c-bnf, 14%)
+            
+            .icon-bg
+                background-color: lighten($c-bnf, 14%)
+            
+            &.active
+                top: 0
+                .icon-bg
+                    background-color: saturate(lighten($c-bnf, 21%), 7%)
+                .icon-skotch i
+                    color: saturate(lighten($c-bnf, 21%), 7%)
+                    top: -1px
+                    position: relative
+                .icon-text
+                    transform: rotate(90deg)
+                    top: 26px
+                    i
+                        font-size: 24px
+                        color: white
+        
+        .app-name
+            font-size: 10px
+        .swipe-handler
+            display: block
+    
+    //- menu & notification -//
+
+    section#menu .menu-content, section#notification .notification-content
+        max-width: 480px
+        min-width: 0
+        width: calc(100vw)
+    
+    @media(min-width: 768px)
+        section#notification .notification-content,  section#menu .menu-content
+            +setFixedWidth(50vw)
+    
+    section#menu .menu-content
+        +setFixedHeight(calc(100% - 48px))
+        background: $c-bnf
+        top: 48px
+        overflow: hidden
+        .menu-item
+            i
+                color: saturate(lighten($c-bnf, 28%), 7%)
+        &:before
+            content: "\e91e"
+            font-family: $icon
+            font-size: calc(100vw)
+            transform: rotate(180deg)
+            position: absolute
+            left: 0
+            bottom: -75vw
+            color: lighten($c-bnf, 3.5%)
+        .border-bottom
+            margin: 0 12px
+            border: 0 dashed lighten($c-bnf, 3.5%)
+        .long-version
+            display: none
+        .version
+            display: block
+    
+    @media (max-height: 530px)
+        section#menu .menu-content
+            +custom8pxScrollBar
+            .menu-item
+                +setFixedHeight(40px)
+            &::-webkit-scrollbar
+                width: 8px!important
+            &::-webkit-scrollbar-thumb
+                background-color: lighten($c-bnf, 21%)
+                border-radius: 4px
+            &::-webkit-scrollbar-track
+                background-color: lighten($c-bnf, 7%)
+                box-shadow: inset 0 0 2px rgba(black, 0.2)
+            &:before
+                display: none
+    
+    @media (max-height: 620px)
+        section#menu .menu-content
+            &:before
+                display: none
+    //- notification -//
+    section#notification .notification-content
+        +setFixedHeight(calc(100% - 48px))
+        top: 48px
+    
+    #notification
+        .notification-list
+            +setFixedHeight(calc(100%))
+        .notification-item
+            padding-bottom: 40px
+        .ct-avatar
+            +setSquare(48px)
+            .firstname-letter, .lastname-letter
+                font-size: 24px
+        .skotchback
+            //.skotchBackEmo
+                position: absolute
+                bottom: 8px
+        .main-content
+            line-height: 18px
+        
+        .notification-options .icon
+            +setSquare(48px)
+            opacity: 1!important
+            i
+                font-size: 32px
+            &.discard
+                right: 56px
+            &.accept, &.read, &.loading
+                i.ic-solid-ok-b24
+                    +setIcon(32px)
+            &.discard
+                i
+                    font-size: 32px
+            &.read
+                i.ic-solid-ok-b24
+                    +setIcon(32px)
+        
+        .part-2
+            margin-left: calc(48px + 8px) //-thumbnail width + margin right of thumbnail
+            margin-top: 0
+            +setFixedWidth(calc(100% - 56px - 8px))
+            p.sk-description
+                background-color: transparent
+                font-size: 14px
+                padding: 0 0 12px
+                &:before
+                    color: $c-g205
+            i.ic-triangle-right
+                display: none
+    
+    //- Nav -//
+    
+    #nav
+        +setFixedHeight(56px)
+        z-index: 100000
+    
+    #shortcutBar
+        +flexVC
+        height: 100%
+        width: 100%
+        background-color: lighten($c-bnf, 3.5%)
+        
+        button.icon
+            +flexHVC
+            width: 100%
+            +setFixedHeight(100%)
+            flex-direction: column
+            color: lighten($c-bnf, 35%)
+            
+            &.create
+                position: relative
+                top: -4px
+                max-width: calc(2 * 48px)
+                +setFixedHeight(80px)
+                flex-direction: column
+                justify-content: flex-start
+                justify-items: flex-start
+                .platform-ios &
+                    top: -12px
+                .text
+                    span.create-text
+                        color: transparent
+                .icon-bg
+                    background-color: $c-skotch-lt
+                    width: 56px
+                    +setFixedHeight(56px)
+                    .platform-ios &
+                        position: relative
+                        z-index: 1
+                        +setFixedHeight(56px)
+                
+                .shadow-bg
+                    background: linear-gradient(to right, lighten($c-bnf, 3.5%), darken($c-bnf, 2%), darken($c-bnf, 2%), darken($c-bnf, 2%), lighten($c-bnf, 3.5%))
+                    +setFixedHeight(56px)
+                    width: 100%
+                    z-index: 0
+                    position: absolute
+                    bottom: 8px
+                    .platform-ios &
+                        display: none
+                i
+                    font-size: 56px
+                i.ic-sk-add-2
+                    color: $c-skotch-lt
+                    position: relative
+                    bottom: -16px
+                    z-index: 2
+                    font-size: 72px
+                    background-color: white
+                    +setActionIcon(42px)
+                i.ic-skotch-empty-24-2
+                    transform: rotate(180deg)
+                    color: $c-skotch-lt
+                i.ic-skotch-and-share-6, i.ic-sk-share-f-24
+                    color: lighten($c-skotch-share-lt, 7%)
+                    font-size: 40px
+                    margin-top: 32px
+                    animation: rotate-90 0.25s
+                    +setActionIcon(24px)
+                    border-radius: 50%
+                    background-color: white
+                    @keyframes rotate-90
+                        from
+                            transform: rotate(-90deg)
+                        to
+                            transform: rotate(0)
+            &.active-section
+                i, span
+                    color: white
+            i
+                margin: 0
+                font-size: 32px
+            .text
+                +setFixedHeight(10px)
+                +flexHVC
+                margin: 6px 0 0 0
+                position: relative
+                z-index: 1
+                span
+                    text-transform: none
+                    font-size: 14px
+                    line-height: 1em
+                    white-space: nowrap
+    
+    #quickCreateIcon
+        display: none
+    
+    ////////////////
+    // Containers //
+    ///////////////
+    *
+        &::-webkit-scrollbar
+            width: 0!important
+    
+    .container
+        +setFixedHeight(calc(100% - 48px)) //- minus userbar
+        top: 48px
+        padding: 0 16px 8px
+    
+    .container-with-tabs, .container-with-bottom-button
+        +setFixedHeight(calc(100% - 48px)) //- minus userbar
+        top: 48px
+    
+    .container-post-tabs
+        +setFixedHeight(calc(100% - 32px)) //- minus tabs
+        padding-bottom: 56px // minus nav
+        +setFixedWidth(calc(100% + 8px))
+        padding-right: 8px
+    
+    .container-with-tabs#skl, .container-with-tabs#contactDetails
+        .container-post-tabs
+            overflow-y: hidden
+            padding-bottom: 0 // minus nav
+            .skotchlist-content
+                +setFixedHeight(100%)
+                #skotchIn, #skotchOut
+                    +setFixedHeight(calc(100% - 56px - 96px))
+                #sklAllSkotch
+                    +setFixedHeight(calc(100% - 56px - 64px))
+                #sklAllSkotch, #skotchIn, #skotchOut
+                    +customNoScrollBar
+                    padding-bottom: 80px
+                    &.filter-are-displayed
+                        padding-top: 48px
+                        
+                    &.archived-skl
+                        padding-bottom: 80px
+    
+    
+    .bookmarked-skotchlist .container-post-tabs
+        +setFixedHeight(100%)
+        padding-bottom: 56px // minus nav
+    
+    #PageTitle, .page-title
+        +setFixedHeight(64px)
+        padding: 0
+        margin: 0
+        border-bottom-width: 2px
+        .toggle
+            i
+                font-size: 16px
+        .help
+            i
+                font-size: 32px
+                &:hover
+                    color: $c-help
+            &.active i:hover
+                color: $c-help
+        
+        .title-group
+            +setFixedHeight(48px)
+            .icon
+                margin-right: 8px
+                i
+                    font-size: 32px
+            h2, .skl-title
+                font: 500 22px/28px $condensed
+    
+    #privacy, #legal
+        #PageTitle
+            h2
+                line-height: 1em
+        h3
+            margin-top: 16px
+        p, ul, li
+            font-size: 13px
+    
+    .tabs
+        +setFixedHeight(32px)
+        padding: 0 12px
+        +setFixedWidth(calc(100%))
+        position: relative
+        
+        .icon.nav
+            position: absolute
+            left: 16px
+            +setActionIcon(32px)
+            border-radius: 4px 4px 0 0
+            i
+                color: $c-white
+                font-size: 16px
+        
+        .tab
+            +setFixedWidth(calc(100% / 9 * 4))
+            +setFixedHeight(32px)
+            padding: 0 4px 0 8px
+            font: 300 16px/16px $condensed
+            border-radius: 4px 4px 0 0
+            &.always-animated
+                animation: tabs-out 0.25s backwards
+            &.animate
+                animation: tabs-out 0.25s backwards
+            &.active
+                +setFixedWidth(calc(100% / 9 * 5))
+                &.always-animated
+                    animation: tabs-in 0.25s
+                &.animate
+                    animation: tabs-in 0.25s
+            .options .icon
+                i.ic-help-form
+                    font-size: 20px
+                    margin-right: -8px
+            span.sup
+                font-size: 12px
+                padding: 4px 4px
+                border-radius: 0 4px 0 4px
+                opacity: 0.65
+            &.new-entry
+                &.active span.sup
+                    opacity: 0.75
+                span.sup
+                    opacity: 1
+        
+        &.has-nav
+            padding: 0 12px 0 48px
+    
+    /////////////////////////
+    // Components & idPage //
+    /////////////////////////
+    
+    //- Signin -//
+    @media (max-height: 300px)
+        #signin, #reset, #verif
+            .login-signin-forms
+                position: fixed
+                height: calc(100%)!important
+                max-height: 420px
+                min-height: 0
+                top: 8px
+                bottom: 0!important
+                left:  16px
+                transition: all 0.25s
+    
+    #signin, #reset, #verif
+        justify-content: flex-start
+        +setFixedHeight(100%)
+        
+        .mt16
+            margin-top: 8px!important
+        
+        section.app
+            align-items: flex-start
+            justify-content: flex-start
+            flex-direction: row
+            text-align: left
+            +setFixedHeight(96px)
+            position: relative
+            
+            .logotype
+                margin-left: 32px
+                transition-duration: 0.25s!important
+                .w-bg
+                    +setFixedWidth(32px)
+                    position: relative
+                
+                .icon-skotch
+                    +setIcon(32px)
+                    margin-top: -4px
+                    i
+                        font-size: 32px
+            .app-txt
+                justify-content: center
+                +setFixedHeight(80px)
+                margin-top: 0
+                margin-left: 16px
+                .app-name
+                    font: 400 16px/32px $small
+                    margin-right: 0
+                .beta
+                    top: -8px
+                .app-baseline
+                    font: 400 11px/12px $condensed
+                    letter-spacing: 1px
+                    word-spacing: 0.5px
+            .trans-band
+                +setFixedHeight(calc(100% - 48px))
+                +setFixedWidth(32px)
+                position: fixed
+                left: 32px
+                top: 48px
+        
+        section.cgu-privacy
+            position: relative
+        
+        .login-form, .register-form, .reset-form
+            padding: 12px
+            
+            button.register-validate
+                margin-top: 16px
+            button.login-validate
+                margin-top: 0
+        
+        .login-signin-forms
+            position: fixed
+            height: calc(100% - 96px)
+            max-height: 480px
+            min-height: 0
+            bottom: 16px
+            left:  16px
+            transition: all 0.25s
+            &.on-focus
+                height: 100%
+            .idp-login
+                .icon
+                    +setSquare(48px)
+                    i
+                        font-size: 24px
+        section
+            width: calc(100vw - 16 * 2px)
+            &.login-form, &.register-form, &.reset-form
+                height: calc(100% - 48px)
+                max-height: calc(100% - 48px)
+                min-height: calc(100% - 48px)
+                +custom8pxScrollBar
+                &::-webkit-scrollbar
+                    width: 8px!important
+    
+    //- tos / legal / cookie -//
+    
+    #logoNav
+        +setFixedHeight(48px)
+        button.go-back
+            +setActionIcon(32px)
+            i
+                font-size: 16px
+    
+    //- Config -//
+    
+    #config
+        
+        .title h3
+            font-size: 18px
+            margin: 0 0 8px
+        section
+            &.profile, &.network, &.account, &.notifications, &.pwa-install
+                padding: 8px 0
+        .account
+            .input-container
+                max-width: 425px
+            input, button
+                display: block
+                margin-bottom: 4px
+            input
+                width: 100%
+                max-width: 425px
+        
+        .contact
+            +setSquare(96px)
+            .ct-avatar
+                +setSquare(96px)
+                .background
+                    .firstname-letter, .lastname-letter
+                        font-size: 48px
+    
+    //- First Steps -//
+    
+    #firstSteps
+        +setFlexBox(100vw, 100%, center, flex-start, column)
+        
+        .page-title
+            padding: 0
+            h2
+                font-size: 24px
+        
+        .scrollable-content
+            +custom8pxScrollBar
+            +setFixedHeight(calc(100% - 64px))
+        
+        section
+            +setFixedWidth(100vw)
+            +setFixedHeight(calc(100% - 64px))
+            &#todolistfirstSelect .page-title, &#sklFirstSelect .page-title
+                padding: 0
+        
+        section#stepCounter
+            +setFixedHeight(64px)
+        
+        .content
+            margin: 16px
+            &#sklList
+                margin: 0
+                padding-top: 0!important
+                .skotchlist.inactive
+                    +setFixedWidth(calc(100% - 48px))
+        
+        .content-gray
+            margin: 16px
+            padding: 8px
+            border-radius: 4px
+    
+    #stepCounter
+        .step-group
+            +setFlexBox(100vw, 48px, center, center, row)
+    
+    //- Dashboard -//
+    
+    #dashboard
+        top: 48px
+        .overviews
+            position: relative
+        
+        .design-bar
+            +setFlexBox(calc(100vw - 4px), 12px, center, center, row)
+            top: 80px
+            z-index: 2
+        
+        .contact-list, .contact-search-content
+            +setFixedHeight(calc(100%))
+            +setFixedWidth(calc(100vw))
+            +custom8pxScrollBar
+        
+        .skl-list
+            +setFixedHeight(100%)
+            +setFixedWidth(calc(100vw + 8px))
+            +custom8pxScrollBar
+            padding: 6px 6px 32px 6px
+        
+        .contact-list
+            padding: 16px 16px 32px 16px
+        
+        .contact-search-trigger
+            .icon i
+                font-size: 48px
+            .ct-infos
+                justify-content: flex-start
+                text-align: left
+            &.overlay
+                display: flex
+                position: fixed
+                bottom: 56px
+                right: 0
+                margin: 22px
+                z-index: 1
+                +setActionIcon(48px)
+                background-color: rgba($c-i-blue, 0.9)
+                border-radius: 50% 50% 50% 4px
+                .platform-ios &
+                    bottom: 88px
+                .icon
+                    +setActionIcon(32px)
+                    i
+                        font-size: 24px
+                        color: white
+        
+        
+        .ct-search-input
+            +setFlexBox(calc(100% - 8px), 80px, center, flex-start, row)
+            padding: 0 16px
+            margin-top: 0
+            margin-left: 0
+            margin-bottom: 0
+            .input-group
+                +setFixedWidth(100%)
+            .go-back.icon
+                display: none
+            i.ic-arrow
+                font-size: 20px!important
+            input
+                +setFixedWidth(calc(100% - 48px - 4px))
+            button.basic
+                +setActionIcon(48px)
+                
+                i
+                    font-size: 24px
+            .warning
+                top: initial
+                bottom: -28px
+                right: initial
+                left: 0
+                border-radius: 0 0 4px 4px
+                min-width: initial
+        
+        .ct-past-request, .ct-search-results, .ct-pending-request
+            .page-title
+                padding: 0
+                h2
+                    line-height: 1
+            .contact-list-research
+                +setFixedWidth(100%)
+                padding: 16px
+                .contact
+                    +setFixedWidth(100%)
+                    justify-content: space-between
+                    margin: 0 8px 8px 0
+                    padding-right: 0
+                    .group
+                        +flexVC
+                        min-width: 50%
+                        max-width: 100%
+                        flex-direction: row
+                        margin: 0
+                    .ct-infos
+                        text-align: left
+                        justify-content: flex-start
+                        margin-left: 8px
+                .request-action
+                    width: initial
+                    button, .confirmation-message
+                        +setFlexBox(100%, 32px, center, center, row)
+                        font: 300 14px/16px $condensed
+                        text-transform: none
+                        &:focus
+                            border-radius: 2px
+    
+    //- contact details page -//
+
+    #contactDetails
+        #PageTitle
+            +setFixedHeight(96px)
+            .contact-inline
+                .ct-avatar
+                    +setSquare(64px)
+                    .background
+                        .firstname-letter, .lastname-letter
+                            font-size: 32px
+                .ct-infos
+                    font-size: 24px
+                    line-height: 26px
+                    margin-left: 8px
+                .icon.share
+                    display: none
+                    margin-left: 8px
+                    i
+                        font-size: 24px
+        
+        #ContactInfo
+            padding: 0 16px 0
+            font-size: 13px
+        
+        .skotchlist-content
+            padding: 0
+            #skotchOut, #skotchIn
+                padding: 0 16px
+                +setFixedWidth(100%)
+                .skotch
+                    .second-part .sk-description p
+                        font-size: 13px
+                    .sk-skotchback
+                        button.icon:hover
+                            background-color: transparent
+                            border: 2px solid $c-g215
+                            i
+                                color: $c-g170
+            
+            .skl-icon .icon
+                +setFlexBox(32px, 48px, center, flex-start, row)
+                i
+                    font-size: 24px
+                    color: $c-g80
+            
+            .sk-group
+                .sk-title
+                    span.result
+                        font: 14px/14px $condensed
+
+    
+    //- Skotchlist Page -//
+
+    .container-with-tabs#skl
+        top: 48px
+        +setFixedWidth(100vw)
+        
+        section.content
+            +setFixedHeight(calc(100% - 64px - 32px))
+            +custom8pxScrollBar
+        
+        section#subHeader
+            #PageTitle
+                padding: 0 4px
+                .tdl-icon.icon i, .skl-icon.icon i
+                    font-size: 32px
+                .icon.sort i
+                    font-size: 24px
+                .icon.filter:hover span
+                    color: $c-g50
+            #bkSklTitle
+                button.nav
+                    display: none
+        
+        #skTagFilters
+            +setFixedWidth(calc(100% - 32px))
+            position: absolute!important
+            .skl-tag-list
+                display: flex
+                flex-wrap: wrap
+            .skl-tag
+                margin: 0
+                min-width: 64px
+                max-width: calc(100% / 2)
+                flex-grow: 1
+                flex-shrink: 1
+                font-size: 12px
+        
+        #sortTriggers
+            .icon.sort i.ic-sort-b32
+                font-size: 32px
+            .filter, .sort
+                &:hover i, &:hover span
+                    color: $c-g80
+                &.active i, &.active span
+                    color: $c-g80
+                &.active:hover i, &.active:hover span
+                    color: $c-g80!important
+        //&.sorting-active i, &.sorting-active:hover i, &.sorting-active span, &.sorting-active:hover span
+            color: $c-bnf-gold!important
+        
+        #sortOptions
+            right: 40px
+            animation: appear 0.25s
+            transform: scale(1)
+        
+        #skSort
+            .option
+                width: 100%
+                justify-content: space-between
+        
+        #sklAllSkotch
+            padding: 16px 16px
+            +setFixedWidth(100%)
+            .no-content
+                +setFixedHeight(calc(100%))
+                &.sk-theque
+                    justify-content: flex-start
+                    +custom8pxScrollBar
+                    p
+                        max-width: calc(100% - 24px)
+                        text-align: left
+    
+    //- Todolist Select -//
+    
+    #sklSelect
+        .skl-tag-help
+            display: none
+        p
+            margin: 0
+        #PageTitle
+            padding: 0
+        .introduction
+            font-size: 14px
+            line-height: 20px
+        #nav
+            display: none
+        #sklSelectValidateButton
+            display: flex
+            .platform-ios &
+                +setFixedHeight(88px)
+                align-items: flex-start
+        
+        .container-pre-bottom-button
+            padding-bottom: 88px
+    
+    #sklList
+        padding: 16px 16px!important
+        .skotchlist
+            +setFixedWidth(100%)
+            +setFixedHeight(48px)
+            margin: 0
+            
+            .skl-title
+                margin-left: 0
+                border-left-width: 0
+                transition: all 0.25s
+            
+            .skl-icon
+                +setFixedHeight(48px)
+                overflow: hidden
+                +setFixedWidth(0)
+                transition: all 0.25s
+            
+            &:hover .skl-icon i
+                font-size: 32px!important
+            
+            &.active
+                .skl-icon
+                    +setFixedWidth(48px)
+                .skl-title
+                    margin-left: 48px
+                    border-left-width: 2px
+            
+            .skl-options
+                .skl-select, .skl-share
+                    +setIcon(48px)
+                    i
+                        font-size: 24px
+                        &.ic-list-add
+                            display: block
+                        &.ic-ok-c-b24
+                            display: none
+                    &.active
+                        i.ic-list-add
+                            display: none
+                        i.ic-ok-c-b24
+                            display: block
+        
+        .skl-select-group
+            border-bottom: 0 solid rgba(0,0,0,0.1)
+            padding: 0 0 12px 0
+            .skotchlist.inactive
+                +setFixedWidth(calc(100% - 48px))
+        
+        .skl-tag-list
+            //display: none
+            margin-top: 8px
+            .skl-tag
+                +setFixedHeight(20px)
+                padding: 0 6px
+                margin: 0 8px 0 0
+        
+        
+        
+        .skl-options
+            .skl-select
+                +setSquare(48px)
+                i
+                    font-size: 16px
+    
+    #sklSelectValidateButton
+        background-color: white
+        +setFixedWidth(calc(100vw))
+        +setFixedHeight(64px)
+        bottom: 0
+        left: 0
+        position: fixed
+        +flexHVC
+        .icon button
+            +setFixedWidth(calc(100vw - 16px))
+            +setFixedHeight(48px)
+            background-color: $cta
+            color: $c-i-validate-opposite
+            border-radius: 4px
+            text-transform: none
+            position: relative
+            h4
+                font-size: 24px
+    //box-shadow: inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.1),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12)
+
+    //- QuickCreate -//
+    
+    #quickCreate .content
+        +setSquare(100%)
+        align-items: flex-start
+        justify-content: flex-start
+        position: fixed
+        top: 0
+        left: 0
+        
+        .sk-create-form
+            +setFixedHeight(calc(100%))
+            padding-bottom: 48px
+            +custom8pxScrollBar
+            
+            .form-header
+                //justify-content: flex-start
+                h2
+                    font-size: 22px
+                button.close
+                    display: none
+                .skotch-piece
+                    +setIcon(40px)
+                    margin-top: -18px
+                    i
+                        transition: 0.25s
+                        font-size: 48px
+            
+            .sk-create
+                select
+                    +setFixedHeight(48px)
+                textarea
+                    min-height: 64px
+                    height: 64px
+                    transition: 0.25s
+                    &:active, &:focus
+                        min-height: 128px
+                        height: 128px
+                
+                .sk-url, .ct-search-input
+                    .input-group
+                        input
+                            border-left-width: 48px
+                        .icon
+                            +setSquare(48px)
+                            i.ic-link-2
+                                font-size: 16.5px!important
+            
+            .skotch-creation
+                height: calc(100% - 64px)
+                padding: 0 16px 16px 0
+                &::-webkit-scrollbar
+                    width: 3px!important
+            
+            .contact-selection
+                height: calc(100% - 64px)
+                +setFixedWidth(calc(100% + 16px))
+                padding-right: 16px
+                &::-webkit-scrollbar
+                    width: 4px!important
+                    padding-left: 8px
+                .contact-list-research
+                    .contact
+                        +setFixedHeight(48px)
+                        margin-bottom: 8px
+                        .ct-avatar
+                            +setSquare(48px)
+                            overflow: hidden
+        
+        .options
+            position: fixed
+            bottom: 0
+            left: 0
+            margin: 0
+            +setFixedHeight(48px)
+            .empty-div
+                display: none
+            button.icon
+                flex-direction: column
+                span
+                    display: block
+                    margin: 4px 0 0 0
+                    font-size: 10px
+                &.close
+                    display: flex
+    
+    /////////////////
+    // Item Design //
+    /////////////////
+
+    //- tooltip -//
+
+    .ttp-trig:hover .ttp-txt
+        display: none !important
+    
+    //- skl Design -//
+    
+    .skotchlist
+        +setFixedWidth(calc(100% - 20px))
+        width: calc(100%)
+        border-radius: 3px
+        margin: 6px 6px 6px 6px
+        
+        .skl-title
+            font: 300 20px/20px $condensed
+            padding-left: 12px
+        
+        &:hover .skl-icon i
+            font-size: 32px
+        
+        &#sklSelectTrigger
+            border: none
+            .skl-icon
+                border: 4px solid lighten($c-bnf, 35%)
+                +setSquare(64px)
+                border-radius: 4px
+                i
+                    color: lighten($c-bnf, 21%)
+                    font-size: 32px
+            .skl-title
+                +setFixedHeight(64px)
+                color: lighten($c-bnf, 14%)
+                border-left: 0 solid rgba($c-bnf, 0.1)
+    
+    
+    #dashboard .design-bar.thumbnail
+        +setFixedHeight(12px)
+    
+    #dashboard .thumbnail .skl-list
+        padding: 6px 6px 32px 6px
+    
+    .thumbnail .skotchlist
+        +setSquare(calc(100vw / 4 - 12px / 4 - 16px)!important) //- total width / 3 MINUS Total padding / 3 MINUS total item margins
+        min-height: 80px!important
+        margin: 8px
+        background: none!important
+        overflow: visible
+        
+        .skl-title
+            text-align: center
+            font: 12px/12px $condensed
+            color: lighten($c-bnf, 7%)
+            padding: 0 6px 6px
+            white-space: nowrap
+            span
+                display: none
+            span.count
+                display: block
+                color: lighten($c-bnf, 14%)
+                font: 12px/12px $small
+        .skl-icon
+            border-bottom: 3px solid gray
+            .icon i
+                font-size: 40px
+                //color: lighten($c-bnf, 7%)
+        
+        .sk-counter
+            right: 0
+            top: 0
+            display: none
+            .icon
+                +setIcon(24px)
+                i
+                    transition: none
+                    font-size: 28px
+                    color: lighten($c-bnf, 14%)
+            span
+                font: 12px/12px $small
+                top: -5px
+                color: white
+        
+        &#PinList
+            background: none!important
+            .sk-counter
+                top: -9px
+                right: 0
+            .skl-icon
+                background-color: transparent
+                border-color: $c-bnf-gold
+                i
+                    bottom: initial
+                    font-size: 40px
+            .skl-icon i, .skl-title
+                color: $c-bnf-gold
+        
+        &#sklSelectTrigger
+            background: none!important
+            .skl-icon
+                border: none
+                i
+                    font-size: 40px
+            .skl-icon i, .skl-title
+                color: $cta
+            .skl-title
+                bottom: -6px
+        &#skNotifTrigger
+            background: none!important
+            .skl-icon
+                border: none
+                i
+                    font-size: 40px
+            .skl-icon i, .skl-title
+                color: $c-bnf-red
+            
+    //- SkotchDesign / Sk Design-//
+
+    .skotch
+        margin-bottom: 12px
+        min-height: 48px
+        &:after
+            width: 6px
+            background: url("~assets/img/triangle-w-6.svg") top left/6px repeat-y
+        .first-part
+            padding-left: 12px
+            border-radius: 0 4px 4px 0
+            background-color: rgb(240,240,240)
+            .ct-avatar
+                +setSquare(32px)
+                margin-right: 6px
+                .firstname-letter, .lastname-letter
+                    font-size: 16px
+            
+            .sk-info-container
+                padding: 4px 0
+            .sk-name, .skl-tag, .sk-link, .ic-bookmark
+                margin: 2px 4px 2px 0
+            .sk-name
+                font-size: 16px
+            .skl-tag
+                padding: 0 4px
+                +setFixedHeight(16px)
+                font-size: 11px
+        
+        .sk-details-trigger, .sk-skotchback
+            +setFixedWidth(32px)
+            button.icon i.ic-options-b24
+                font-size: 24px
+        
+        .second-part
+            .sk-description
+                p
+                    padding: 12px
+                    font-size: 14px
+            
+            .sk-options
+                .icon
+                    i
+                        color: rgba(50,50,50,0.75)
+                    &:hover i, &.active i
+                        color: rgba(50,50,50,0.75)
+                
+                .search-options
+                    top: -10px
+                    left: -128px
+                    z-index: 2
+                    &:after
+                        right: -10.5px
+                        left: initial
+                        bottom: calc(50% - 8px)
+                        transform: rotate(0deg)
+                    button.icon
+                        +setSquare(64px)
+                        i
+                            color: white
+                            font-size: 32px
+    
+    .skotchback-container
+        top: calc(48px + 32px)
+    
+    //- contactDesign -// avatar must be 24px, 32px, 48px or 96px
+    
+    .contact
+        +setFixedWidth(calc(100%))
+        +setFixedHeight(48px)
+        flex-direction: row
+        margin: 6px
+        padding-right: 64px
+        
+        .ct-infos
+            align-content: center
+            margin: 0 0 0 12px
+            font-size: 16px
+            .ct-firstname
+                margin-left: 0
+        .part-2
+            align-items: flex-start
+            margin-left: 16px
+        .log
+            align-items: center
+            display: flex
+        
+        .ct-avatar
+            +setSquare(48px)
+            .background
+                .firstname-letter, .lastname-letter
+                    font-size: 24px
+        
+        .ct-options
+            +flexVC
+            +setFixedHeight(48px)
+            position: absolute
+            overflow: hidden
+            .icon
+                +setActionIcon(48px)
+                margin-left: 0
+                i
+                    font-size: 24px
+                    color: $c-g130
+                &.friend-profile
+                    display: flex
+                    position: relative
+                    &:after
+                        content: ''
+                        width: 2px
+                        height: 75%
+                        background-color: $c-g235
+                        position: absolute
+                        right: -1px
+    
+    //- Croppie-Design -//
+    #croppieContainer #croppie .cr-boundary
+        width: 160px
+        height: 160px
+    
+    
+    /////////////
+    // General //
+    /////////////
+    
+    .input-container
+        width: 100%
+    
+    #config .account .input-container
+        width: 100%
+    
+    input, select
+        +setFixedHeight(48px)
+    
+    .input-group
+        .icon
+            +setIcon(48px)
+            i
+                font-size: 24px!important
+        input.icon-before
+            +setFixedHeight(48px)
+            border-left-width: 48px
+    
+    .ttp-txt
+        display: none
+    
+    ////////////////
+    // Media Query //
+    ////////////////
+
+    @media (min-width: 600px)
+        .skotchlist
+            +setFixedWidth(calc(50% - 16px))
+        
+        .thumbnail .skotchlist, .thumbnail .skotchlist.skl-select
+            +setSquare(calc(100vw / 4 - 16px / 4 - 16px)!important)
+            .skl-icon .icon i
+                font-size: 48px!important
+    
+    @media (min-width: 768px)
+        .skotchlist
+            +setFixedWidth(calc(100% / 2 - 16px))
+        
+        .thumbnail .skotchlist, .thumbnail .skotchlist.skl-select
+            +setSquare(calc(100vw / 5 - 16px / 5 - 16px)!important)
+            .skl-icon .icon i
+                font-size: 48px
+    
+    @media (min-width: 1024px)
+        .thumbnail .skotchlist, .thumbnail .skotchlist.skl-select
+            +setSquare(calc(100vw / 7 - 16px / 7 - 16px)!important)
+            .skl-icon .icon i
+                font-size: 48px
+    
+    @media (max-height: 850px)
+        #signin, #reset, #verif
+            .login-signin-forms
+                margin-bottom: 0
+    
+    @media (max-height: 600px)
+        #quickCreate textarea
+            max-height: 64px
+            
+//- starting DARK Theme -//
+
+.is-mobile.dark
+    $c-dark-theme: lighten($c-bnf, 3.5%)
+    $c-dark-theme-secondary: darken($c-bnf, 7%)
+    $c-dark-theme-tertiary: lighten($c-bnf, 12%)
+    $c-dark-theme-text: white
+    $c-dark-theme-text-2: lighten($c-bnf, 60%)
+    $c-dark-theme-text-blended: rgba(255,255,255,0.35)
+    $c-dark-theme-icon: rgba(255,255,255,1)
+    $c-dark-theme-icon-2: lighten($c-bnf, 42%)
+    
+    h3.red
+        color: $c-bnf-gold
+        line-height: 1em
+    
+    #userBar, #shortcutBar, .container-with-tabs, .container-with-bottom-button, .tabs .icon.nav
+        background-color: $c-dark-theme-secondary
+    
+    #skotchBack, #skotchBack body
+        background-color: $c-dark-theme-tertiary
+        color: $c-dark-theme-text
+        header i
+            color: $c-dark-theme-icon
+   
+    #ContactInfo i
+        color: $c-dark-theme-icon
+   
+    #shortcutBar button.icon.create .shadow-bg
+        background: none
+    
+    .skotchback-container
+        background-color: rgba($c-dark-theme-secondary,0.75)
+
+    .no-content, #quickCreate, #quickCreate .sk-create-form, .skotch, .skotch .second-part, .container, .container-post-tabs, .container-pre-bottom-button, #sklSelectValidateButton, .skotchlist#sklSelectTrigger, #dashboard .design-bar, .container-with-tabs#skl section#subHeader #PageTitle
+        background-color: $c-dark-theme
+        color: $c-dark-theme-text!important
+    
+    .no-content, #notification .nothing-to-show i, #notification .nothing-to-show, #notification .os-notification-information
+        color: $c-dark-theme-text-2!important
+    
+    .icon-buddy-only.active
+        color: $c-dark-theme-icon
+    
+    #PageTitle .help.active i:hover, .page-title .help.active i:hover
+        color: $c-dark-theme-icon
+    
+    #quickCreate .content .options
+        background-color: $c-dark-theme-secondary
+        color: $c-dark-theme-text
+        i
+            color: $c-dark-theme-icon
+    
+    #quickCreate .sk-create-form .options .icon.invalid
+        background-color: $c-dark-theme-tertiary
+        i
+            color: rgba($c-dark-theme-text-blended,0.25)!important
+        
+    input, textarea, label, button.contact-select, select
+        border-color: lighten($c-dark-theme, 14%)!important
+        background-color: $c-dark-theme-tertiary!important
+        color: $c-dark-theme-text!important
+        &::placeholder
+            color: $c-dark-theme-text-blended!important
+    
+    input[type="radio"]
+        &:checked
+            background-color: $c-dark-theme-icon!important
+            border-color: $c-dark-theme-tertiary!important
+            border-width: 4px
+    
+    .input-group .icon
+        background-color: lighten($c-dark-theme, 14%)!important
+        border-color: lighten($c-dark-theme, 14%)!important
+    
+    .switch
+        border-color: lighten($c-dark-theme, 28%)
+        background-color: $c-dark-theme-tertiary
+        .dot
+            background-color: white
+        &.active
+            background-color: $c-i-validate
+            border-color: $c-i-validate
+            .dot, .sw-dot
+                background-color: white
+        
+            
+    button.contact-select i
+        color: $c-dark-theme-tertiary!important
+    
+    button.contact-select.selected
+        border: none!important
+        i
+            color: $c-dark-theme-icon!important
+    
+    .perma-help.is-a-bis .ph-body, #quickCreate .sk-create-form .helper, .perma-help .ph-body
+        background-color: $c-dark-theme-tertiary
+        color: $c-dark-theme-text-2
+        .icon i , i
+            color: $c-dark-theme-icon
+    
+    .perma-help .ph-body .ph-info.reverse
+        background: linear-gradient(to RIGHT, $c-dark-theme-tertiary, $c-dark-theme)
+    
+    .perma-help .ph-body .ph-info
+        background: linear-gradient(to RIGHT, $c-dark-theme, $c-dark-theme-tertiary)
+    
+    .perma-help.is-a-bis .ph-info
+        background-color: $c-dark-theme-tertiary
+        
+        
+    #PageTitle .help i, .page-title .help i
+        color: $c-dark-theme-text-blended
+    #notification .notification-list
+        background-color: $c-dark-theme
+    #notification
+        .ct-avatar
+            outline-color: rgba($c-dark-theme-secondary, 0.15)
+        .icon.discard i
+            max-height: 30px
+            min-height: 30px
+            min-width: 30px
+            max-width: 30px
+    
+    #notification .notification-item
+        background-color: rgba($c-dark-theme, 1)
+        color: $c-dark-theme-text
+        border-bottom-color: lighten($c-dark-theme-tertiary, 7%)
+        p:before
+            color: $c-dark-theme-icon-2
+        strong, b, .sk-name
+            color: $c-dark-theme-text
+        a
+            color: $c-bnf-gold
+            font-weight: 300
+            &:before
+                font-style: normal
+        p, span, .ct-firstname, .ct-lastname
+            color: $c-dark-theme-text-2
+        .skl-title
+            color: $c-dark-theme-text
+        .skl-tag-in-text span
+            white-space: nowrap
+    
+    .container-with-tabs#skl #sortTriggers .filter.active i, .container-with-tabs#skl #sortTriggers .filter.active span, .container-with-tabs#skl #sortTriggers .sort.active i, .container-with-tabs#skl #sortTriggers .sort.active span
+        color: $c-dark-theme-icon!important
+    .container-with-tabs#skl #sortTriggers .filter:hover i, .container-with-tabs#skl #sortTriggers .filter:hover span, .container-with-tabs#skl #sortTriggers .sort:hover i, .container-with-tabs#skl #sortTriggers .sort:hover span
+        color: $c-dark-theme-icon!important
+
+    #dashboard .contact-search-trigger .icon i, #contactDetails .skotchlist-content .skl-icon .icon i
+        color: white
+
+    #contactDetails #skotchOut .skotch, #contactDetails #skotchIn .skotch
+        border-bottom: 2px dashed lighten($c-dark-theme-tertiary, 0%)
+    .skotch
+        border-bottom: 2px dashed lighten($c-dark-theme-tertiary, 3.5%)
+        padding: 6px 0 6px 0
+        margin: 0 4px 0 4px
+        outline-color: transparent
+        //max-height: calc(100% - 144px - 64px - 32px)
+        &.selected.description
+            transition: background-color 0.25s
+            position: fixed
+            z-index: 2
+            top: 144px
+            left: 12px
+            margin-top: 0
+            +setFixedWidth(calc(100vw - 32px))
+            outline: 1000px solid rgba($c-dark-theme-secondary, 0.65)
+            background-color: $c-dark-theme-tertiary
+            border-radius: 4px
+            border-bottom-color: transparent
+            i.ic-options-b24
+                display: none
+            i.ic-close-24
+                display: block
+                left: 0
+                top: -14px
+                position: relative
+                font-size: 16px
+                padding: 4px
+                border-radius: 4px
+                background-color: $c-dark-theme
+            .sk-description
+                box-shadow: inset 0 0 4px 0 rgba(black, 0.25)
+                border-radius: 0
+                overflow-y: auto
+                max-height: calc(100vh / 3)
+                &::-webkit-scrollbar
+                    width: 8px!important
+                    padding-left: 16px
+                &::-webkit-scrollbar-thumb
+                    background-color: lighten($c-bnf, 28%)
+                    border-radius: 0
+                &::-webkit-scrollbar-track
+                    background-color: lighten($c-bnf, 7%)
+                    box-shadow: inset 0 0 2px rgba(black, 0.2)
+        
+        &.selected
+            transition: 0.25s
+            margin-top: 8px
+            background-color: $c-dark-theme-tertiary
+            border-radius: 4px
+            border-bottom-color: transparent
+
+        .skotchBackEmo.mediumEmo i
+            color: $c-g50
+        .first-part
+            border-radius: 4px
+            background-color: $c-dark-theme
+            &.selected
+                background-color: transparent
+            .ct-avatar
+                outline: none
+        .second-part
+            border-radius: 4px
+            border: none
+            background-color: transparent
+            .sk-options, .sk-description
+                border-radius: 4px
+                background-color: transparent
+                p, i
+                    color: $c-dark-theme-text
+                a
+                    color: $c-bnf-gold
+            .sk-options
+                margin-top: 2px
+                background-color: transparent
+                .icon:hover i
+                    color: $c-dark-theme-icon
+                .icon.active i
+                    color: $c-dark-theme-icon-2
+                .search-options
+                    background-color: rgba($c-dark-theme-secondary,0.9)
+                    &:after
+                        color: rgba($c-dark-theme-secondary,0.9)
+                    .icon i
+                        color: $c-dark-theme-icon
+            .sk-informations
+                color: $c-dark-theme-text-blended
+                border-radius: 4px
+                padding: 0 8px 0 0
+        .icon i , i
+            color: $c-dark-theme-icon
+        
+        &:after
+            opacity: 0
+        &.sortable-chosen
+            border: 2px dashed $c-dark-theme-tertiary
+            transform: rotate(-0deg)
+            background-color: $c-dark-theme-tertiary
+            .first-part
+                background-color: $c-dark-theme-tertiary
+    .ct-avatar
+        outline: 2px solid $c-dark-theme
+
+    .tabs .tab
+        background-color: lighten($c-dark-theme-secondary,3.5%)
+        color: $c-dark-theme-text-blended
+        .icon i
+            color: $c-dark-theme-icon-2
+        &.active
+            background-color: $c-dark-theme
+            color: $c-dark-theme-text
+            .icon i
+                color: $c-dark-theme-icon-2
+    
+    .skotchlist#sklSelectTrigger .skl-title
+        color: $c-dark-theme-text
+    
+    .ct-options .icon i, .contact-search-content section.help-no-friend .help i
+        color: $c-dark-theme-icon-2
+    section.help-no-friend .help p
+        background-color: $c-dark-theme-icon-2
+        color: $c-dark-theme-secondary
+    section.help-no-friend .help
+        margin-bottom: 8px
+    .ct-options .icon.friend-profile:after
+        background-color: darken($c-bnf, 0%)
+    .thumbnail .skotchlist .skl-icon .icon i, .thumbnail .skotchlist .skl-title, .thumbnail .skotchlist .skl-title span.count
+        color: $c-dark-theme-icon
+    .illus-container .illus i
+        color: $c-dark-theme-tertiary
+    #croppieContainer
+        background-color: $c-dark-theme!important
+        label.custom-input
+            background-color: $c-dark-theme-secondary
+            border-color: lighten($c-dark-theme-secondary, 14%)
+            
+    #config .title h3
+        color: $c-bnf-gold
+            
+    .author span.red
+        //color: $c-bnf-gold
+        //color: $c-skotch-share-lt
+        color: rgba(255, 255, 255, 0.55)
+ 
+    #skl_1, #skl_2, #skl_3, #skl_4, #skl_5, #skl_6, #skl_7, #skl_8, #skl_9, #skl_10, #skl_11, #skl_12, #skl_13, #skl_14, #skl_15, #skl_16, #skl_17, #skl_18, #skl_19, #skl_20, #skl_99
+        &.skotchlist
+            .skl-icon
+                background-color: rgba($c-dark-theme,0.1)
+                //+setFixedWidth(48px)
+            .skl-title
+                //margin-left: 48px
+                border: none
+                background-color: rgba($c-dark-theme,0.1)
+                
+        .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+            filter: saturate(0.85)
+
+        &.skotchlist .sk-counter .icon i
+            color: rgba(255, 255, 255, 0.15)
+            
+        .sk-counter span.numbers
+            color: rgba(255, 255, 255, 0.85)
+    #PinList
+        &.skotchlist
+            .skl-icon
+                background-color: rgba($c-dark-theme,0)
+            .skl-title
+                border: none
+                background-color: rgba($c-dark-theme,0)
+            &.skotchlist .sk-counter .icon i
+                color: rgba(255, 255, 255, 0.15)
+    
+            .sk-counter span.numbers
+                color: rgba(255, 255, 255, 0.85)
+        
+    .thumbnail
+        #PinList, #skl_1, #skl_2, #skl_3, #skl_4, #skl_5, #skl_6, #skl_7, #skl_8, #skl_9, #skl_10, #skl_11, #skl_12, #skl_13, #skl_14, #skl_15, #skl_16, #skl_17, #skl_18, #skl_19, #skl_20, #skl_99
+            &.skotchlist .skl-icon
+                border: none
+                i
+                    color: $c-dark-theme-icon-2
+            &.skotchlist .skl-title
+                margin-top: 8px
+                span.count
+                    color: $c-dark-theme-icon
+    #sklList
+        .skl-select-group
+            .skotchlist.inactive
+                .skl-select
+                    i
+                        color: $c-dark-theme-icon-2
+    .loading-container .spinner.spin-it img, .contact-search-content .spinner.big .icon.spin-it img.big
+        filter: invert(1)!important
+    
+    .ct-search-results, .ct-past-request, .ct-pending-request
+        button.loading
+            background-color: transparent
+            color: $c-dark-theme-icon-2
+            span
+                color: $c-dark-theme-text-2

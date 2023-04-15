@@ -1,0 +1,14 @@
+query skotchListsCatalog {
+	skotch_list_catalog {
+		id
+		old_id
+		rk
+		title
+		skotch_list_tags {
+			id
+			rk
+			title
+			skotch_list_id
+		}
+	}
+}

@@ -1,0 +1,9 @@
+query skotchLists {
+	user_skotch_list {
+		active
+		skotch_list {
+			id
+			old_id
+		}
+	}
+}

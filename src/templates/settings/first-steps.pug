@@ -1,0 +1,178 @@
+#firstSteps
+    section#identity(v-if="step === 1")
+        .page-title
+            .title-group
+                .icon
+                    i.ic-user-24.mr8
+                h2 Votre Identité
+
+        .scrollable-content
+            .content
+                h3 Saisissez un Prénom et un Nom
+                    span.gray(:class="{'ok': !!config.firstname && !!config.lastname ,'active': displayWarning === true }") &nbsp;(obligatoire)
+
+                label Prénom
+                    span.red *
+
+                .input-group.large(:class="{'ok': !!config.firstname , 'active': displayWarning === true }")
+                    .icon
+                        i.ic-user-24
+                    input.icon-before(v-model="config.firstname", ref="firstName", type="text", @keydown.enter="focusLastnameInput", placeholder="Prénom", tabindex=1)
+                    .warning(v-if="!$v.config.firstname.maxLength")
+                        span Oups, trop long ! 20 caractères max.
+
+                label Nom
+                    span.red *
+
+                .input-group.large(:class="{'ok': !!config.lastname , 'active': displayWarning === true }")
+                    .icon
+                        i.ic-user-24
+                    input.icon-before(v-model="config.lastname", ref="lastName", type="text", placeholder="NOM", @keydown.enter="focusNextButton" tabindex=2 )
+                    .warning(v-if="!$v.config.lastname.maxLength")
+                        span Ha ... Trop long ! 20 caractères max.
+
+                //label Surnom
+                    span.gray &nbsp;(en cas d'homonymes)
+
+                //.input-group.large
+                    .icon
+                        i.ic-user-24
+                    input.icon-before
+
+                //h3.mt16 Choisissez un genre
+                    span.gray &nbsp;(pour féminiser les noms et accorder les adjectifs uniquement)
+                //.form.mt8
+                    .input-group.radio
+                        label(for="female") Féminin
+                        input(type="radio" id="female" name="gender" v-bind:value="false" v-model="config.is_male")
+                    .input-group.radio
+                        label(for="male") Masculin
+                        input(type="radio" id="male" name="gender" v-bind:value="true" v-model="config.is_male")
+
+                .perma-help.mt16
+                    .ph-body
+                        p Skotch est fait pour des copains qui se connaissent dans la vraie vie. C'est pour cette raison qu'un prénom et un nom vous sont demandés.
+                        .ph-info.flexVC
+                            p.m-zero Vos copains inscrits sur Skotch vous trouveront via la recherche de copains.
+                            .icon.ml16
+                                i.ic-friend-add.fs24
+
+    section#network.network(v-else-if="step === 2")
+        .page-title
+            .title-group
+                .icon
+                    //i.ic-skotch-and-share-6
+                    i.ic-friend-add
+                h2 Réseau & Partage
+
+        .scrollable-content
+            .content
+                .form.mt16
+                    .switch-group
+                        label Autoriser les demandes de copains ?
+                        button.switch.ml8(@click="toogleFriendsRequest()", :class="{'active': config.accept_friend_request}")
+                            .dot
+
+                .perma-help.mt16
+                    .ph-body
+                        p En utilisant Skotch avec des copains, vous pourrez leur partager vos skotchs et en recevoir de leur part.
+                        .ph-info.reverse.flexVC.mt16
+                            .icon.mr16
+                                i.ic-notification-bell.fs24
+                            p.m-zero Skotch vous notifiera de chaque demande de copain et de chaque suggestion de skotch. Vous décidez de les accepter ou non.
+                        .ph-info.flexVC.mt16
+                            p.m-zero Vous pourrez changer ce choix en allant dans les paramètres, via le menu.
+                            .icon.ml16
+                                i.ic-param-24.fs24
+
+    section#sklfirstSelect(v-else-if="step === 3")
+
+        .page-title
+            .title-group
+                .skl-icon.icon
+                    i.ic-list-add
+                h2 Choix des Listes
+
+        .scrollable-content
+            .content
+                .perma-help.mt16
+                    .ph-body
+                        p Skotch vous propose des listes thématiques prédéfinies, comme par exemple “<strong>À Regarder</strong>” pour y noter séries, films et autres docus.
+                        .ph-info.reverse.flexVC.mt16
+                            .skl-tag.special.mr8 Film
+                            p.m-zero Les tags vous détaillent les sous-catégories présentes dans chaque liste.
+
+
+            .content
+                p.fs16.mt8 Sélectionnez <b>au moins 3 listes</b> parmi les 20 qui vous sont proposées. Vous pouvez toutes les choisir si vous le souhaitez ! Elles s'ajouteront à "Mes Listes".
+
+            .content#sklList
+                .skl-select-group(v-for="sl in orderedSkotchListCatalog", :key="sl.id")
+                    .skotchlist(@click="toogleSkotchList(sl.id)", :class="{ inactive : !isSkotchListActive(sl.id), active : isSkotchListActive(sl.id) }", :id="'skl_' + sl.id")
+                        .skl-icon
+                            .icon
+                                i
+                        .skl-title
+                            span {{ sl.title[$i18n.locale] }}
+                        .skl-options
+                            button.icon.skl-select(v-if="isLoading.includes(sl.id)")
+                                loading.delay-appear(color='black', v-if="!isSkotchListActive(sl.id)")
+                                loading.delay-appear(color='white', v-if="isSkotchListActive(sl.id)")
+                            button.icon.skl-select(v-if="!isLoading.includes(sl.id)", :class="{ active : isSkotchListActive(sl.id) }")
+                                i.ic-ok-c-b24
+                                i.ic-list-add
+
+                    .skl-tag-list(v-for="tag in orderTags(sl['skotch_list_tags'])")
+                        .skl-tag.word-only {{ tag.title[$i18n.locale] }}
+
+            .content
+                .perma-help
+                    .ph-body
+                        .ph-info.reverse.flexVC
+                            i.ic-list-add.fs24.mr12
+                            p.m-zero Vous pourrez changer vos choix à tout moment en allant dans Sélection des listes, via le menu.
+
+
+    section#stepCounter
+
+        button.only-one-step(v-if="!!config.lastname && !!config.firstname", @click="updateUsernames() ; terminateFirstStep()" tabindex=3 ref="next")
+            i.ic-check-24
+
+        //.flexVC
+            button.back.first(v-if="step === 1")
+                i.ic-arrow
+            button.back(v-if="step === 2", @click="step = 1")
+                i.ic-arrow
+            button.back(v-if="step === 3", @click="step = 2")
+                i.ic-arrow
+
+        //.flexVC
+            .box-container
+                .step.one(:class="{'active': step === 1}")
+            .box-container
+                .step.two(:class="{'active': step === 2}")
+            .box-container
+                .step.three(:class="{'active': step === 3}")
+
+        //.flexVC
+            .button-group(v-if="step === 1")
+                button.next(v-if="!!config.lastname && !!config.firstname" , @click="updateUsernames()", tabindex=3, ref="next")
+                    i.ic-arrow
+
+                button.next.nope(v-else, tabindex=3, @click="displayWarning = true", ref="next")
+                    i.ic-arrow
+
+            button.next(v-if="step === 2", @click="step = 3")
+                i.ic-arrow
+
+            .button-group.the-end(v-if="step === 3")
+                .issue.show-it(v-if="displayListIssue", :class="{'dnd' : userActiveSkotchList.length > 2}")
+                    span Au moins 3 listes
+                button.end.nope(@click="displayListIssue = !displayListIssue", :class="{'valid' : userActiveSkotchList.length > 2 , 'wow' : userActiveSkotchList.length > 19 }")
+                    span(v-if="userActiveSkotchList.length < 20") {{ userActiveSkotchList.length  }} / 20
+                    //i.ic-meow(v-if="userActiveSkotchList.length === 20")
+                    i.ic-like-b24(v-if="userActiveSkotchList.length === 20")
+
+                button.end(v-if="userActiveSkotchList.length > 2", @click="terminateFirstStep()")
+                    i.ic-check-24
+

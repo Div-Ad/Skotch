@@ -1,0 +1,167 @@
+#q-app
+    +setFixedHeight(calc(100%))
+
+.modal
+    +setFlexBox(100vw, 100%, center, center, row)
+    z-index: 9999!important
+    background-color: rgba(44,62,80, 0.9)!important
+    position: fixed
+    top: 0
+    left: 0
+
+.container
+    +setFixedWidth(100vw)
+    +setFixedHeight(calc(100% - 64px)) //- minus userbar
+    position: fixed
+    top: 64px
+    left: 0
+    padding: 0 24px 24px
+    background-color: $c-theme
+    +custom8pxScrollBar
+    &#config
+        padding-bottom: 56px
+    &#legal
+        overflow-x: visible
+
+.container-with-tabs, .container-with-bottom-button
+    +setFixedWidth(100vw)
+    +setFixedHeight(calc(100% - 64px)) //- minus userbar
+    position: fixed
+    top: 64px
+    left: 0
+
+.container-post-tabs
+    +setFixedHeight(calc(100% - 48px)) //- minus tabs
+    background-color: $c-theme
+    +custom8pxScrollBar
+    
+    .bookmarked-skotchlist &
+        +setFixedHeight(100%)
+
+.container-pre-bottom-button
+    +setFixedHeight(calc(100% - 48px))
+    background-color: $c-theme
+    +custom8pxScrollBar
+    
+#PageTitle, .page-title
+    +setFlexBox(initial, 90px, center, space-between, row)
+    position: relative
+    border-bottom: 3px solid rgba(black, 0.15)
+    
+    .title-group
+        +setFixedHeight(64px)
+        +flexVC
+        .icon
+            margin-right: 16px
+            i
+                font-size: 48px
+        h2
+            margin: 0
+    
+    .toggle
+        transform: rotate(270deg)
+        i
+            font-size: 24px
+        &.active
+            transform: rotate(90deg)
+    
+    .help
+        i
+            font-size: 32px
+            color: $c-help
+        &.active i
+            color: $c-help
+        &:hover
+            i
+                color: $c-help
+    .group
+        +flexVC
+        
+    .group-vert
+        +flexVC
+        flex-direction: column
+
+
+#PageContent, .page-content
+    margin: 16px 0 0
+
+.tabs
+    +setFlexBox(100vw, 48px, flex-end, center, row)
+    padding: 0 16px
+    
+    .icon.nav
+        +setActionIcon(48px)
+        font: 300 20px/20px $condensed
+        cursor: pointer
+        background-color: lighten($c-bnf, 3.5%)
+        border-radius: 8px 8px 0 0
+        i
+            color: white
+            
+    .tab
+        +setFlexBox(50%, 48px, center, space-between, row)
+        padding: 0 6px 0 16px
+        border-radius: 8px 8px 0 0
+        font: 300 20px/20px $condensed
+        cursor: pointer
+        background-color: lighten($c-theme-negative, 7%)
+        color: $c-theme
+        position: relative
+        .sk-counter
+            i
+                font-size: 32px
+                position: relative
+                top: -8px
+                z-index: 0
+                color: rgba(0,0,0,0.1)
+            span.sup
+                right: 8px
+        span
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+            line-height: 100%
+        
+        span.sup
+            background-color: transparent
+            font-family: $small
+            font-size: 14px
+            padding: 5px
+            position: absolute
+            top: 0
+            right: 0
+            border-radius: 0 6px 0 6px
+            transition: background-color 0.5s
+            z-index: 1
+        
+        .options
+            +flexVC
+            color: rgba($c-theme-negative, 0.5)
+            .icon
+                +setActionIcon(32px)
+                font-size: 24px
+                i
+                    transition: 0.25s
+                &.active
+                    i
+                        color: rgba($c-theme-negative, 0.9)
+        
+        &.my-contact .options .icon.active i
+            color: $c-bnf-purple
+        
+        &.active
+            background-color: $c-theme
+            color: $c-theme-negative
+            .options .icon:hover
+                color: $c-i-blue
+            &.new-entry
+                span.sup
+                    background-color: transparent
+        
+        &.new-entry
+            span.sup
+                background-color: $c-bnf-gold
+                color: $c-g50
+    &.has-nav
+        .tab
+            +setFixedWidth(calc(50% - 24px))

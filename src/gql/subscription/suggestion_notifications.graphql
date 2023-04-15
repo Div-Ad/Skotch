@@ -1,0 +1,19 @@
+subscription SuggestionNotifications($id: String!) {
+    suggestion(where: {is_accepted: {_is_null: true}, friend_id: {_eq: $id}}) {
+        id
+        is_accepted
+        is_read_by_friend
+        is_read_by_user
+        pin
+        rk
+        skotch_suggested {
+            name
+            link
+            description
+            tag_id
+            skotch_list_id
+        }
+        skotch_id
+        user_id
+    }
+}

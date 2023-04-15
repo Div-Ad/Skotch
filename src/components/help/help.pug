@@ -1,0 +1,75 @@
+.ob-container#OBMenu
+    .onboarding-menu.light-theme
+        .ob-menu-header
+            i.ic-skotchinours
+            h2 Activation des aides
+
+        .ob-menu-content
+
+            //.ob-items#OB1
+                .ob-title
+                    h3 1. Découverte de l'application Skotch
+                    button.switch(@click="userInfo.params.help.ob1 =! userInfo.params.help.ob1 ; userInfo.params.help.ob0 = false", :class="{'active' : !userInfo.params.help.ob1 }")
+                        .dot
+                p.show-it(v-show="!userInfo.params.help.ob1") Dans l'onglet "Mes Listes".
+
+            .ob-items#OB2
+                .ob-title
+                    h3 1. Les fonctionnalités des skotchs
+                    button.switch(@click="userInfo.params.help.ob2 =! userInfo.params.help.ob2 ; userInfo.params.help.ob0 = false", :class="{'active' : !userInfo.params.help.ob2 }")
+                        .dot
+                p.show-it(v-show="!userInfo.params.help.ob2") Dans n'importe quelle liste, si elle contient au moins 1 skotch.
+
+            .ob-items#OB3
+                .ob-title
+                    h3 2. L'onglet "Mes copains"
+                    button.switch(@click="userInfo.params.help.ob3 =! userInfo.params.help.ob3 ; userInfo.params.help.ob0 = false", :class="{'active' : !userInfo.params.help.ob3 }")
+                        .dot
+                p.show-it(v-show="!userInfo.params.help.ob3") Dans l'onglet "Mes Copains", si vous avez au moins 1 copain.
+
+            .ob-items#OB4
+                .ob-title
+                    h3 3. Les options de partage à la création d'un skotch
+                    button.switch(@click="userInfo.params.help.ob4 =! userInfo.params.help.ob4 ; userInfo.params.help.ob0 = false", :class="{'active' : !userInfo.params.help.ob4 }")
+                        .dot
+                p.show-it(v-show="!userInfo.params.help.ob4") Dans le formulaire de création d'un skotch, si vous avez au moins 1 copain.
+            //.ob-items#OB5
+                .ob-title
+                    h3 5. Envoyer un skotch aux copains
+                    button.switch(@click="userInfo.params.help.ob5 =! userInfo.params.help.ob5 ; userInfo.params.help.ob0 = false", :class="{'active' : !userInfo.params.help.ob5 }")
+                        .dot
+                p.show-it(v-show="!userInfo.params.help.ob5") Dans le formulaire de création d'un skotch, partie "À qui voulez-vous envoyer ce skotch", si vous avez au moins 1 copain et que l'aide n°4 a été lue ou désactivée.
+            .ob-items#OB6
+                .ob-title
+                    h3 4. Ordonner ses skotchs : Le Drag And Drop
+                    button.switch(@click="userInfo.params.help.ob6 =! userInfo.params.help.ob6 ; userInfo.params.help.ob0 = false", :class="{'active' : !userInfo.params.help.ob6 }")
+                        .dot
+                p.show-it(v-show="!userInfo.params.help.ob6") Dans n'importe quelle liste, si elle contient au moins 3 skotchs et que l'aide n°2 a été lue ou désactivée.
+            .ob-items#OB7
+                .ob-title
+                    h3 5. Les filtres et le tri dans une liste
+                    button.switch(@click="userInfo.params.help.ob7 =! userInfo.params.help.ob7 ; userInfo.params.help.ob0 = false", :class="{'active' : !userInfo.params.help.ob7 }")
+                        .dot
+                p.show-it(v-show="!userInfo.params.help.ob7") Dans n'importe quelle liste, si elle contient au moins 10 skotchs et que les aides n°2 et n°6 ont été lues ou désactivées.
+            .ob-items#OB8
+                .ob-title
+                    h3 6. Naviguer en Swipant
+                    button.switch(@click="userInfo.params.help.ob8 =! userInfo.params.help.ob8 ; userInfo.params.help.ob0 = false", :class="{'active' : !userInfo.params.help.ob8 }")
+                        .dot
+                p.show-it(v-show="!userInfo.params.help.ob8") Dans l'onglet "Mes listes" ou "Mes copains", si vous avez 1 copain et 3 skotchs dans l'une de vos liste, et que l'aide n°4 a été lue ou désactivées.
+
+            .switch-explanation
+                .w-100
+                    h3 Légende
+                .part
+                    button.switch.scale-0-75
+                        .dot
+                    span L'aide a été lue ou désactivée
+                .part
+                    button.switch.active.scale-0-75
+                        .dot
+                    span L'aide n'a pas été lue ou a été reactivée.
+                .w-100.mt16
+                    h3 Comment activer une aide ?
+                    p Cliquez sur l'interrupteur pour désactiver ou activer une aide.
+                    p Nous vous donnons pour chacune d'entre elles l'endroit où la trouver, et dans quelles conditions elle apparaît.

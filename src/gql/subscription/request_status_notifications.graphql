@@ -1,0 +1,11 @@
+subscription RequestStatusNotifications {
+    request_accepted(where: {is_read: {_eq: false}}) {
+        friend {
+            lastname
+            photobase64
+            photourl
+            firstname
+            id
+        }
+    }
+}

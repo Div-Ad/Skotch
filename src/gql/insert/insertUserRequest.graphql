@@ -1,0 +1,9 @@
+mutation insert_friend_request($friend_id: String) {
+    insert_friend_one(object: {friend_id: $friend_id}) {
+        is_accepted
+        is_read
+        user_id
+        friend_id
+        created
+    }
+}

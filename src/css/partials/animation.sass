@@ -1,0 +1,316 @@
+//////////////
+// TRIGGERS //
+//////////////
+
+.animate-left-section, .animate-right-section
+    animation: appear-smooth 0.25s
+    
+.is-mobile
+    .animate-left-section
+        animation: animateleftsection 0.25s
+    
+    .animate-right-section
+        animation: animaterightsection 0.25s
+      
+//if you want to call the animation via class
+
+.show-it
+    animation: appear 0.5s
+.open-it
+    animation: openit 0.25s
+    
+.animate-top
+    animation: animatetop 0.25s
+
+.animate-bottom
+    animation: animatebottom 0.25s
+
+.animate-left
+    animation: animateleft 0.25s
+
+.animate-right
+    animation: animateright 0.25s
+
+.animate-right-fixed
+    animation: animaterightfixed 0.25s
+
+.animate-left-fixed
+    animation: animateleftfixed 0.25s
+
+.auto-disappear
+    animation: disappear 0.5s 2s
+    animation-fill-mode: forwards
+
+.auto-disappear-2
+    animation: disappear 1s forwards
+
+.spin-it
+    animation: spin 2s linear infinite
+    +setSquare(100%)
+    +flexHVC
+    img
+        +setSquare(24px)
+        &.big
+            +setSquare(80px)
+            
+.delay-appear
+    animation: delay-appear 1s
+    
+.pulsate
+    animation: pulsate 4s infinite
+    
+.tabs-in
+    animation: tabs-in 0.25s
+    
+.tabs-out
+    animation: tabs-out 0.25s backwards
+    
+.no-animation
+    animation: none!important
+    
+//- correcters --/
+
+.faster
+    animation-duration: 0.15s!important
+.fast
+    animation-duration: 0.25s!important
+.delay_1-5s
+    animation-delay: 1.5s
+    animation-fill-mode: backwards
+.delay_1s
+    animation-delay: 1s
+    animation-fill-mode: backwards
+    
+////////////////
+// ANIMATIONS //
+////////////////
+
+@keyframes delay-appear
+    0%
+        opacity: 0
+    50%
+        opacity: 0
+    100%
+        opacity: 1
+
+    
+@keyframes tabs-in
+    0%
+        +setFixedWidth(calc(100% / 9 * 4))
+    100%
+        +setFixedWidth(calc(100% / 9 * 5))
+
+@keyframes tabs-out
+    0%
+        +setFixedWidth(calc(100% / 9 * 5))
+    100%
+        +setFixedWidth(calc(100% / 9 * 4))
+        
+@keyframes loading
+    $offset: -8px
+    0%
+        margin-bottom: $offset
+        margin-top: initial
+
+    25%
+        margin-top: $offset
+        margin-bottom: initial
+    50%
+        margin-bottom: $offset
+        margin-top: initial
+    70%
+        margin-top: $offset
+        margin-bottom: initial
+
+    100%
+        margin-bottom: $offset
+        margin-top: initial
+
+@keyframes appear
+    0%
+        display: none
+        opacity: 0
+    1%
+        display: block
+        opacity: 0
+    100%
+        opacity: 1
+
+@keyframes appear-smooth
+    0%
+        opacity: 0.65
+    100%
+        opacity: 1
+
+@keyframes disappear
+    0%
+        right: 0
+        opacity: 1
+
+    100%
+        right: -100vw
+        opacity: 0
+        
+@keyframes appear-disappear
+    0%
+        opacity: 0.5
+    50%
+        opacity: 1
+    100%
+        opacity: 0.5
+
+@keyframes animatetop
+    from
+        margin-top: -100vh
+        opacity: 0
+    to
+        margin-top: 0
+        opacity: 1
+
+@keyframes animatetop-relative
+    from
+        top: -10vh
+        opacity: 0
+    to
+        top: 0
+        opacity: 1
+
+@keyframes animatebottom
+    from
+        margin-top: 100vh
+        opacity: 0
+    to
+        margin-top: 0
+        opacity: 1
+
+@keyframes animateleft
+    from
+        margin-left: -100vw
+    to
+        margin-left: 0
+@keyframes animateright
+    from
+        margin-left: 100vw
+    to
+        margin-left: 0
+@keyframes animateleftsection
+    from
+        margin-left: -50vw
+    to
+        margin-left: 0
+@keyframes animaterightsection
+    from
+        margin-left: 50vw
+    to
+        margin-left: 0
+        
+@keyframes animateleftfixed
+    from
+        left: -100vw
+    //opacity: 0
+    to
+        left: 0
+//opacity: 1
+
+@keyframes animaterightfixed
+    from
+        right: -100vw
+        opacity: 0
+    to
+        right: 0
+        opacity: 1
+
+//opacity: 1
+
+@keyframes disappear-2
+    0%
+        +setFixedHeight(0)
+        opacity: 1
+    100%
+        opacity: 0
+        +setFixedHeight(48px)
+
+@keyframes spin
+    0%
+        opacity: 1
+        transform: rotate(0deg)
+    16.665%
+        opacity: 0.5
+        transform: rotate(10deg)
+    16.666%
+        opacity: 1
+        transform: rotate(60deg)
+    33.331%
+        opacity: 0.5
+        transform: rotate(70deg)
+    33.332%
+        opacity: 1
+        transform: rotate(120deg)
+    49.99%
+        opacity: 0.5
+        transform: rotate(130deg)
+    49.998%
+        opacity: 1
+        transform: rotate(180deg)
+    66.663%
+        opacity: 0.5
+        transform: rotate(190deg)
+    66.664%
+        opacity: 1
+        transform: rotate(240deg)
+    83.332%
+        opacity: 0.5
+        transform: rotate(250deg)
+    83.333%
+        opacity: 1
+        transform: rotate(300deg)
+    99.99%
+        opacity: 0.5
+        transform: rotate(310deg)
+    100%
+        opacity: 1
+        transform: rotate(360deg)
+
+@keyframes pulsate
+    0%
+        transform: scale(1)
+    87.9%
+        transform: scale(1)
+    88%
+        transform: scale(1.2)
+    90%
+        transform: scale(1)
+    92.9%
+        transform: scale(1)
+    93%
+        transform: scale(1.3)
+    95%
+        transform: scale(1)
+    100%
+        transform: scale(1)
+        
+@keyframes rotateleft
+    from
+        transform: rotate(0deg)
+    to
+        transform: rotate(-90deg)
+        
+@keyframes rotateright
+    from
+        transform: rotate(0deg)
+    to
+        transform: rotate(90deg)
+        
+@keyframes openit
+    from
+        transform: scale(0)
+    to
+        transform: scale(1)
+
+@keyframes slow-blink
+    0%
+        opacity: 0.25
+    50%
+        opacity: 0.75
+    100%
+        opacity: 0.25

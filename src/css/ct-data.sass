@@ -1,0 +1,87 @@
+$-ct-color-1: rgb(62, 91, 111)
+$-ct-color-2: rgb(231, 175, 112)
+$-ct-color-3: rgb(181,101,101)
+$-ct-color-4: rgb(111, 92, 109)
+$-ct-color-5: rgb(154, 187, 133)
+$-ct-color-6: rgb(83, 132, 150)
+$-ct-color-7: rgb(200,120,90)
+$-ct-color-8: rgb(199, 78, 78)
+$-ct-color-9: rgb(69, 140, 110)
+$-ct-color-10: rgb(96, 102, 105)
+
+//- play with colors thanx to invert desaturate lighten or darken for example
+
+.ct-avatar[id^="A"], .ct-avatar[id^="a"], .ct-avatar[id^="1"]
+    .background
+        background-color: $-ct-color-1
+.ct-avatar[id^="B"], .ct-avatar[id^="b"], .ct-avatar[id^="2"]
+    .background
+        background-color: $-ct-color-2
+.ct-avatar[id^="C"], .ct-avatar[id^="c"], .ct-avatar[id^="3"]
+    .background
+        background-color: $-ct-color-3
+.ct-avatar[id^="D"], .ct-avatar[id^="d"], .ct-avatar[id^="4"]
+    .background
+        background-color: $-ct-color-4
+.ct-avatar[id^="E"], .ct-avatar[id^="e"], .ct-avatar[id^="5"]
+    .background
+        background-color: $-ct-color-6
+.ct-avatar[id^="F"], .ct-avatar[id^="f"], .ct-avatar[id^="6"]
+    .background
+        background-color: $-ct-color-9
+.ct-avatar[id^="G"], .ct-avatar[id^="g"], .ct-avatar[id^="7"]
+    .background
+        background-color: $-ct-color-7
+.ct-avatar[id^="H"], .ct-avatar[id^="h"], .ct-avatar[id^="8"]
+    .background
+        background-color: $-ct-color-8
+.ct-avatar[id^="I"], .ct-avatar[id^="i"], .ct-avatar[id^="9"]
+    .background
+        background-color: $-ct-color-5
+.ct-avatar[id^="J"], .ct-avatar[id^="j"], .ct-avatar[id^="10"], .ct-avatar[id^="7o"]
+    .background
+        background-color: $-ct-color-10
+.ct-avatar[id^="K"], .ct-avatar[id^="k"]
+    background-color: saturate($-ct-color-1, 5%)
+.ct-avatar[id^="L"], .ct-avatar[id^="l"]
+    .background
+        background-color: saturate($-ct-color-2, 5%)
+.ct-avatar[id^="M"], .ct-avatar[id^="m"]
+    .background
+        background-color: saturate($-ct-color-5, 10%)
+.ct-avatar[id^="N"], .ct-avatar[id^="n"]
+    .background
+        background-color: saturate($-ct-color-4, 5%)
+.ct-avatar[id^="O"], .ct-avatar[id^="o"]
+    .background
+        background-color: saturate($-ct-color-3, 10%)
+.ct-avatar[id^="P"], .ct-avatar[id^="p"]
+    .background
+        background-color: saturate($-ct-color-6, 15%)
+.ct-avatar[id^="Q"], .ct-avatar[id^="q"]
+    .background
+        background-color: desaturate($-ct-color-8, 5%)
+.ct-avatar[id^="R"], .ct-avatar[id^="r"]
+    .background
+        background-color: saturate($-ct-color-1, 5%)
+.ct-avatar[id^="S"], .ct-avatar[id^="s"]
+    .background
+        background-color: saturate($-ct-color-9, 5%)
+.ct-avatar[id^="T"], .ct-avatar[id^="t"]
+    .background
+        background-color: saturate($-ct-color-10, 5%)
+    
+.ct-avatar[id^="U"], .ct-avatar[id^="u"]
+    background-color: darken($-ct-color-2, 7%)
+.ct-avatar[id^="V"], .ct-avatar[id^="v"]
+    background-color: lighten($-ct-color-6, 14%)
+.ct-avatar[id^="W"], .ct-avatar[id^="w"]
+    background-color: lighten($-ct-color-3, 7%)
+.ct-avatar[id^="X"], .ct-avatar[id^="x"]
+    background-color: lighten($-ct-color-4, 7%)
+.ct-avatar[id^="Y"], .ct-avatar[id^="y"]
+    background-color: darken($-ct-color-5, 7%)
+.ct-avatar[id^="Z"], .ct-avatar[id^="z"]
+    background-color: lighten($-ct-color-8, 7%)
+
+    

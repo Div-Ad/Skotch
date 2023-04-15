@@ -1,0 +1,9 @@
+mutation upsert_user_feedback($userFeedback: [feedback_insert_input!]!) {
+    insert_feedback(objects: $userFeedback, on_conflict: {constraint: feedback_pkey, update_columns: feedback}) {
+        returning {
+            created
+            feedback
+            suggestion_id
+        }
+    }
+}

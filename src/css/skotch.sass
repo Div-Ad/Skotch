@@ -1,0 +1,779 @@
+@import "./partials/variables.sass"
+@import "./partials/colors.sass"
+
+//- TagDesign - //
+
+.skl-tag
+    +setFixedHeight(24px)
+    +flexHVC
+    margin: 0 4px 4px 0
+    padding: 0 8px
+    background-color: $c-bnf-red
+    display: inline-flex
+    font: 300 12px/16px $slab
+    color: white
+    position: relative
+    text-transform: uppercase
+    border-radius: 2px
+    z-index: 0
+    &.special
+        background-color: rgba(black,0.15)
+        margin-bottom: 0
+    &.word-only
+        margin: 0 8px 8px 0
+        background-color: $c-g235
+        color: $c-g50
+
+    &.word-only-2
+        +setFixedHeight(16px)
+        font: 300 11px/12px $slab
+        background-color: $c-g235
+        color: $c-g50
+        padding: 0 4px
+        margin: 8px 8px 0 0
+
+    &.active
+        background-color: $c-bnf-gold
+    &:focus:after
+        content: ''
+        border-bottom: 4px solid $c-bnf-gold
+        width: 100%
+        position: absolute
+        bottom: -4px
+        left: 0
+        
+        
+.skl-tag-in-text
+    text-transform: uppercase
+    font-family: $slab
+    font-size: 11px
+    background-color: $c-bnf-red
+    padding: 1px 4px
+    position: relative
+    top: -1px
+    border-radius: 2px
+    white-space: nowrap
+    
+
+#contactDetails
+    .skl-tag-in-text
+        font-size: 11px
+        position: relative
+        top: -2px
+    #skotchOut
+        .sk-group
+            padding-right: 40px
+
+
+//- Skl Design / SkotchListDesign-//
+
+.skotchlist
+    +setFixedHeight(64px)
+    width: calc(100vw / 4 - 16px * 2)
+    margin: 8px
+    border-radius: 2px
+    //background: $c-bnf url("~assets/img/background-line-4.svg") center/6px repeat repeat
+    background: $c-bnf
+    position: relative
+    overflow: hidden
+    cursor: pointer
+    
+    .skl-icon
+        +setFixedHeight(inherit)
+        +setFixedWidth(64px)
+        +flexHVC
+        background-color: rgba(black,0.1)
+        position: absolute
+        left: 0
+        top: 0
+        i
+            transition: 0s
+            font-size: 32px
+            color: rgba(255,255,255,1)
+
+    .skl-title
+        +setFixedHeight(inherit)
+        +flexVC
+        margin-left: calc(64px)
+        padding-left: 16px
+        font: 400 22px/22px $condensed
+        color: white
+        border-left: 2px solid rgba(0,0,0,0.15)
+
+    .sk-counter
+        +setIcon(32px)
+        position: absolute
+        top: 0
+        right: 8px
+        z-index: 1
+        transform-origin: top center
+        .thumb-display
+            display: none
+        .list-display
+            display: block
+        span
+            font: 300 16px/18px $condensed
+            position: relative
+            top: -1px
+            z-index: 1
+            color: rgba(50,50,50,0.75)
+            //text-shadow: 0 0 16px rgba(white,1)
+        .icon
+            top: -1
+            position: absolute
+            i
+                font-size: 36px
+                color: rgba(white,0.75)
+
+    &:hover
+        .skl-icon
+            background-color: rgba(0,0,0,0.05)
+        .skl-title
+            border-left: 2px dashed rgba(0,0,0,0.15)
+
+
+    &#sklSelectTrigger
+        background-color: white
+        background-image: none
+        border: 3px solid $c-bnf
+        .skl-icon
+            +setSquare(58px)
+            border-radius: 8px 0 0 8px
+            background-color: rgba(0, 0, 0, 0)
+            i
+                color: $c-bnf
+                font-size: 24px
+        .skl-title
+            +setFixedHeight(58px)
+            color: $c-bnf
+            border-left: 2px dashed $c-bnf
+            left: -2px
+            position: relative
+
+    &#PinList
+        background-color: $c-bnf-gold
+        background-image: none
+        .sk-counter span
+            color: darken($c-bnf-gold, 24%)
+        .skl-icon
+            background-color: transparent
+            .icon i
+                color: rgba(0,0,0,0.35)
+        .skl-title
+            color: rgba(0,0,0,0.5)
+            border-left: 2px dashed rgba(0,0,0,0.15)
+
+    &#skNotifTrigger
+        background-color: white
+        background-image: none
+        border: 3px solid $c-bnf-red
+        .skl-icon
+            +setSquare(58px)
+            border-radius: 8px 0 0 8px
+            background-color: rgba(0, 0, 0, 0)
+            i
+                color: $c-bnf-red
+                font-size: 32px
+                position: relative
+                right: -2px
+        .skl-title
+            +setFixedHeight(58px)
+            color: $c-bnf-red
+            border-left: 2px dashed $c-bnf-red
+            left: -2px
+            position: relative
+
+
+.thumbnail .skotchlist
+    //- width defined in media-querys -//
+    margin: 8px
+    border-radius: 4px
+    background: rgba(50,50,50,0.015) url("~assets/img/background-line-4.svg") center/4px repeat repeat !important
+    
+    &:hover
+        background-color: rgba(0,0,0,0)!important
+        background-image: none
+    
+    .skl-title
+        +setSquare(inherit)
+        align-items: flex-end
+        justify-content: center
+        padding: 12px
+        margin: 0
+        font: 400 16px/16px $condensed
+        color: $c-g80
+        border: none
+        span.count
+            display: none
+    
+    .skl-icon
+        +setIcon(inherit)
+        background-color: transparent
+        .icon
+            background-color: transparent
+            i
+                color: $c-g80
+                font-size: 64px
+    
+    .sk-counter
+        top: -7px
+        right: 8px
+        .thumb-display
+            display: block
+        .list-display
+            display: none
+        .icon
+            +setIcon(48px)
+            top: -1px
+        span.numbers
+            color: white!important
+            top: 5px
+            text-shadow: 0 0 0 rgba(0,0,0,0)
+    
+    &#sklSelectTrigger, &#skNotifTrigger
+        background-color: lighten($c-bnf, 7%)!important
+        border: 0 solid white
+        .skl-icon, .skl-title
+            +setSquare(inherit!important)
+        .skl-icon i, .skl-title
+            color: lighten($c-bnf, 77%)
+        .skl-icon
+            border-right: none
+            .icon
+                background-color: transparent
+            i
+                font-size: 48px
+        &:hover .skl-icon .icon i
+            color: $c-white
+        .tdl-title, .skl-title
+            left: 0
+    
+    &#PinList
+        background-color: $c-bnf-gold!important
+        .skl-icon i, .skl-title
+            color: rgba(50,50,50,0.55)
+        .skl-icon
+            .icon
+                background-color: transparent
+        .skl-title
+            border: none
+        &:hover .skl-icon .icon i
+            color: rgba(50,50,50,0.85)
+        .sk-counter
+            top: -3px
+            right: 8px
+            .icon
+                display: none
+            span
+                top: 8px
+                color: rgba(50,50,50,0.65)
+                text-shadow: 0 0 1px rgba(50,50,50,0.25)
+                border-color: rgba(50,50,50,0.65)
+
+    &#skNotifTrigger
+        background-color: $c-bnf-red!important
+        .skl-icon i, .skl-title
+            color: rgba(255,255,255,0.85)
+        .skl-icon
+            .icon
+                background-color: transparent
+                i
+                    right: 0
+        .skl-title
+            border: none
+        &:hover .skl-icon .icon i
+            color: rgba(255,255,255,0.85)
+
+
+@media (min-width: 1920px)
+    .thumbnail .skotchlist
+        +setSquare(calc(100vw / 11 - 64px / 11 - 16px)) //- total width / N - Total padding / N - total item margins
+
+@media (max-width: 1920px)
+    .thumbnail .skotchlist
+        +setSquare(calc(100vw / 9 - 64px / 9 - 16px))
+
+@media (max-width: 1440px)
+    .thumbnail .skotchlist
+        +setSquare(calc(100vw / 7 - 64px / 7 - 16px))
+
+@media (max-width: 1280px)
+    .skotchlist
+        width: calc(100vw / 3 - 16px * 2 - 8px)
+    .thumbnail .skotchlist
+        +setSquare(calc(100vw / 5 - 64px / 5 - 16px))
+
+@media (max-width: 980px)
+    .skotchlist
+        width: calc(100vw / 2 - 16px * 2 - 8px * 2)
+    .thumbnail .skotchlist
+        +setSquare(calc(100vw / 4 - 64px / 4 - 16px))
+
+@media (max-width: 720px)
+    .thumbnail .skotchlist
+        +setSquare(calc(100vw / 3 - 64px / 3 - 16px))
+
+@media (max-width: 640px)
+    .skotchlist
+        width: 100%
+
+@media (max-width: 540px)
+    .thumbnail .skotchlist
+        +setSquare(calc(100vw / 2 - 64px / 2 - 16px))
+
+//- Skotch Design SkotchDesign -//
+
+.skotch
+    width: 100%
+    min-height: 80px
+    position: relative
+    margin-bottom: 12px
+    border-radius: 0 6px 6px 0
+    background-color: white
+    &:after
+        content: ""
+        height: 100%
+        width: 8px
+        background: url("~assets/img/triangle-w-6.svg") top left/8px repeat-y
+        //transform: rotate(180deg)
+        position: absolute
+        left: 0
+        top: 0
+        z-index: 0
+    i.ic-drag-2
+        display: none
+    .unpin
+        margin-right: 8px
+        transition: 0.25s
+        +setIcon(24px)
+        cursor: pointer
+        display: none
+        color: $c-bnf-gold
+        font-size: 24px
+        &:hover
+            color: $c-bnf
+            i
+                transform: rotate(-15deg)
+                font-size: 28px
+    .first-part
+        width: 100%
+        min-height: inherit
+        +flexVC
+        background-color: rgb(235,235,235)
+        border-radius: 0 6px 6px 0
+        position: relative
+        z-index: 0
+        padding-left: 16px
+        cursor: pointer
+        &.selected
+            border-radius: 0 4px 0 0
+    .sk-group
+        display: flex
+        align-items: center
+        min-height: inherit
+        width: 100%
+    
+    .sk-info-container
+        display: inline-flex
+        flex-wrap: wrap
+        align-items: center
+        padding: 4px 0
+        
+    .sk-name-group
+        display: inline-flex
+        align-items: center
+    
+    .ct-avatar
+        +setIcon(48px)
+        margin-right: 8px
+        .background
+            .firstname-letter, .lastname-letter
+                font-size: 24px
+    
+    .sk-name, .ic-bookmark, .sk-link, .skl-tag
+        margin: 3px 8px 3px 0
+        
+    .sk-name
+        font: 400 18px/18px $condensed
+        &::first-letter, &:first-letter
+            text-transform: capitalize
+    a i
+        font-size: 12px
+    i.ic-bookmark
+        display: none
+        font-size: 16px
+    
+    button.skotchback
+        +setActionIcon(24px)
+        i
+            font-size: 24px
+            color: $c-g170
+
+    .sk-details-trigger, .sk-skotchback
+        +setFlexBox(48px, 48px, center, center, row)
+        i
+            color: rgba(50,50,50,0.65)
+            transition: 0.25s
+            font-size: 24px
+            &.active
+                transform: rotate(-90deg)
+                right: 6px
+        i.ic-close-24
+            display: none
+            
+    .second-part
+        background-color: white
+        border-top: 2px solid rgba(50,50,50,0.1)
+        .sk-description
+            display: inline-block
+            background-color: rgb(245,245,245)
+            width: 100%
+        p
+            position: relative
+            padding: 16px
+            color: $c-g80
+            font: 14px/18px $condensed
+            margin-bottom: 0
+            &.quote-style
+                font-style: italic
+                &:before
+                    font-family: $icon
+                    content: '\e9c0'
+                    position: relative
+                    top: 1px
+                    margin-right: 8px
+                    font-style: normal
+            a
+                color: $c-bnf-red
+                font-weight: 500
+                word-break: break-word
+                &:before
+                    content: '\e921'
+                    font-family: $icon
+                    font-size: 10px
+                    margin: 0 4px 0 2px
+            a.sk-link
+                
+                &:before
+                    font-size: 12px
+                
+                    
+        
+        .sk-informations
+            margin-top: 8px
+            padding-bottom: 16px
+            padding-right: 4px
+            font: 11px/12px $slab
+            color: $c-g170
+            text-align: right
+            position: relative
+
+        .sk-options
+            width: 100%
+            +flexVC
+            justify-content: flex-end
+            position: relative
+            background-color: rgb(245,245,245)
+            border-radius: 0 0 4px 4px
+            
+            .skotchBackEmo button.icon
+                position: absolute
+                left: 2px
+                top: 0
+                +setIcon(32px)
+                margin: 8px
+                i
+                    font-size: 30px
+                    color: rgba(50,50,50,0.9)
+            .icon
+                +setIcon(48px)
+                position: relative
+                i
+                    font-size: 24px
+                    color: rgba(50,50,50,0.65)
+                i.ic-sk-share-f-24
+                    color: $c-skotch-share-lt!important
+                    background-color: white
+                    +setIcon(12px)
+                    border-radius: 50%
+                &:hover, &.active
+                    border-color: $c-g50
+                    i
+                        color: rgba(50,50,50,0.9)
+                    .search-options i
+                        color: white
+                        font-size: 24px
+            
+            .search-options
+                
+                +flexVC
+                border-radius: 4px!important
+                position: absolute
+                top: -100%
+                left: -24px
+                background-color: rgba(50,50,50,0.9)
+                animation: openit 0.25s
+                a
+                    button
+                        +setIcon(48px)
+                    i
+                        color: white
+                        &:hover
+                            font-size: 28px!important
+                &:after
+                    content: '\e976'
+                    font-family: $icon
+                    font-size: 16px
+                    line-height: 16px
+                    position: absolute
+                    left: calc(50% - 16px / 2)
+                    bottom: -10px
+                    transform: rotate(90deg)
+                    color: rgba(50, 50, 50, 0.9)
+    
+    //// current skotch ////
+    
+    &.current-sk
+        .sk-options
+            .archive
+                display: flex
+            .unarchive
+                display: none
+    
+    //// archived skotch ////
+    
+    &.archived-sk
+        .sk-options
+            .archive
+                display: none
+            .unarchive
+                display: flex
+
+    //// bookmarked skotch ////
+    
+    &.bookmarked-sk
+        i.ic-bookmark
+            display: inline-flex
+            position: relative
+            bottom: 1px
+            animation: openit 0.25s
+        
+        .bookmarked-skotchlist &
+            i.ic-bookmark
+                display: none
+            .unpin i
+                color: $c-bnf-gold
+        
+        .second-part .sk-options
+            i.ic-star-24
+                color: $c-bnf-gold!important
+                
+    //// sortable chosen ////
+    
+    &.sortable-chosen
+        z-index: 9999
+        position: relative
+        transform: rotate(-2deg)
+        transition: all 0.25s
+        border: 3px dashed $c-g170
+        border-radius: 3px
+        .first-part
+            background: white center/4px repeat repeat
+            border-radius: 3px
+        i.ic-drag-2
+            display: block
+            font-size: calc(48px * 2)
+            animation: openit 0.25s
+            position: absolute
+            left: calc(50% - (24px * 2 / 2))
+            top: calc(50% - (48px * 2 / 2))
+            color: $c-g170
+            
+        i.ic-options-b24
+            display: none
+        .second-part
+            display: none
+    
+    &.sortable-fallback
+        display: none!important
+        transform: rotate(-0deg)
+        border: none
+        background-image: none
+        &:after
+            display: none
+        .first-part
+            border: 2px dashed rgba(0,0,0,0.5)
+            background-image: none
+        i.ic-drag-2
+            display: none
+        
+
+@media (min-width: 768px)
+    #sklArchive, .drag-container
+        width: calc(100% + 16px)
+    
+    .skotch
+        width: calc(100% / 2  - 16px)
+        margin-right: 16px
+        .main-content .td-title, .main-content .sk-title
+            span.result, span.title, .skl-tag, a, span.skotchBackEmo, button.skotchback
+                margin: 2px 6px 2px 0
+            span.result
+                font: 16px/16px $condensed
+
+@media (min-width: 1280px)
+    .skotch
+        width: calc(100% / 3  - 16px)
+
+@media (min-width: 1920px)
+    .skotch
+        width: calc(100% / 4  - 16px)
+
+//- contact Design - ct design//
+
+.contact
+    +setSquare(158px)
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+
+    &:hover .ct-options
+        display: flex
+    
+    .ct-infos
+        margin-top: 8px
+        display: inline-flex
+        flex-wrap: wrap
+        align-content: flex-start
+        justify-content: center
+        text-align: center
+        cursor: pointer
+
+        .ct-firstname, .ct-lastname
+            margin: 0 2px
+    
+    .ct-options
+        position: absolute
+        right: 0
+        top: 0
+        display: none
+        .icon
+            color: $c-g170
+            +setActionIcon(32px)
+            i
+                font-size: 32px
+            &.friend-profile
+                display: none
+                i
+                    font-size: 24px
+            &.icon.share:hover
+                color: $c-skotch-share-lt
+                
+.ct-avatar
+    +setSquare(96px)
+    border-radius: 50% 50% 50% 5%
+    //background: $c-bnf-gold
+    color: white
+    overflow: hidden
+    img
+        object-fit: cover
+        +setFixedHeight(100%)
+        //background-color: white
+    .background
+        +setIcon(100%)
+        position: relative
+        
+        .firstname-letter, .lastname-letter
+            font-size: 48px
+            font-family: $condensed
+            text-shadow: 0 0 2px rgba(#323232,0.35)
+            
+
+//- toast-design -//
+
+.skotch-toast-container
+    top: 8px!important
+    left: 8px!important
+    width: initial!important
+    min-width: initial!important
+    max-width: calc(100% - 16px - 48px)
+.skotch-toast.toasted.toasted-primary
+    background-color: darken($c-i-green, 7%)!important
+    min-height: 48px
+    width: initial!important
+    min-width: initial!important
+    max-width: initial!important
+    padding: 16px
+    +flexHVC
+    font: 14px/16px $condensed
+    &.error
+        background-color: darken($c-bnf-red, 3.5%)!important
+
+        
+//- croppie design - //
+
+#croppieContainer
+    flex-direction: column
+    +setFixedHeight(calc(100% - 48px))
+    top: 48px
+    background-color: white!important
+    input[type="file"]
+        display: none
+    label.custom-input
+        +setFlexBox(initial, 32px, center, center, row)
+        background-color: $c-g235
+        border: 2px solid $c-g215
+        border-radius: 3px
+        padding: 0 12px
+        margin-bottom: 16px
+    .croppie-container .cr-resizer, .croppie-container .cr-vp-circle
+        border-radius: 50% 50% 50% 5%
+    .croppie-container .cr-viewport, .croppie-container .cr-resizer
+        box-shadow: 0 0 2000px 2000px rgba(0,0,0,0.6)
+    #croppie
+        +flexHVC
+        flex-direction: column
+        .cr-boundary
+            width: 160px
+            height: 160px
+    button.croppie-save
+        background-color: $c-i-validate
+    
+    
+//- tos / legal / cookie -//
+
+#logoNav
+    +setFixedHeight(64px)
+    background-color: $c-bnf
+    color: white
+    position: fixed
+    z-index: 1
+    top: 0
+    left: 0
+    width: 100%
+    +flexHVC
+    
+    .logotype
+        display: flex
+        
+        i
+            font-size: 48px
+            position: relative
+            top: -2px
+    .app-txt
+        display: flex
+        flex-direction: column
+        align-items: center
+    
+    button.go-back
+        +setActionIcon(48px)
+        position: absolute
+        left: 0
+        top: 0
+        margin: 8px
+        background-color: $c-i-blue
+        transform: rotate(180deg)
+        i
+            font-size: 24px
+    

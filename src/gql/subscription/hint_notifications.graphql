@@ -1,0 +1,11 @@
+subscription HintNotifications($id: String!) {
+    suggestion(where: {_and: {user_id: {_eq: $id}, is_read_by_user: {_eq: false}, is_accepted: {_is_null: false}}}) {
+        id
+        is_accepted
+        skotch_id
+        friend_id
+        skotch_suggested {
+            name
+        }
+    }
+}

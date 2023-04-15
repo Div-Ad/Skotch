@@ -1,0 +1,355 @@
+// Avec cette méthode, on génère une id ou une classe selon l'id d'une liste.
+// par exemple : (:id="'skl_' + skotchList.id")
+// Puis on gère et génère tout le contenu et l'affichage via CSS
+// - icone
+// - couleur
+// - options de recherche selon la liste
+// Moins de choses à retrieve côté BDD, Moins de JS, David garde un contrôle sur l'aspect design sans faire chier Pierre. \o/
+
+// id/class intégrées sur :
+// - dashboard (icône + nom de liste), DONE (id)
+// --> .skotchlist
+// - skotch-list-Catalog (icône + nom de liste), DONE (id)
+// --> .skotchlist
+// - first-steps (icône + nom de liste + couleur), DONE (id)
+// --> .skotchlist
+// - skotch-list (icône + nom de liste), DONE (id)
+// --> section.container-post-tabs
+// - contact-details (icone), DONE (class)
+// --> .skotch
+
+/////////////////
+// List Colors //
+/////////////////
+
+$c-watchlist: desaturate(rgb(46, 118, 179), 10%)
+$c-readlist: desaturate(rgb(112, 104, 100), 10%)
+//$c-readlist: rgb(250,243,235)
+//$c-readlist-invert: rgb(71,71,71)
+//$c-listenlist: rgb(82,179,126)
+$c-listenlist: desaturate(rgb(67,191,123), 10%)
+$c-buylist: #f7b65c
+$c-visitlist: desaturate(rgb(50,183,227), 10%)
+$c-gooutlist: desaturate(rgb(230,92,110), 10%)
+$c-drinklist: desaturate(rgb(36,109,94), 10%)
+$c-diylist: desaturate(rgb(227, 67, 67), 10%)
+$c-cooklist: desaturate(rgb(139,139,149), 10%)
+$c-notelist: desaturate(rgb(255, 148, 70), 12%)
+//$c-gardenlist: #91be61
+$c-gardenlist: desaturate(rgb(139, 215, 92), 15%)
+//$c-todolist: rgb(181, 101, 101)
+$c-todolist: desaturate(rgb(179, 66, 83), 5%)
+//$c-contactlist: rgb(154, 187, 133)
+$c-contactlist: desaturate(rgb(120,74,114), 10%)
+//$c-browselist: rgb(83, 132, 150)
+$c-browselist: desaturate(rgb(17,197,217), 10%)
+//$c-gamelist: rgb(80,80,80)
+$c-gamelist: desaturate(rgb(245,85,35), 10%)
+//$c-tastelist: rgb(202, 157, 103)
+//$c-tastelist: rgb(228,189,92)
+$c-tastelist: desaturate(rgb(203, 160, 112), 10%)
+$c-applist: desaturate(rgb(118, 100, 169), 10%)
+
+//$c-fashionlist: rgb(212, 102, 181)
+$c-fashionlist: desaturate(rgb(242,65,186), 20%)
+$c-healthlist: desaturate(rgb(88,169,144), 10%)
+$c-takebacklist: rgb(255, 98, 77)
+//$c-takebacklist: desaturate(rgb(71, 142, 193), 10%)
+$c-debuglist: desaturate(rgb(82, 116, 149), 10%)
+
+//////////////////////
+// List Style by id //
+//////////////////////
+
+#skl_, #skl_1, #skl_2, #skl_3, #skl_4, #skl_5, #skl_6, #skl_7, #skl_8, #skl_9, #skl_10, #skl_11, #skl_12, #skl_13, #skl_14, #skl_15, #skl_16, #skl_17, #skl_18, #skl_19, #skl_20, #skl_99 .bookmarked-skotchlist
+    .search-options
+        .libraires, .imdb, .youtube, .genius, .amazon, .allocine, .maps, .google, .wiki
+            display: none
+
+//// Bookmarked SkotchList
+
+.bookmarked-skotchlist, #skl_
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// A Regarder
+#skl_1, .skl_1
+    &.skotchlist
+        background-color: $c-watchlist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-watchlist
+        border-color: $c-watchlist
+    .skl-icon .icon i:before
+        content: "\e961"
+    //content: "\e98e"
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// A Lire
+#skl_2, .skl_2
+    &.skotchlist
+        background-color: $c-readlist
+        //.skl-title, .skl-icon i, .sk-counter span
+            color: c-readlist-invert!important
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-readlist
+        border-color: $c-readlist
+    .skl-icon .icon i:before
+        content: "\e965"
+    .search-options
+        .google, .libraires
+            display: block
+            
+//// A Écouter
+#skl_3, .skl_3
+    &.skotchlist
+        background-color: $c-listenlist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-listenlist
+        border-color: $c-listenlist
+    .skl-icon .icon i:before
+        content: "\e941"
+    .search-options
+        .google, .genius
+            display: block
+            
+//// A Acheter
+#skl_4, .skl_4
+    &.skotchlist
+        background-color: $c-buylist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-buylist
+        border-color: $c-buylist
+    .skl-icon .icon i:before
+        content: "\e952"
+    .search-options
+        .amazon, .google
+            display: block
+            
+//// A Visiter
+#skl_5, .skl_5
+    &.skotchlist
+        background-color: $c-visitlist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-visitlist
+        border-color: $c-visitlist
+    .skl-icon .icon i:before
+        content: "\e945"
+    .search-options
+        .google, .maps
+            display: block
+            
+//// Sorties
+#skl_6, .skl_6
+    &.skotchlist
+        background-color: $c-gooutlist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-gooutlist
+        border-color: $c-gooutlist
+    .skl-icon .icon i:before
+        content: "\e9e6"
+    .search-options
+        .google, .maps
+            display: block
+            
+//// A Siroter
+#skl_7, .skl_7
+    &.skotchlist
+        background-color: $c-drinklist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-drinklist
+        border-color: $c-drinklist
+    .skl-icon .icon i:before
+        content: "\e907"
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// A Bricoler
+#skl_8, .skl_8
+    &.skotchlist
+        background-color: $c-diylist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-diylist
+        border-color: $c-diylist
+    .skl-icon .icon i:before
+        content: "\e9e2"
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// A Cuisiner
+#skl_9, .skl_9
+    &.skotchlist
+        background-color: $c-cooklist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-cooklist
+        border-color: $c-cooklist
+    .skl-icon .icon i:before
+        content: "\e9db"
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// A Noter
+#skl_10, .skl_10
+    &.skotchlist
+        background-color: $c-notelist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-notelist
+        border-color: $c-notelist
+    .skl-icon .icon i:before
+        content: "\e988"
+        margin-left: 10%
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// A Jardiner
+#skl_11, .skl_11
+    &.skotchlist
+        background-color: $c-gardenlist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-gardenlist
+        border-color: $c-gardenlist
+    .skl-icon .icon i:before
+        //content: "\e946"
+        content: "\e904"
+    .search-options
+        .google, .wiki
+            display: block
+
+//// A Bosser
+#skl_12, .skl_12
+    &.skotchlist
+        background-color: $c-todolist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-todolist
+        border-color: $c-todolist
+    .skl-icon .icon i:before
+        content: "\e94e"
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// A Contacter
+#skl_13, .skl_13
+    &.skotchlist
+        background-color: $c-contactlist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-contactlist
+        border-color: $c-contactlist
+    .skl-icon .icon i:before
+        content: "\e960"
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// A Surfer
+#skl_14, .skl_14
+    &.skotchlist
+        background-color: $c-browselist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-browselist
+        border-color: $c-browselist
+    .skl-icon .icon i:before
+        content: "\e94f"
+    .search-options
+        .google, .wiki
+            display: block
+         
+//// A Jouer
+#skl_15, .skl_15
+    &.skotchlist
+        background-color: $c-gamelist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-gamelist
+        border-color: $c-gamelist
+    .skl-icon .icon i:before
+        content: "\e987"
+    .search-options
+        .google, .wiki
+            display: block
+
+//// A Goûter
+#skl_16, .skl_16
+    &.skotchlist
+        background-color: $c-tastelist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-tastelist
+        border-color: $c-tastelist
+    .skl-icon .icon i:before
+        content: "\e947"
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// App & Softwares
+#skl_17, .skl_17
+    &.skotchlist
+        background-color: $c-applist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-applist
+        border-color: $c-applist
+    .skl-icon .icon i:before
+        content: "\e943"
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// A Porter
+#skl_18, .skl_18
+    &.skotchlist
+        background-color: $c-fashionlist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-fashionlist
+        border-color: $c-fashionlist
+    .skl-icon .icon i:before
+        content: "\e991"
+    .search-options
+        .google, .wiki
+            display: block
+
+//// A Ma Santé
+#skl_19, .skl_19
+    &.skotchlist
+        background-color: $c-healthlist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-healthlist
+        border-color: $c-healthlist
+    .skl-icon .icon i:before
+        content: "\e990"
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// A Récupérer
+#skl_20, .skl_20
+    &.skotchlist
+        background-color: $c-takebacklist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece i
+        color: $c-takebacklist
+        border-color: $c-takebacklist
+    .skl-icon .icon i:before
+        content: "\e98f"
+    .search-options
+        .google, .wiki
+            display: block
+            
+//// Skotch Betâ Testeur
+
+#skl_99, .skl_99
+    &.skotchlist
+        background-color: $c-debuglist
+    .is-mobile .thumbnail & .skl-icon, .sk-counter .icon i.ic-skotch-bg.thumb-display, .sk-counter span.numbers, .thumbnail & i.ic-skotch-bg-2.thumb-display, &.skotch-piece-32 i
+        color: $c-debuglist
+    .skl-icon .icon i:before
+        content: "\e909"
+    .search-options
+        .google, .wiki
+            display: block
+            
+.skotch-piece i
+    color: rgba(0,0,0,0.1)

@@ -1,0 +1,137 @@
+#userBar
+    .swipe-handler.menu-sh(v-touch:swipe="swipeHandler")
+    .swipe-handler.menu-sh-2(v-touch:swipe="swipeHandler")
+    .swipe-handler.notif-sh(v-touch:swipe="notificationSwipeHandler")
+
+    OBUserInterface(v-if="userInfo.params.help.ob9 && !userInfo.params.help.ob0 && !userInfo.params.help.ob1 && $route.name === 'dashboard'", :class="{'menu-is-opened': menuDisplay , 'notif-is-opened': notificationDisplay}")
+    OBSwipe(v-if="!userInfo.params.help.ob8 && userInfo.params.help.ob6 && userInfo.params.help.ob3 && ($route.name === 'dashboard' || $route.name === 'friends')", :class="{'menu-is-opened': menuDisplay , 'notif-is-opened': notificationDisplay}")
+    Help(v-if="helpDisplay")
+    OBActivateHelp(v-if="!userInfo.params.help.ob0 && !userInfo.params.help.ob9")
+
+    .help-close(v-if="helpDisplay" @click="helpDisplay =! helpDisplay")
+        p.mb0.mr12 Fermer
+        i.ic-close-24.fs24
+
+
+    .icon-group.flexVC
+        .icon#menuIcon(@click="clickOnMenuIcon()", :class="{'active': menuDisplay}")
+            .icon-bg
+            .icon-skotch
+                i.ic-skotch-empty-24-2
+                i.ic-skotch-empty-32-2
+            .icon-menu
+                .bar
+                .bar
+                .bar
+            .icon-text
+                //i.ic-sk
+                i.ic-close-24
+
+        .app-version.ml32(v-if="isVersionOutdated", @click="reload()")
+            p La v{{recentVersionText}} est dispo ! <br> Fermez et relancez Skotch si le rechargement ne marche pas.
+            button(@click="")
+                i.ic-reset
+
+        .app-name.ml16(v-else, @click="routerPush('dashboard')")
+            i.ic-skotch-brand
+            //sup.beta B-
+                span {{actualVersionText}}
+
+    .icon-group.flexVC
+
+        OBBuddy(v-if="!userInfo.params.help.ob2 || !userInfo.params.help.ob3 || !userInfo.params.help.ob4 || !userInfo.params.help.ob6 || !userInfo.params.help.ob7 || !userInfo.params.help.ob8")
+
+        .icon#notificationIcon(v-if="userInfo.accept_friend_request", @click="clickOnNotificationIcon()", :class="{'active': notificationDisplay}")
+            .icon.bell
+                i.ic-notification-bell
+            .number(v-if="unreadCount > 0")
+                span {{ unreadCount }}
+            .icon.close
+                i.ic-close
+
+        .icon-empty(v-else)
+            .icon
+
+    section#menu(v-show="menuDisplay", v-touch:swipe="swipeHandler", @click="menuDisplay = false")
+        .menu-hitzone(@click="menuDisplay = false")
+        .menu-content.animate-left
+            .main-menu
+
+                .menu-item#mySkList(@click="routerPush('dashboard')")
+                    .icon
+                        i.ic-tdl-24-2
+                    .text
+                        span Mes Listes
+
+                .menu-item#sklSelect(@click="routerPush('skotch-list-catalog')")
+                    .icon
+                        i.ic-list-add
+                    .text
+                        span Choix des Listes
+
+                .border-bottom
+
+                .menu-item#myContact(@click="routerPush('friends')")
+                    .icon
+                        i.ic-friend
+                    .text
+                        span Mes Copains
+
+                .menu-item#ContactSearch(v-if="userInfo.accept_friend_request", @click="routerPush('search-friends')")
+                    .icon
+                        i.ic-friend-add
+                    .text
+                        span Ajouter des Copains
+
+                .border-bottom
+
+                .menu-item.config(@click="routerPush('config')")
+                    .icon
+                        i.ic-param-24
+                    .text
+                        span Paramètres & Profil
+
+                .menu-item.help#OBTrigger(@click="helpDisplay =! helpDisplay")
+                    .icon
+                        i.ic-skotchinours
+                    .text
+                        span Aide
+
+                .border-bottom
+
+                .menu-item.reset(@click="reload()")
+                    .icon
+                        i.ic-reset
+                    .text
+                        span Recharger l'application
+
+                .menu-item.logout(@click="logout()")
+                    .icon
+                        i.ic-archive-2
+                    .text
+                        span Me déconnecter
+
+                .menu-item#menuClose(@click="menuDisplay = false")
+                    .icon
+                        i.ic-close-24
+                    .text
+                        span Fermer le menu
+
+                .border-bottom
+
+            .reading
+                .menu-item.legal(@click="routerPush('tos')")
+                    .icon
+                        i.ic-cgu-24
+                    .text
+                        span Conditions Générales d'Utilisation
+                .menu-item.long-version
+                    .icon
+                        i.ic-check-24
+                    .text
+                        span Skotch V-{{actualVersionText}}
+            .version
+                .text
+                    span V-{{actualVersionText}}
+
+    notification(v-if="notificationDisplay", @close="clickOnNotificationIcon")

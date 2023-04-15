@@ -1,0 +1,400 @@
+@import "../partials/variables"
+@import "../partials/colors.sass"
+
+#signin, #reset, #verif
+    width: 100vw
+    height: 100%
+    +flexHVC
+    background: $c-bnf url("~assets/img/background-line-4.svg") repeat repeat
+    color: $c-white
+    flex-direction: column
+    section
+        width: 320px
+    a
+        color: $c-bnf-red
+    
+    section.app
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        flex-direction: column
+        text-align: center
+        +setFixedWidth(100vw)
+        +setFixedHeight(128px)
+        position: fixed
+        top: 0
+        
+        .logotype
+            .w-bg
+                margin-top: -24px
+                +setFixedWidth(48px)
+                +setFixedHeight(64px)
+                background-color: $c-white
+                animation: animatetop 0.25s 0.75s backwards
+            .icon-skotch
+                animation: animatetop 0.25s 0.75s backwards
+                +setIcon(48px)
+                margin-top: -8px
+                i
+                    font-size: 48px
+        .app-txt
+            margin-top: 24px
+            display: flex
+            flex-direction: column
+            animation: animatetop 0.25s 0s backwards
+            .app-name
+                font: 400 24px/48px $condensed
+                margin-right: -32px
+            .app-baseline
+                font: 300 14px/16px $condensed
+                text-transform: uppercase
+                letter-spacing: 2px
+                word-spacing: 1px
+            .beta
+                position: relative
+                top: -16px
+                background-color: lighten($c-bnf, 21%)
+                color: lighten($c-bnf, 49%)
+                font-family: $small
+                text-transform: uppercase
+                font-size: 11px
+                line-height: 10px
+                border-radius: 2px
+                padding: 2px 4px
+                margin-left: 8px
+                //box-shadow: inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.1),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12)
+
+        
+        .trans-band
+            background-color: rgba(255,255,255,0.15)
+            +setFixedHeight(calc(100vh + 64px))
+            position: absolute
+            top: 32px
+            +setFixedWidth(48px)
+            animation: animatetop 1s 1s backwards
+            z-index: 0
+
+    .login-signin-forms
+        //animation: animateleft 0.25s 0.5s backwards
+        position: relative
+        z-index: 1
+        box-shadow: 0 0 12px 0 rgba(0,0,0,0.1)
+
+    .information
+        text-align: center
+
+    .small-tabs
+        +setFixedHeight(48px)
+        +flexVC
+        .tab
+            +setFixedHeight(48px)
+            +flexHVC
+            border-radius: 3px 3px 0 0
+            width: 100%
+            text-transform: uppercase
+            color: rgba(255,255,255,0.75)
+            background-color: lighten($c-bnf, 7%)
+            font-size: 16px
+            transition: all 0.25s
+            box-shadow: inset 0 -8px 4px -8px rgba(0,0,0,0.5)
+            &.active
+                background-color: white
+                color: $c-g50
+                box-shadow: inset 0 -6px 4px -6px rgba(0,0,0,0)
+            &.go-back
+                +setFixedWidth(48px)
+                background-color: darken($c-theme-negative, 3.5%)
+                cursor: pointer
+                i
+                    transform: rotate(180deg)
+                    color: white
+        &.warning-message .tab
+            background-color: $c-bnf-red
+
+
+    section.cgu-privacy
+        +setFixedHeight(48px)
+        +flexHVC
+        color: $c-g50
+        font-size: 12px
+        line-height: 16px
+        padding: 8px
+        background-color: white
+        text-align: center
+        position: absolute
+        bottom: 0
+    
+    .email-confirm, .reset-form
+        +setFixedHeight(unset!important)
+
+    .login-form, .register-form, .reset-form, .email-confirm
+        +setFixedHeight(500px)
+        display: flex
+        align-items: center
+        flex-direction: column
+        background-color: white
+        padding: 16px
+        color: darken($c-bnf, 14%)
+        
+        #invalidEmail
+            animation: appear 0.5s
+        
+        button
+            position: relative
+            font-size: 16px
+            border-radius: 3px
+            +setFixedWidth(100%)
+            +setFixedHeight(48px)
+            background-color: lighten($c-bnf-gold, 0%)
+            color: rgb($c-g50,0.9)
+            //font-weight: 600
+            //color: white
+            //box-shadow: inset 0 -8px 0 -4px rgba(0,0,0,0.1)
+            box-shadow: inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.05),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12)
+            transition: all 0.25s
+
+
+            &.login-validate, &.register-validate, &.reset-validate
+                margin-top: 16px
+                &:after
+                    content: ""
+                    background-image: url("~assets/img/triangle-w-16.svg")
+                    transform: rotate(0deg)
+                    background-repeat: repeat-y
+                    height: 100%
+                    position: absolute
+                    left: 0
+                    top: 0
+                    z-index: 1
+                    width: 8px
+                    //opacity: 0
+                    transition: all 0.25s
+                &:hover
+                    border-radius: 3px 3px 3px 3px
+                    &:after
+                        left: 0
+                &.emailSent
+                    background-color: lighten($c-i-green, 0%)
+
+
+        .error
+            background-color: $c-bnf-red
+            color: white
+            padding: 2px 6px
+            display: flex
+            align-items: center
+            text-transform: uppercase
+            font: 300 12px/16px $small
+            border-radius: 2px
+            text-align: center
+
+        .input-group
+            +setFixedWidth(100%)
+            position: relative
+
+            .error
+                padding: 0 6px
+                min-height: 24px
+                position: absolute
+                top: 0
+                right: 0
+                border-radius: 0 0 0 4px
+
+            &.invalid
+                input.icon-before:focus
+                    border-color: $c-i-red!important
+                    border-left: 48px solid $c-i-red!important
+                    background-color: $c-i-red!important
+                .icon
+                    border-color: darken($c-i-red, 7%)!important
+                    background-color: darken($c-i-red, 7%)!important
+
+            &.valid
+                input.icon-before:focus
+                    border-color: $c-i-green!important
+                    border-left: 48px solid $c-i-green!important
+                    background-color: $c-i-green!important
+                .icon
+                    border-color: darken($c-i-green, 7%)!important
+                    background-color: darken($c-i-green, 7%)!important
+
+            input, input.icon-before
+                +setFixedWidth(100%)
+                +setFixedHeight(48px)
+                transition: all 0.25s
+
+            .icon
+                +setSquare(48px)
+                transition: all 0.25s
+        #passwordEnter, #passwordRepeat
+            input.icon-before
+                +setFixedWidth(calc(100% - 48px))
+        .passward-display
+            position: absolute
+            right: 0
+            +setActionIcon(48px)
+            background-color: $c-g215
+            box-shadow: none
+            border-radius: 0
+        
+        .pass-info
+            min-height: 8px
+            width: 100%
+            display: flex
+            align-items: center
+            justify-content: space-between
+            &.active
+                min-height: 24px
+            
+        .counter
+            +setFixedWidth(48px)
+            +flexHVC
+            +setFixedHeight(24px)
+            
+        .Password
+            width: calc(100% - 64px - 48px)
+            margin-left: 64px
+
+            input
+                border-radius: 2px
+                background-color: transparent
+                border: 2px solid $c-g215
+                border-left: 48px solid $c-bnf
+                width: 100%
+                &:focus
+                    border-color: $c-i-blue
+                    border-left-color: $c-bnf!important
+                    background-color: $c-i-blue
+                    color: white
+                    outline: none
+                &::placeholder
+                    font: 300 12px/16px $slab
+                    color: rgba(50,50,50,0.5)
+
+            &.no-meter
+                .Password__badge, .Password__strength-meter
+                    display: none
+
+        .Password__badge
+            +setSquare(24px)
+            border-radius: 2px
+        .Password__badge--success
+            background: $c-i-green
+        .Password__badge--error
+            background: $c-bnf-red
+        .Password__strength-meter--fill
+            position: relative
+            &:before
+                font-size: 12px
+                content: ''
+                position: absolute
+                +flexHVC
+                left: -64px
+                top: -11px
+                height: 24px
+                width: 64px
+                background-color: white
+                padding: 0 4px 0 0
+        .Password__strength-meter--fill[data-score="0"]
+            background: darken($c-bnf-red, 28%)
+            &:before
+                content: 'Très Faible'
+                white-space: nowrap
+        .Password__strength-meter--fill[data-score="1"]
+            background: darken($c-bnf-red, 0%)
+            &:before
+                content: 'Faible'
+        .Password__strength-meter--fill[data-score="2"]
+            background: darken($c-bnf-gold, 0%)
+            &:before
+                content: 'Moyen'
+        .Password__strength-meter--fill[data-score="3"]
+            background: $c-i-green
+            &:before
+                content: 'Fort'
+        .Password__strength-meter--fill[data-score="4"]
+            background: lighten($c-i-blue, 28%)
+            &:before
+                content: 'Très Fort'
+
+        .Password__strength-meter
+            margin: 8px 0
+        .Password__strength-meter:after, .Password__strength-meter:before
+            border-width: 0
+
+        i
+            font-size: 24px
+
+        .password
+            display: flex
+            justify-content: flex-end
+            width: 100%
+            padding: 0
+            font-size: 12px
+            text-align: center
+            margin-bottom: 16px
+            margin-top: 4px
+            color: rgba(0,0,0,0.5)
+            span
+                text-decoration: underline
+
+        .spacer-16
+            +setFixedHeight(32px)
+            margin-top: 16px
+            +flexVC
+            border-top: 1px solid rgba(0,0,0,0.1)
+
+        .idp-login
+            +flexHVC
+            width: 100%
+            .icon
+                +setSquare(64px)
+                +flexHVC
+                color: white
+                margin: 4px
+                cursor: pointer
+                border-radius: 2px
+                background: url("~assets/img/background-line-4.svg") center/4px repeat repeat
+                position: relative
+
+                &.google
+                    background-color: $c-google
+                &.twitter
+                    background-color: $c-twitter
+                &.facebook
+                    background-color: $c-facebook-alt
+                &.apple
+                    background-color: $c-g50
+                i
+                    font-size: 32px
+                
+                &:hover
+                    border-radius: 2px 2px 32px 2px
+                &:focus
+                    box-shadow: 2px 1px 4px rgba(50,50,50,0.5)
+                    transform: scale(1)
+
+
+#reset
+    section.app
+        .logotype
+            .w-bg
+                animation: none!important
+            .icon-skotch
+                animation: none!important
+        .app-txt
+            animation: none!important
+        .trans-band
+            animation: none!important
+    .login-signin-forms
+        animation: none!important
+        
+        
+@media (max-height: 850px)
+    #signin, #reset, #verif
+        justify-content: flex-end
+        .login-signin-forms
+            margin-bottom: 64px
+        
+        
+        
